@@ -33,7 +33,7 @@ d 1000-1140</Value>
       <Value Profile="(Default)">Rename.bat</Value>
     </Setting>
     <Setting Name="SyntaxRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\sa(d(d[r]?)|nd)|c(lear|o(m(p[r]?)))|d(i(v[r]?))|end|j(eq|gt|lt|sub)?|l(d(a|b|ch|l|s|t|x))|m(u(l[r]?))|or|r(d|mo|sub)|s(h(i(f(t[lr])))|t(a(rt)?|b|ch|l|s|t|x)|u(b[r]?))|t(d|i(x[r]?))|wd\s</Value>
+      <Value Profile="(Default)">\s(a(d(d[r]?)|nd)|c(lear|o(m(p[r]?)))|d(i(v[r]?))|end|j(eq|gt|lt|sub)?|l(d(a|b|ch|l|s|t|x))|m(u(l[r]?))|or|r(d|mo|sub)|s(h(i(f(t[lr])))|t(a(rt)?|b|ch|l|s|t|x)|u(b[r]?))|t(d|i(x[r]?))|wd)\s</Value>
     </Setting>
     <Setting Name="LabelRegex" Type="System.String" Scope="User">
       <Value Profile="(Default)">(?&lt;=\n)[^\s]+(?=\s)</Value>
@@ -42,13 +42,13 @@ d 1000-1140</Value>
       <Value Profile="(Default)">(?&lt;=[\s,\.])([axbflsti]|ch|xr)(?=[\s,])</Value>
     </Setting>
     <Setting Name="IntegerRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">(?&lt;=[\s#])([0-9]+)(?=[\s,])</Value>
+      <Value Profile="(Default)">(?&lt;=[\s#])([-0-9]+)(?=[\s,])</Value>
     </Setting>
     <Setting Name="DecRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">(?&lt;=[\s#])([0-9]*\.[0-9]+)(?=[\s,])</Value>
+      <Value Profile="(Default)">(?&lt;=[\s#])([-0-9]*\.[0-9]+)(?=[\s,])</Value>
     </Setting>
     <Setting Name="DataTypeRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\sword|byte|resb\s</Value>
+      <Value Profile="(Default)">\s(word|byte|res[bw])\s</Value>
     </Setting>
     <Setting Name="SyntaxColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Blue</Value>

@@ -95,6 +95,7 @@ namespace ASMSharp
             Enabled = false;
             // Reset all colors
             ForeColor = ForeColor;
+            BackColor = BackColor;
             int s = SelectionStart, l = SelectionLength;
             foreach (string word in ColoringProfile.Keys)
             {

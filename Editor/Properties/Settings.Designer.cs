@@ -133,9 +133,9 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\sa(d(d[r]?)|nd)|c(lear|o(m(p[r]?)))|d(i(v[r]?))|end|j(eq|gt|lt|sub)?|l(d(a|b|ch|" +
-            "l|s|t|x))|m(u(l[r]?))|or|r(d|mo|sub)|s(h(i(f(t[lr])))|t(a(rt)?|b|ch|l|s|t|x)|u(b" +
-            "[r]?))|t(d|i(x[r]?))|wd\\s")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\s(a(d(d[r]?)|nd)|c(lear|o(m(p[r]?)))|d(i(v[r]?))|end|j(eq|gt|lt|sub)?|l(d(a|b|ch" +
+            "|l|s|t|x))|m(u(l[r]?))|or|r(d|mo|sub)|s(h(i(f(t[lr])))|t(a(rt)?|b|ch|l|s|t|x)|u(" +
+            "b[r]?))|t(d|i(x[r]?))|wd)\\s")]
         public string SyntaxRegex {
             get {
                 return ((string)(this["SyntaxRegex"]));
@@ -171,7 +171,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(?<=[\\s#])([0-9]+)(?=[\\s,])")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(?<=[\\s#])([-0-9]+)(?=[\\s,])")]
         public string IntegerRegex {
             get {
                 return ((string)(this["IntegerRegex"]));
@@ -183,7 +183,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(?<=[\\s#])([0-9]*\\.[0-9]+)(?=[\\s,])")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(?<=[\\s#])([-0-9]*\\.[0-9]+)(?=[\\s,])")]
         public string DecRegex {
             get {
                 return ((string)(this["DecRegex"]));
@@ -195,7 +195,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\sword|byte|resb\\s")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\s(word|byte|res[bw])\\s")]
         public string DataTypeRegex {
             get {
                 return ((string)(this["DataTypeRegex"]));
