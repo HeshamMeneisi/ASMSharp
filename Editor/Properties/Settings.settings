@@ -1,0 +1,87 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SIC_Editor.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ColCellCountArray" Type="System.String" Scope="User">
+      <Value Profile="(Default)">9,8,18</Value>
+    </Setting>
+    <Setting Name="FontSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">16</Value>
+    </Setting>
+    <Setting Name="ASMExe" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SICASM.exe</Value>
+    </Setting>
+    <Setting Name="SIMExe" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SICSIM.exe</Value>
+    </Setting>
+    <Setting Name="ASMArgs" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SIMArgs" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ASMInput" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SIMInput" Type="System.String" Scope="User">
+      <Value Profile="(Default)">s
+r
+d r
+d 1000-1140</Value>
+    </Setting>
+    <Setting Name="ASMScript" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Rename.bat</Value>
+    </Setting>
+    <Setting Name="SyntaxRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\sa(d(d[r]?)|nd)|c(lear|o(m(p[r]?)))|d(i(v[r]?))|end|j(eq|gt|lt|sub)?|l(d(a|b|ch|l|s|t|x))|m(u(l[r]?))|or|r(d|mo|sub)|s(h(i(f(t[lr])))|t(a(rt)?|b|ch|l|s|t|x)|u(b[r]?))|t(d|i(x[r]?))|wd\s</Value>
+    </Setting>
+    <Setting Name="LabelRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(?&lt;=\n)[^\s]+(?=\s)</Value>
+    </Setting>
+    <Setting Name="RegisterRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(?&lt;=[\s,\.])([axbflsti]|ch|xr)(?=[\s,])</Value>
+    </Setting>
+    <Setting Name="IntegerRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\s[0-9]+\s</Value>
+    </Setting>
+    <Setting Name="DecRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\s[0-9]*\.[0-9]+\s</Value>
+    </Setting>
+    <Setting Name="DataTypeRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\sword|byte|resb\s</Value>
+    </Setting>
+    <Setting Name="SyntaxColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Blue</Value>
+    </Setting>
+    <Setting Name="LabelColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Brown</Value>
+    </Setting>
+    <Setting Name="RegisterColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Red</Value>
+    </Setting>
+    <Setting Name="IntegerColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Orange</Value>
+    </Setting>
+    <Setting Name="DecColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Green</Value>
+    </Setting>
+    <Setting Name="DataTypeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">DarkCyan</Value>
+    </Setting>
+    <Setting Name="CodeBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="CodeForeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="ConsoleFontSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="ConsoleBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Blue</Value>
+    </Setting>
+    <Setting Name="ConsoleForeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
