@@ -12,7 +12,7 @@ namespace SIC_Editor
 {
     internal class Executer
     {
-        static string[] DefReq = new string[] { "DEV00", "DEVF1", "DEVF3", "Rename.bat", "SICASM.exe", "SICSIM.exe" };
+        static string[] DefReq = new string[] { "DEV00", "DEVF1", "DEVF3", "Rename.bat", "SICXEASM.exe", "SICSIM.exe" };
         internal static Action<string> OutputLine;
         internal static Action<int, string> OutputError;
         internal static Action<DateTime> Finished;

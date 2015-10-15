@@ -183,9 +183,9 @@ namespace SIC_Editor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] SICASM {
+        internal static byte[] SICSIM {
             get {
-                object obj = ResourceManager.GetObject("SICASM", resourceCulture);
+                object obj = ResourceManager.GetObject("SICSIM", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -193,9 +193,9 @@ namespace SIC_Editor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] SICSIM {
+        internal static byte[] SICXEASM {
             get {
-                object obj = ResourceManager.GetObject("SICSIM", resourceCulture);
+                object obj = ResourceManager.GetObject("SICXEASM", resourceCulture);
                 return ((byte[])(obj));
             }
         }

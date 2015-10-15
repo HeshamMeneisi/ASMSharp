@@ -128,11 +128,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Required\SICXEASM .exe" />
     <None Include="redo.png" />
     <None Include="undo.png" />
     <None Include="options.png" />
     <None Include="Required\SICSIM.exe" />
-    <None Include="Required\SICASM.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

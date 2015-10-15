@@ -9,7 +9,7 @@
       <Value Profile="(Default)">16</Value>
     </Setting>
     <Setting Name="ASMExe" Type="System.String" Scope="User">
-      <Value Profile="(Default)">SICASM.exe</Value>
+      <Value Profile="(Default)">SICXEASM.exe</Value>
     </Setting>
     <Setting Name="SIMExe" Type="System.String" Scope="User">
       <Value Profile="(Default)">SICSIM.exe</Value>
@@ -42,10 +42,10 @@ d 1000-1140</Value>
       <Value Profile="(Default)">(?&lt;=[\s,\.])([axbflsti]|ch|xr)(?=[\s,])</Value>
     </Setting>
     <Setting Name="IntegerRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\s[0-9]+\s</Value>
+      <Value Profile="(Default)">\s#?[0-9]+\s</Value>
     </Setting>
     <Setting Name="DecRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\s[0-9]*\.[0-9]+\s</Value>
+      <Value Profile="(Default)">\s#?[0-9]*\.[0-9]+\s</Value>
     </Setting>
     <Setting Name="DataTypeRegex" Type="System.String" Scope="User">
       <Value Profile="(Default)">\sword|byte|resb\s</Value>

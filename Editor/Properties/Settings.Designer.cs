@@ -49,7 +49,7 @@ namespace SIC_Editor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SICASM.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SICXEASM.exe")]
         public string ASMExe {
             get {
                 return ((string)(this["ASMExe"]));
@@ -171,7 +171,7 @@ namespace SIC_Editor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\s[0-9]+\\s")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\s#?[0-9]+\\s")]
         public string IntegerRegex {
             get {
                 return ((string)(this["IntegerRegex"]));
@@ -183,7 +183,7 @@ namespace SIC_Editor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\s[0-9]*\\.[0-9]+\\s")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\s#?[0-9]*\\.[0-9]+\\s")]
         public string DecRegex {
             get {
                 return ((string)(this["DecRegex"]));
