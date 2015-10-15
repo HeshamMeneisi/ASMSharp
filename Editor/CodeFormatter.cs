@@ -1,9 +1,9 @@
-﻿using SIC_Editor.Properties;
+﻿using ASMSharp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SIC_Editor
+namespace ASMSharp
 {
     internal class CodeFormatter
     {

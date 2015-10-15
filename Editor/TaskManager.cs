@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace SIC_Editor
+namespace ASMSharp
 {
     internal class TaskManager
     {

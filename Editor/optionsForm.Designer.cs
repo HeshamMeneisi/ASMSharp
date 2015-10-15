@@ -1,4 +1,4 @@
-﻿namespace SIC_Editor
+﻿namespace ASMSharp
 {
     partial class optionsForm
     {
@@ -726,7 +726,7 @@
             // 
             // saveseBtn
             // 
-            this.saveseBtn.Image = global::SIC_Editor.Properties.Resources.save;
+            this.saveseBtn.Image = global::ASMSharp.Properties.Resources.save;
             this.saveseBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveseBtn.Name = "saveseBtn";
             this.saveseBtn.Size = new System.Drawing.Size(51, 20);

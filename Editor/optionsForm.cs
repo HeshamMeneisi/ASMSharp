@@ -1,4 +1,4 @@
-﻿using SIC_Editor.Properties;
+﻿using ASMSharp.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SIC_Editor
+namespace ASMSharp
 {
     public partial class optionsForm : Form
     {

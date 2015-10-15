@@ -1,4 +1,4 @@
-﻿using SIC_Editor.Properties;
+﻿using ASMSharp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SIC_Editor
+namespace ASMSharp
 {
     class CodeBox : RichTextBox
     {

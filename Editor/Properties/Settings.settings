@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SIC_Editor.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ASMSharp.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="ColCellCountArray" Type="System.String" Scope="User">
@@ -42,10 +42,10 @@ d 1000-1140</Value>
       <Value Profile="(Default)">(?&lt;=[\s,\.])([axbflsti]|ch|xr)(?=[\s,])</Value>
     </Setting>
     <Setting Name="IntegerRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\s#?[0-9]+\s</Value>
+      <Value Profile="(Default)">(?&lt;=[\s#])([0-9]+)(?=[\s,])</Value>
     </Setting>
     <Setting Name="DecRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\s#?[0-9]*\.[0-9]+\s</Value>
+      <Value Profile="(Default)">(?&lt;=[\s#])([0-9]*\.[0-9]+)(?=[\s,])</Value>
     </Setting>
     <Setting Name="DataTypeRegex" Type="System.String" Scope="User">
       <Value Profile="(Default)">\sword|byte|resb\s</Value>

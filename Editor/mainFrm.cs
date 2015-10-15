@@ -1,4 +1,4 @@
-﻿using SIC_Editor.Properties;
+﻿using ASMSharp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace SIC_Editor
+namespace ASMSharp
 {
     public partial class mainFrm : Form
     {

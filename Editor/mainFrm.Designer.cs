@@ -1,4 +1,4 @@
-﻿namespace SIC_Editor
+﻿namespace ASMSharp
 {
     partial class mainFrm
     {
@@ -57,8 +57,8 @@
             this.buildrunBtn = new System.Windows.Forms.ToolStripButton();
             this.stopBtn = new System.Windows.Forms.ToolStripButton();
             this.optionsBtn = new System.Windows.Forms.ToolStripButton();
-            this.codeBox = new SIC_Editor.CodeBox();
-            this.console = new SIC_Editor.RConsole();
+            this.codeBox = new CodeBox();
+            this.console = new RConsole();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.codeboxmenu.SuspendLayout();
             this.statStrip.SuspendLayout();
@@ -238,7 +238,7 @@
             // 
             // undoToolStripMenuItem
             // 
-            this.undoToolStripMenuItem.Image = global::SIC_Editor.Properties.Resources.undo;
+            this.undoToolStripMenuItem.Image = global::ASMSharp.Properties.Resources.undo;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.undoToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
@@ -247,7 +247,7 @@
             // 
             // redoToolStripMenuItem
             // 
-            this.redoToolStripMenuItem.Image = global::SIC_Editor.Properties.Resources.redo;
+            this.redoToolStripMenuItem.Image = global::ASMSharp.Properties.Resources.redo;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.redoToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
@@ -335,7 +335,7 @@
             // optionsBtn
             // 
             this.optionsBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.optionsBtn.Image = global::SIC_Editor.Properties.Resources.options;
+            this.optionsBtn.Image = global::ASMSharp.Properties.Resources.options;
             this.optionsBtn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.optionsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.optionsBtn.Name = "optionsBtn";
