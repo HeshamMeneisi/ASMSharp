@@ -28,7 +28,7 @@ namespace ASMSharp
         private void onerror(int line, string error)
         {
             string msg = "@Line [" + line + "] : " + error;
-            console.WriteLine(msg);
+            consoleBox.WriteLine(msg);
             line--; // To zero based
             this.Invoke(new MethodInvoker(() =>
             {
@@ -45,8 +45,10 @@ namespace ASMSharp
             SetupFont();                        
             codeBox.DataBindings.Add("BackColor", Settings.Default, "CodeBackColor");
             codeBox.DataBindings.Add("ForeColor", Settings.Default, "CodeForeColor");
-            console.DataBindings.Add("BackColor", Settings.Default, "ConsoleBackColor");
-            console.DataBindings.Add("ForeColor", Settings.Default, "ConsoleForeColor");
+            codeBoxLines.DataBindings.Add("BackColor", Settings.Default, "CodeBackColor");
+            codeBoxLines.DataBindings.Add("ForeColor", Settings.Default, "CodeForeColor");
+            consoleBox.DataBindings.Add("BackColor", Settings.Default, "ConsoleBackColor");
+            consoleBox.DataBindings.Add("ForeColor", Settings.Default, "ConsoleForeColor");
             // Many small vs one big expression doesn't matter that much, could simplify same color later
             codeBox.ColoringProfile = new Dictionary<string, Color>()
             {
@@ -61,14 +63,14 @@ namespace ASMSharp
                 // Register names
                 { Settings.Default.RegisterRegex,Settings.Default.RegisterColor }
             };
-            console.LineRead += lineread;
+            consoleBox.LineRead += lineread;
             edited = false;
         }
 
         private void SetupFont()
         {
             codeBox.Font = new Font(FontFamily.GenericMonospace, Settings.Default.FontSize);
-            console.Font = new Font(FontFamily.GenericMonospace, Settings.Default.ConsoleFontSize);
+            consoleBox.Font = new Font(FontFamily.GenericMonospace, Settings.Default.ConsoleFontSize);
             codeBox.ColorSyntax();
         }
 
@@ -79,7 +81,7 @@ namespace ASMSharp
 
         private void exefinisehd(DateTime obj)
         {
-            console.WriteLine("> Execution finished at " + obj.ToShortTimeString());
+            consoleBox.WriteLine("> Execution finished at " + obj.ToShortTimeString());
             this.Invoke(new MethodInvoker(() =>
             {
                 buildrunBtn.Visible = runmenuitem.Visible = true;
@@ -111,7 +113,7 @@ namespace ASMSharp
 
         private void lineoutputted(string obj)
         {
-            console.WriteLine(obj);
+            consoleBox.WriteLine(obj);
         }
 
         private void progttick(object sender, EventArgs e)
@@ -250,6 +252,7 @@ namespace ASMSharp
         }
         private void buildrunBtn_Click(object sender, EventArgs e)
         {
+            codeBox.FormatCodeBox();
             buildrunBtn.Visible = runmenuitem.Visible = false;
             stopBtn.Visible = terminatemenuitem.Visible = true;
             Executer.Start(codeBox.Text);

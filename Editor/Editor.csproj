@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="CodeFormatter.cs" />
     <Compile Include="Executer.cs" />
+    <Compile Include="LineView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="mainFrm.cs">
       <SubType>Form</SubType>
     </Compile>
