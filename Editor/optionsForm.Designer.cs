@@ -54,7 +54,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.simexe = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.prefPage = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cforecol = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
@@ -86,7 +86,7 @@
             this.synReg = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.colwsText = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.firstLabel = new System.Windows.Forms.Label();
             this.optionsToolStrip = new System.Windows.Forms.ToolStrip();
             this.saveseBtn = new System.Windows.Forms.ToolStripButton();
             this.restoresetBtn = new System.Windows.Forms.ToolStripButton();
@@ -101,7 +101,7 @@
             this.panel1.SuspendLayout();
             this.simsettings.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.prefPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -131,8 +131,8 @@
             // 
             // optionsTabControl
             // 
+            this.optionsTabControl.Controls.Add(this.prefPage);
             this.optionsTabControl.Controls.Add(this.settingsPage);
-            this.optionsTabControl.Controls.Add(this.tabPage1);
             this.optionsTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionsTabControl.Location = new System.Drawing.Point(0, 23);
             this.optionsTabControl.Name = "optionsTabControl";
@@ -375,18 +375,18 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Executable";
             // 
-            // tabPage1
+            // prefPage
             // 
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.formatterPref);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(565, 452);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Preferences";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.prefPage.Controls.Add(this.groupBox2);
+            this.prefPage.Controls.Add(this.groupBox1);
+            this.prefPage.Controls.Add(this.formatterPref);
+            this.prefPage.Location = new System.Drawing.Point(4, 22);
+            this.prefPage.Name = "prefPage";
+            this.prefPage.Padding = new System.Windows.Forms.Padding(3);
+            this.prefPage.Size = new System.Drawing.Size(565, 452);
+            this.prefPage.TabIndex = 3;
+            this.prefPage.Text = "Preferences";
+            this.prefPage.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -550,7 +550,7 @@
             this.formatterPref.Controls.Add(this.synReg);
             this.formatterPref.Controls.Add(this.label12);
             this.formatterPref.Controls.Add(this.colwsText);
-            this.formatterPref.Controls.Add(this.label8);
+            this.formatterPref.Controls.Add(this.firstLabel);
             this.formatterPref.Dock = System.Windows.Forms.DockStyle.Top;
             this.formatterPref.Location = new System.Drawing.Point(3, 3);
             this.formatterPref.Name = "formatterPref";
@@ -702,15 +702,15 @@
             this.colwsText.Size = new System.Drawing.Size(553, 20);
             this.colwsText.TabIndex = 7;
             // 
-            // label8
+            // firstLabel
             // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label8.Location = new System.Drawing.Point(3, 16);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(257, 13);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "Column dimensions in characters (Comma Separated)";
+            this.firstLabel.AutoSize = true;
+            this.firstLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.firstLabel.Location = new System.Drawing.Point(3, 16);
+            this.firstLabel.Name = "firstLabel";
+            this.firstLabel.Size = new System.Drawing.Size(257, 13);
+            this.firstLabel.TabIndex = 6;
+            this.firstLabel.Text = "Column dimensions in characters (Comma Separated)";
             // 
             // optionsToolStrip
             // 
@@ -771,7 +771,7 @@
             this.simsettings.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
+            this.prefPage.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).EndInit();
@@ -817,7 +817,7 @@
         private System.Windows.Forms.ToolStrip optionsToolStrip;
         private System.Windows.Forms.ToolStripButton saveseBtn;
         private System.Windows.Forms.ToolStripButton restoresetBtn;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage prefPage;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown fontsizeNum;
@@ -827,7 +827,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox formatterPref;
         private System.Windows.Forms.TextBox colwsText;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label firstLabel;
         private System.Windows.Forms.TextBox intReg;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox regReg;

@@ -45,11 +45,19 @@ namespace ASMSharp
             SetupFont();                        
             codeBox.DataBindings.Add("BackColor", Settings.Default, "CodeBackColor");
             codeBox.DataBindings.Add("ForeColor", Settings.Default, "CodeForeColor");
+            codeBox.DataBindings.Add("LabelColor", Settings.Default, "LabelColor");
             codeBoxLines.DataBindings.Add("BackColor", Settings.Default, "CodeBackColor");
             codeBoxLines.DataBindings.Add("ForeColor", Settings.Default, "CodeForeColor");
             consoleBox.DataBindings.Add("BackColor", Settings.Default, "ConsoleBackColor");
             consoleBox.DataBindings.Add("ForeColor", Settings.Default, "ConsoleForeColor");
-            // Many small vs one big expression doesn't matter that much, could simplify same color later
+            // Many small vs one big expression doesn't matter that much
+            SetCodeBoxColors();
+            consoleBox.LineRead += lineread;
+            codeBox.Edited = false;
+        }
+
+        private void SetCodeBoxColors()
+        {
             codeBox.ColoringProfile = new Dictionary<string, Color>()
             {
                 // Integers
@@ -63,8 +71,6 @@ namespace ASMSharp
                 // Register names
                 { Settings.Default.RegisterRegex,Settings.Default.RegisterColor }
             };
-            consoleBox.LineRead += lineread;
-            edited = false;
         }
 
         private void SetupFont()
@@ -125,14 +131,13 @@ namespace ASMSharp
 
         string stub = "Prog     start   1000\n\n         end     Prog";
         //int FontSize { get { return Settings.Default.FontSize; } }
-        bool edited = false;
         string openfile = "";
         string CurrentFile
         {
             get { return openfile; }
             set
             {
-                openfile = value; edited = false;
+                openfile = value; codeBox.Edited = false;
                 if (value != "")
                 {
                     openfilewatcher.Path = Path.GetDirectoryName(value);
@@ -142,7 +147,7 @@ namespace ASMSharp
         }
         private void newBtn_Click(object sender, EventArgs e)
         {
-            if (edited)
+            if (codeBox.Edited)
                 switch (MessageBox.Show("Changes to the open file will be lost. Would you like to save first?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
                 {
                     case DialogResult.Yes: FormateAndSave(); break;
@@ -158,11 +163,11 @@ namespace ASMSharp
             codeBox.FormatCodeBox();
             SaveAs(CurrentFile, silent);
         }
-        string filefilter = "SIC or SIC/XE Code|*.sic|All|*.*";
+        string filefilter = "Assembly Code|*.asm|All|*.*";
         private void SaveAs(string fname = "", bool silent = false)
         {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = filefilter; dlg.DefaultExt = ".sic";
+            dlg.Filter = filefilter; dlg.DefaultExt = ".asm";
             if (fname != "")
                 if (silent)
                 {
@@ -184,14 +189,14 @@ namespace ASMSharp
 
         private void open_Click(object sender, EventArgs e)
         {
-            if (edited)
+            if (codeBox.Edited)
                 switch (MessageBox.Show("Changes to the open file will be lost. Would you like to save first?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
                 {
                     case DialogResult.Yes: FormateAndSave(); break;
                     case DialogResult.Cancel: return;
                 }
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = filefilter; dlg.DefaultExt = ".sic";
+            dlg.Filter = filefilter; dlg.DefaultExt = ".asm";
             dlg.Multiselect = false;
             if (CurrentFile != "")
                 dlg.InitialDirectory = Path.GetDirectoryName(CurrentFile);
@@ -212,7 +217,7 @@ namespace ASMSharp
             sr.Close();
             codeBox.ColorSyntax();
             codeBox.RecordState();
-            edited = false;
+            codeBox.Edited = false;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -231,24 +236,6 @@ namespace ASMSharp
         private void formatBtn_Click(object sender, EventArgs e)
         {
             codeBox.FormatCodeBox();
-        }
-
-        private void codeBox_TextChanged(object sender, EventArgs e)
-        {
-            edited = true;
-            if (formatflag)
-            {
-                formatflag = false;
-                codeBox.FormatCodeBox(true);
-            }
-        }
-        bool formatflag = false;
-        private void codeBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Tab || e.KeyChar == (char)Keys.Space)
-                formatflag = true;
-            else if (e.KeyChar == (char)Keys.Enter)
-                codeBox.FormatCodeBox(true, true);
         }
         private void buildrunBtn_Click(object sender, EventArgs e)
         {
@@ -278,7 +265,7 @@ namespace ASMSharp
                 Executer.Finished += (d) => { this.Close(); };
                 Executer.Terminate();
             }
-            if (edited)
+            if (codeBox.Edited)
                 switch (MessageBox.Show("Would you like to save current file first?", "Exiting", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Asterisk))
                 {
                     case DialogResult.Cancel: e.Cancel = true; return;
@@ -295,6 +282,7 @@ namespace ASMSharp
         {
             optionsForm frm = new optionsForm();
             frm.ShowDialog(this);
+            SetCodeBoxColors();
             SetupFont();
         }
     }

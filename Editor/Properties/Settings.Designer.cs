@@ -207,7 +207,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("DodgerBlue")]
         public global::System.Drawing.Color SyntaxColor {
             get {
                 return ((global::System.Drawing.Color)(this["SyntaxColor"]));
@@ -219,7 +219,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Brown")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Lime")]
         public global::System.Drawing.Color LabelColor {
             get {
                 return ((global::System.Drawing.Color)(this["LabelColor"]));
@@ -243,7 +243,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Orange")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Gold")]
         public global::System.Drawing.Color IntegerColor {
             get {
                 return ((global::System.Drawing.Color)(this["IntegerColor"]));
@@ -255,7 +255,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Green")]
+        [global::System.Configuration.DefaultSettingValueAttribute("BlueViolet")]
         public global::System.Drawing.Color DecColor {
             get {
                 return ((global::System.Drawing.Color)(this["DecColor"]));
@@ -267,7 +267,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DarkCyan")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Aqua")]
         public global::System.Drawing.Color DataTypeColor {
             get {
                 return ((global::System.Drawing.Color)(this["DataTypeColor"]));
@@ -315,7 +315,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
         public global::System.Drawing.Color ConsoleBackColor {
             get {
                 return ((global::System.Drawing.Color)(this["ConsoleBackColor"]));
@@ -327,7 +327,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Lime")]
         public global::System.Drawing.Color ConsoleForeColor {
             get {
                 return ((global::System.Drawing.Color)(this["ConsoleForeColor"]));

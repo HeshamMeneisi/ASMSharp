@@ -51,22 +51,22 @@ d 1000-1140</Value>
       <Value Profile="(Default)">\s(word|byte|res[bw])\s</Value>
     </Setting>
     <Setting Name="SyntaxColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Blue</Value>
+      <Value Profile="(Default)">DodgerBlue</Value>
     </Setting>
     <Setting Name="LabelColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Brown</Value>
+      <Value Profile="(Default)">Lime</Value>
     </Setting>
     <Setting Name="RegisterColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Red</Value>
     </Setting>
     <Setting Name="IntegerColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Orange</Value>
+      <Value Profile="(Default)">Gold</Value>
     </Setting>
     <Setting Name="DecColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Green</Value>
+      <Value Profile="(Default)">BlueViolet</Value>
     </Setting>
     <Setting Name="DataTypeColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">DarkCyan</Value>
+      <Value Profile="(Default)">Aqua</Value>
     </Setting>
     <Setting Name="CodeBackColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Black</Value>
@@ -78,10 +78,10 @@ d 1000-1140</Value>
       <Value Profile="(Default)">8</Value>
     </Setting>
     <Setting Name="ConsoleBackColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Blue</Value>
+      <Value Profile="(Default)">Black</Value>
     </Setting>
     <Setting Name="ConsoleForeColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">White</Value>
+      <Value Profile="(Default)">Lime</Value>
     </Setting>
   </Settings>
 </SettingsFile>

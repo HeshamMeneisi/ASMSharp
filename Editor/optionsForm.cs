@@ -39,7 +39,7 @@ namespace ASMSharp
         }
 
         private void savesetbtn_Click(object sender, EventArgs e)
-        {
+        {            
             string[] ar = colwsText.Text.Split(',');int r = 0;
             foreach(string s in ar)
             {
@@ -49,6 +49,7 @@ namespace ASMSharp
                     return;
                 }
             }
+            firstLabel.Focus(); // Unfocus all controls to sync data bindings.
             Settings.Default.Save();
         }
 
@@ -93,6 +94,7 @@ namespace ASMSharp
             dlg.Color = (sender as Button).BackColor;
             if (dlg.ShowDialog() == DialogResult.OK)
                 (sender as Button).BackColor = dlg.Color;
+            (sender as Button).Update();
         }
     }
 }
