@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Timers;
 
 namespace ASMSharp
 {
@@ -30,7 +27,7 @@ namespace ASMSharp
             {
                 taskrunning = true;
                 TaskInfo info = pending.Dequeue();
-                info.Task.ContinueWith((t) => CheckNext(info));
+                info.Task.ContinueWith(() => CheckNext(info));
                 info.Task.Start();
                 if (Started != null) Started(info);
             }

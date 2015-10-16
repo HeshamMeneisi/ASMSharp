@@ -2,10 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Resources;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ASMSharp
@@ -88,6 +85,7 @@ namespace ASMSharp
             });
             Task script = new Task(() =>
             {
+                System.Threading.Thread.Sleep(5000);
                 Process p = new Process();
                 p.StartInfo.FileName = Settings.Default.ASMScript;
                 p.StartInfo.UseShellExecute = false;

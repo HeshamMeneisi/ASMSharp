@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ASMSharp
@@ -26,14 +24,15 @@ namespace ASMSharp
                 codebox = value;
                 Text = "";
                 Width = 0;
-                ReadOnly = true;                
+                ReadOnly = true;
                 ScrollBars = RichTextBoxScrollBars.None;
                 WordWrap = false;
                 BorderStyle = value.BorderStyle;
                 Font = value.Font;
                 value.TextChanged += textChanged;
-                value.FontChanged += fontChanged;                
-            }get { return codebox; }
+                value.FontChanged += fontChanged;
+            }
+            get { return codebox; }
         }
         private void fontChanged(object sender, EventArgs e)
         {
@@ -48,7 +47,7 @@ namespace ASMSharp
             while (i <= lines)
                 lnum.Add(i++);
             if (Text != "" && lnum.Count > 0) Text += "\n";
-            Text += string.Join("\n", lnum);
+            Text += string.Join("\n", lnum.Select(t => t.ToString()).ToArray());
             if (i > lines)
                 Lines = Lines.Take(lines).ToArray();
             TrimToText();
@@ -58,7 +57,7 @@ namespace ASMSharp
         {
             if (SelectionLength == 0 && (SelectionStart == Text.Length || Text[SelectionStart] == '\n'))
             {
-                int idx = codebox.GetCharIndexFromPosition(new Point(0,GetPositionFromCharIndex(SelectionStart).Y));
+                int idx = codebox.GetCharIndexFromPosition(new Point(0, GetPositionFromCharIndex(SelectionStart).Y));
                 codebox.Select(idx, 0);
                 codebox.Focus();
             }
