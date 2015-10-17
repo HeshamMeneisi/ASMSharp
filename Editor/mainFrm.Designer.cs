@@ -319,7 +319,7 @@
             this.buildrunBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buildrunBtn.Name = "buildrunBtn";
             this.buildrunBtn.Size = new System.Drawing.Size(52, 52);
-            this.buildrunBtn.Text = "Assemble abd Run";
+            this.buildrunBtn.Text = "Build and Run";
             this.buildrunBtn.Click += new System.EventHandler(this.buildrunBtn_Click);
             // 
             // stopBtn
@@ -358,6 +358,7 @@
             this.codeBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.codeBox.ContextMenuStrip = this.codeboxmenu;
             this.codeBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.codeBox.Edited = false;
             this.codeBox.ForeColor = System.Drawing.Color.White;
             this.codeBox.LabelColor = System.Drawing.Color.Brown;
             this.codeBox.LineView = this.codeBoxLines;
@@ -366,11 +367,13 @@
             this.codeBox.Size = new System.Drawing.Size(521, 484);
             this.codeBox.TabIndex = 0;
             this.codeBox.Text = "";
-            this.codeBox.WordWrap = false;                        
+            this.codeBox.WordWrap = false;
             // 
             // codeBoxLines
             // 
             this.codeBoxLines.BackColor = System.Drawing.Color.Black;
+            this.codeBoxLines.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.codeBoxLines.CodeBox = this.codeBox;
             this.codeBoxLines.Dock = System.Windows.Forms.DockStyle.Left;
             this.codeBoxLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeBoxLines.ForeColor = System.Drawing.Color.White;
@@ -385,7 +388,7 @@
             // 
             // consoleBox
             // 
-            this.consoleBox.BackColor = System.Drawing.Color.Blue;
+            this.consoleBox.BackColor = System.Drawing.Color.Black;
             this.consoleBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.consoleBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.consoleBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

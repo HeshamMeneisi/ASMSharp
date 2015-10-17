@@ -262,7 +262,7 @@ namespace ASMSharp
         {
             if (Executer.IsRunning)
             {
-                Executer.Finished += (d) => { this.Close(); };
+                Executer.Finished += (d) => { Invoke(new MethodInvoker(()=>this.Close())); };
                 Executer.Terminate();
             }
             if (codeBox.Edited)

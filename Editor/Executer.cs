@@ -79,13 +79,13 @@ namespace ASMSharp
                     if (flag && MessageBox.Show("Errors found. Continue anyway?", "Attention!", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
                     {
                         terminated = true;
-                        p.Kill();
+                        if (!p.HasExited)
+                            p.Kill();
                     }
                 }
             });
             Task script = new Task(() =>
             {
-                System.Threading.Thread.Sleep(5000);
                 Process p = new Process();
                 p.StartInfo.FileName = Settings.Default.ASMScript;
                 p.StartInfo.UseShellExecute = false;
@@ -116,7 +116,7 @@ namespace ASMSharp
                 if (terminated) return;
                 simproc = current = p;
                 p.Start();
-                foreach (string l in Settings.Default.SIMInput.Replace("\r","").Split('\n'))
+                foreach (string l in Settings.Default.SIMInput.Replace("\r", "").Split('\n'))
                     p.StandardInput.WriteLine(l);
                 while (!p.HasExited)
                 {
@@ -148,7 +148,8 @@ namespace ASMSharp
             if (current != null && !current.HasExited)
             {
                 terminated = true;
-                current.Kill();
+                if (!current.HasExited)
+                    current.Kill();
                 current = null;
             }
         }
