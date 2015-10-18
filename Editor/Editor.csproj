@@ -152,6 +152,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Media\undo.png" />
+    <None Include="Media\stop.png" />
+    <None Include="Media\saveas.png" />
+    <None Include="Media\save.png" />
+    <None Include="Media\run.png" />
+    <None Include="Media\redo.png" />
+    <None Include="Media\options.png" />
+    <None Include="Media\open.png" />
+    <None Include="Media\new.png" />
+    <None Include="Media\format.png" />
     <None Include="Required\SICXEASM .exe" />
     <None Include="redo.png" />
     <None Include="undo.png" />

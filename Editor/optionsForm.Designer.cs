@@ -32,28 +32,6 @@
             this.simexebrowse = new System.Windows.Forms.Button();
             this.asmExe = new System.Windows.Forms.TextBox();
             this.optionsTabControl = new System.Windows.Forms.TabControl();
-            this.settingsPage = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.asmsettings = new System.Windows.Forms.GroupBox();
-            this.asminput = new System.Windows.Forms.RichTextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.asmscript = new System.Windows.Forms.TextBox();
-            this.asmscriptBrowse = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.asmarg = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.asmexBrowse = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.simsettings = new System.Windows.Forms.GroupBox();
-            this.siminput = new System.Windows.Forms.RichTextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.simarg = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.simexe = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.prefPage = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cforecol = new System.Windows.Forms.Button();
@@ -87,10 +65,38 @@
             this.label12 = new System.Windows.Forms.Label();
             this.colwsText = new System.Windows.Forms.TextBox();
             this.firstLabel = new System.Windows.Forms.Label();
+            this.settingsPage = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.asmsettings = new System.Windows.Forms.GroupBox();
+            this.asminput = new System.Windows.Forms.RichTextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.asmscript = new System.Windows.Forms.TextBox();
+            this.asmscriptBrowse = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.asmarg = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.asmexBrowse = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.simsettings = new System.Windows.Forms.GroupBox();
+            this.siminput = new System.Windows.Forms.RichTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.simarg = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.simexe = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.optionsToolStrip = new System.Windows.Forms.ToolStrip();
             this.saveseBtn = new System.Windows.Forms.ToolStripButton();
             this.restoresetBtn = new System.Windows.Forms.ToolStripButton();
             this.optionsTabControl.SuspendLayout();
+            this.prefPage.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fontsizeNum)).BeginInit();
+            this.formatterPref.SuspendLayout();
             this.settingsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -101,12 +107,6 @@
             this.panel1.SuspendLayout();
             this.simsettings.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.prefPage.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fontsizeNum)).BeginInit();
-            this.formatterPref.SuspendLayout();
             this.optionsToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,241 +139,6 @@
             this.optionsTabControl.SelectedIndex = 0;
             this.optionsTabControl.Size = new System.Drawing.Size(573, 478);
             this.optionsTabControl.TabIndex = 1;
-            // 
-            // settingsPage
-            // 
-            this.settingsPage.Controls.Add(this.splitContainer1);
-            this.settingsPage.Location = new System.Drawing.Point(4, 22);
-            this.settingsPage.Name = "settingsPage";
-            this.settingsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.settingsPage.Size = new System.Drawing.Size(565, 452);
-            this.settingsPage.TabIndex = 2;
-            this.settingsPage.Text = "Settings";
-            this.settingsPage.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.asmsettings);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.simsettings);
-            this.splitContainer1.Size = new System.Drawing.Size(559, 446);
-            this.splitContainer1.SplitterDistance = 224;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // asmsettings
-            // 
-            this.asmsettings.Controls.Add(this.asminput);
-            this.asmsettings.Controls.Add(this.label7);
-            this.asmsettings.Controls.Add(this.panel3);
-            this.asmsettings.Controls.Add(this.label3);
-            this.asmsettings.Controls.Add(this.asmarg);
-            this.asmsettings.Controls.Add(this.label2);
-            this.asmsettings.Controls.Add(this.panel1);
-            this.asmsettings.Controls.Add(this.label1);
-            this.asmsettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.asmsettings.Location = new System.Drawing.Point(0, 0);
-            this.asmsettings.Name = "asmsettings";
-            this.asmsettings.Size = new System.Drawing.Size(559, 224);
-            this.asmsettings.TabIndex = 0;
-            this.asmsettings.TabStop = false;
-            this.asmsettings.Text = "Assembler";
-            // 
-            // asminput
-            // 
-            this.asminput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.asminput.Location = new System.Drawing.Point(3, 98);
-            this.asminput.Name = "asminput";
-            this.asminput.Size = new System.Drawing.Size(553, 87);
-            this.asminput.TabIndex = 2;
-            this.asminput.Text = "";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label7.Location = new System.Drawing.Point(3, 185);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Run Script";
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.asmscript);
-            this.panel3.Controls.Add(this.asmscriptBrowse);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(3, 198);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(553, 23);
-            this.panel3.TabIndex = 4;
-            // 
-            // asmscript
-            // 
-            this.asmscript.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.asmscript.Location = new System.Drawing.Point(0, 0);
-            this.asmscript.Name = "asmscript";
-            this.asmscript.Size = new System.Drawing.Size(516, 20);
-            this.asmscript.TabIndex = 1;
-            // 
-            // asmscriptBrowse
-            // 
-            this.asmscriptBrowse.Dock = System.Windows.Forms.DockStyle.Right;
-            this.asmscriptBrowse.Location = new System.Drawing.Point(516, 0);
-            this.asmscriptBrowse.Name = "asmscriptBrowse";
-            this.asmscriptBrowse.Size = new System.Drawing.Size(37, 23);
-            this.asmscriptBrowse.TabIndex = 2;
-            this.asmscriptBrowse.Text = "...";
-            this.asmscriptBrowse.UseVisualStyleBackColor = true;
-            this.asmscriptBrowse.Click += new System.EventHandler(this.gBrowse_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(3, 85);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Input";
-            // 
-            // asmarg
-            // 
-            this.asmarg.Dock = System.Windows.Forms.DockStyle.Top;
-            this.asmarg.Location = new System.Drawing.Point(3, 65);
-            this.asmarg.Name = "asmarg";
-            this.asmarg.Size = new System.Drawing.Size(553, 20);
-            this.asmarg.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(3, 52);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Arguments";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.asmExe);
-            this.panel1.Controls.Add(this.asmexBrowse);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 29);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(553, 23);
-            this.panel1.TabIndex = 1;
-            // 
-            // asmexBrowse
-            // 
-            this.asmexBrowse.Dock = System.Windows.Forms.DockStyle.Right;
-            this.asmexBrowse.Location = new System.Drawing.Point(516, 0);
-            this.asmexBrowse.Name = "asmexBrowse";
-            this.asmexBrowse.Size = new System.Drawing.Size(37, 23);
-            this.asmexBrowse.TabIndex = 2;
-            this.asmexBrowse.Text = "...";
-            this.asmexBrowse.UseVisualStyleBackColor = true;
-            this.asmexBrowse.Click += new System.EventHandler(this.gBrowse_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(3, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Executable";
-            // 
-            // simsettings
-            // 
-            this.simsettings.Controls.Add(this.siminput);
-            this.simsettings.Controls.Add(this.label4);
-            this.simsettings.Controls.Add(this.simarg);
-            this.simsettings.Controls.Add(this.label5);
-            this.simsettings.Controls.Add(this.panel2);
-            this.simsettings.Controls.Add(this.label6);
-            this.simsettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.simsettings.Location = new System.Drawing.Point(0, 0);
-            this.simsettings.Name = "simsettings";
-            this.simsettings.Size = new System.Drawing.Size(559, 218);
-            this.simsettings.TabIndex = 1;
-            this.simsettings.TabStop = false;
-            this.simsettings.Text = "Simulator";
-            // 
-            // siminput
-            // 
-            this.siminput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.siminput.Location = new System.Drawing.Point(3, 98);
-            this.siminput.Name = "siminput";
-            this.siminput.Size = new System.Drawing.Size(553, 117);
-            this.siminput.TabIndex = 2;
-            this.siminput.Text = "";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Location = new System.Drawing.Point(3, 85);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Input";
-            // 
-            // simarg
-            // 
-            this.simarg.Dock = System.Windows.Forms.DockStyle.Top;
-            this.simarg.Location = new System.Drawing.Point(3, 65);
-            this.simarg.Name = "simarg";
-            this.simarg.Size = new System.Drawing.Size(553, 20);
-            this.simarg.TabIndex = 3;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label5.Location = new System.Drawing.Point(3, 52);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Arguments";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.simexe);
-            this.panel2.Controls.Add(this.simexebrowse);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 29);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(553, 23);
-            this.panel2.TabIndex = 1;
-            // 
-            // simexe
-            // 
-            this.simexe.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.simexe.Location = new System.Drawing.Point(0, 0);
-            this.simexe.Name = "simexe";
-            this.simexe.Size = new System.Drawing.Size(516, 20);
-            this.simexe.TabIndex = 1;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label6.Location = new System.Drawing.Point(3, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Executable";
             // 
             // prefPage
             // 
@@ -712,6 +477,241 @@
             this.firstLabel.TabIndex = 6;
             this.firstLabel.Text = "Column dimensions in characters (Comma Separated)";
             // 
+            // settingsPage
+            // 
+            this.settingsPage.Controls.Add(this.splitContainer1);
+            this.settingsPage.Location = new System.Drawing.Point(4, 22);
+            this.settingsPage.Name = "settingsPage";
+            this.settingsPage.Padding = new System.Windows.Forms.Padding(3);
+            this.settingsPage.Size = new System.Drawing.Size(565, 452);
+            this.settingsPage.TabIndex = 2;
+            this.settingsPage.Text = "Settings";
+            this.settingsPage.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.asmsettings);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.simsettings);
+            this.splitContainer1.Size = new System.Drawing.Size(559, 446);
+            this.splitContainer1.SplitterDistance = 224;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // asmsettings
+            // 
+            this.asmsettings.Controls.Add(this.asminput);
+            this.asmsettings.Controls.Add(this.label7);
+            this.asmsettings.Controls.Add(this.panel3);
+            this.asmsettings.Controls.Add(this.label3);
+            this.asmsettings.Controls.Add(this.asmarg);
+            this.asmsettings.Controls.Add(this.label2);
+            this.asmsettings.Controls.Add(this.panel1);
+            this.asmsettings.Controls.Add(this.label1);
+            this.asmsettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.asmsettings.Location = new System.Drawing.Point(0, 0);
+            this.asmsettings.Name = "asmsettings";
+            this.asmsettings.Size = new System.Drawing.Size(559, 224);
+            this.asmsettings.TabIndex = 0;
+            this.asmsettings.TabStop = false;
+            this.asmsettings.Text = "Assembler";
+            // 
+            // asminput
+            // 
+            this.asminput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.asminput.Location = new System.Drawing.Point(3, 98);
+            this.asminput.Name = "asminput";
+            this.asminput.Size = new System.Drawing.Size(553, 87);
+            this.asminput.TabIndex = 2;
+            this.asminput.Text = "";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label7.Location = new System.Drawing.Point(3, 185);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Run Script";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.asmscript);
+            this.panel3.Controls.Add(this.asmscriptBrowse);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(3, 198);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(553, 23);
+            this.panel3.TabIndex = 4;
+            // 
+            // asmscript
+            // 
+            this.asmscript.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.asmscript.Location = new System.Drawing.Point(0, 0);
+            this.asmscript.Name = "asmscript";
+            this.asmscript.Size = new System.Drawing.Size(516, 20);
+            this.asmscript.TabIndex = 1;
+            // 
+            // asmscriptBrowse
+            // 
+            this.asmscriptBrowse.Dock = System.Windows.Forms.DockStyle.Right;
+            this.asmscriptBrowse.Location = new System.Drawing.Point(516, 0);
+            this.asmscriptBrowse.Name = "asmscriptBrowse";
+            this.asmscriptBrowse.Size = new System.Drawing.Size(37, 23);
+            this.asmscriptBrowse.TabIndex = 2;
+            this.asmscriptBrowse.Text = "...";
+            this.asmscriptBrowse.UseVisualStyleBackColor = true;
+            this.asmscriptBrowse.Click += new System.EventHandler(this.gBrowse_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Location = new System.Drawing.Point(3, 85);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(31, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Input";
+            // 
+            // asmarg
+            // 
+            this.asmarg.Dock = System.Windows.Forms.DockStyle.Top;
+            this.asmarg.Location = new System.Drawing.Point(3, 65);
+            this.asmarg.Name = "asmarg";
+            this.asmarg.Size = new System.Drawing.Size(553, 20);
+            this.asmarg.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Location = new System.Drawing.Point(3, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Arguments";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.asmExe);
+            this.panel1.Controls.Add(this.asmexBrowse);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 29);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(553, 23);
+            this.panel1.TabIndex = 1;
+            // 
+            // asmexBrowse
+            // 
+            this.asmexBrowse.Dock = System.Windows.Forms.DockStyle.Right;
+            this.asmexBrowse.Location = new System.Drawing.Point(516, 0);
+            this.asmexBrowse.Name = "asmexBrowse";
+            this.asmexBrowse.Size = new System.Drawing.Size(37, 23);
+            this.asmexBrowse.TabIndex = 2;
+            this.asmexBrowse.Text = "...";
+            this.asmexBrowse.UseVisualStyleBackColor = true;
+            this.asmexBrowse.Click += new System.EventHandler(this.gBrowse_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(3, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Executable";
+            // 
+            // simsettings
+            // 
+            this.simsettings.Controls.Add(this.siminput);
+            this.simsettings.Controls.Add(this.label4);
+            this.simsettings.Controls.Add(this.simarg);
+            this.simsettings.Controls.Add(this.label5);
+            this.simsettings.Controls.Add(this.panel2);
+            this.simsettings.Controls.Add(this.label6);
+            this.simsettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.simsettings.Location = new System.Drawing.Point(0, 0);
+            this.simsettings.Name = "simsettings";
+            this.simsettings.Size = new System.Drawing.Size(559, 218);
+            this.simsettings.TabIndex = 1;
+            this.simsettings.TabStop = false;
+            this.simsettings.Text = "Simulator";
+            // 
+            // siminput
+            // 
+            this.siminput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.siminput.Location = new System.Drawing.Point(3, 98);
+            this.siminput.Name = "siminput";
+            this.siminput.Size = new System.Drawing.Size(553, 117);
+            this.siminput.TabIndex = 2;
+            this.siminput.Text = "";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Location = new System.Drawing.Point(3, 85);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Input";
+            // 
+            // simarg
+            // 
+            this.simarg.Dock = System.Windows.Forms.DockStyle.Top;
+            this.simarg.Location = new System.Drawing.Point(3, 65);
+            this.simarg.Name = "simarg";
+            this.simarg.Size = new System.Drawing.Size(553, 20);
+            this.simarg.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label5.Location = new System.Drawing.Point(3, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Arguments";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.simexe);
+            this.panel2.Controls.Add(this.simexebrowse);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 29);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(553, 23);
+            this.panel2.TabIndex = 1;
+            // 
+            // simexe
+            // 
+            this.simexe.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.simexe.Location = new System.Drawing.Point(0, 0);
+            this.simexe.Name = "simexe";
+            this.simexe.Size = new System.Drawing.Size(516, 20);
+            this.simexe.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label6.Location = new System.Drawing.Point(3, 16);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Executable";
+            // 
             // optionsToolStrip
             // 
             this.optionsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -756,6 +756,15 @@
             this.Text = "Options";
             this.Load += new System.EventHandler(this.optionsForm_Load);
             this.optionsTabControl.ResumeLayout(false);
+            this.prefPage.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fontsizeNum)).EndInit();
+            this.formatterPref.ResumeLayout(false);
+            this.formatterPref.PerformLayout();
             this.settingsPage.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -771,15 +780,6 @@
             this.simsettings.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.prefPage.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fontsizeNum)).EndInit();
-            this.formatterPref.ResumeLayout(false);
-            this.formatterPref.PerformLayout();
             this.optionsToolStrip.ResumeLayout(false);
             this.optionsToolStrip.PerformLayout();
             this.ResumeLayout(false);

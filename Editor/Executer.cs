@@ -46,7 +46,6 @@ namespace ASMSharp
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardInput = true;
                 p.StartInfo.RedirectStandardOutput = true;
-                p.EnableRaisingEvents = true;
                 p.StartInfo.CreateNoWindow = true;
                 if (terminated) return;
                 current = p;
@@ -58,6 +57,11 @@ namespace ASMSharp
                     if (OutputLine != null)
                         OutputLine(l);
                 }
+                // If stdout was not flushed in the proc
+                string ol = null;
+                while ((ol = p.StandardOutput.ReadLine()) != null)
+                    if (OutputLine != null)
+                        OutputLine(ol);
                 // For Default Sim
                 if (File.Exists("LISFILE"))
                 {
@@ -90,18 +94,21 @@ namespace ASMSharp
                 p.StartInfo.FileName = Settings.Default.ASMScript;
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
-                p.EnableRaisingEvents = true;
                 p.StartInfo.CreateNoWindow = true;
                 if (terminated) return;
                 current = p;
                 p.Start();
-                // Check every 100ms
                 while (!p.HasExited)
                 {
                     string l = p.StandardOutput.ReadLine();
                     if (OutputLine != null)
                         OutputLine(l);
                 }
+                // If stdout was not flushed in the proc
+                string ol = null;
+                while ((ol = p.StandardOutput.ReadLine()) != null)
+                    if (OutputLine != null)
+                        OutputLine(ol);
             });
             Task sim = new Task(() =>
             {
@@ -124,6 +131,11 @@ namespace ASMSharp
                     if (OutputLine != null)
                         OutputLine(l);
                 }
+                // If stdout was not flushed in the proc
+                string ol = null;
+                while ((ol = p.StandardOutput.ReadLine()) != null)
+                    if (OutputLine != null)
+                        OutputLine(ol);
             });
             Task finished = new Task(() =>
              {

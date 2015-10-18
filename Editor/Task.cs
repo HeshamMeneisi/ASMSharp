@@ -30,7 +30,7 @@ namespace ASMSharp
             main.Start();
         }
 
-        internal void ContinueWith(Action p)
+        public void ContinueWith(Action p)
         {
             next = new Task(p);
         }

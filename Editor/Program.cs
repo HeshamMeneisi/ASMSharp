@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ASMSharp
@@ -9,11 +10,22 @@ namespace ASMSharp
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new mainFrm());
+            try
+            {
+                Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new mainFrm(args));
+            }catch (Exception ex)
+            {
+                string sep = "\n\n####################\\n\n";
+                string data = ex.Message + sep + ex.InnerException + sep + ex.StackTrace;
+                StreamWriter sw = new StreamWriter("ASLog.txt");
+                sw.WriteLine(data);
+                sw.Close();
+            }
         }
     }
 }

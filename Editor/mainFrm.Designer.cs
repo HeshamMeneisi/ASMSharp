@@ -47,6 +47,9 @@
             this.progBar = new System.Windows.Forms.ToolStripProgressBar();
             this.openfilewatcher = new System.IO.FileSystemWatcher();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.codeBox = new ASMSharp.CodeBox();
+            this.codeBoxLines = new ASMSharp.LineView();
+            this.consoleBox = new ASMSharp.RConsole();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newBtn = new System.Windows.Forms.ToolStripButton();
             this.open = new System.Windows.Forms.ToolStripButton();
@@ -58,9 +61,6 @@
             this.stopBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsBtn = new System.Windows.Forms.ToolStripButton();
-            this.codeBox = new ASMSharp.CodeBox();
-            this.codeBoxLines = new ASMSharp.LineView();
-            this.consoleBox = new ASMSharp.RConsole();
             this.codeboxmenu.SuspendLayout();
             this.statStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.openfilewatcher)).BeginInit();
@@ -230,6 +230,57 @@
             this.splitContainer3.SplitterDistance = 521;
             this.splitContainer3.TabIndex = 4;
             // 
+            // codeBox
+            // 
+            this.codeBox.AcceptsTab = true;
+            this.codeBox.BackColor = System.Drawing.Color.Black;
+            this.codeBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.codeBox.ContextMenuStrip = this.codeboxmenu;
+            this.codeBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.codeBox.Edited = false;
+            this.codeBox.ForeColor = System.Drawing.Color.White;
+            this.codeBox.LabelColor = System.Drawing.Color.Brown;
+            this.codeBox.LineView = this.codeBoxLines;
+            this.codeBox.Location = new System.Drawing.Point(0, 0);
+            this.codeBox.Name = "codeBox";
+            this.codeBox.Size = new System.Drawing.Size(521, 484);
+            this.codeBox.TabIndex = 0;
+            this.codeBox.Text = "";
+            this.codeBox.WordWrap = false;
+            // 
+            // codeBoxLines
+            // 
+            this.codeBoxLines.BackColor = System.Drawing.Color.Black;
+            this.codeBoxLines.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.codeBoxLines.CodeBox = this.codeBox;
+            this.codeBoxLines.Dock = System.Windows.Forms.DockStyle.Left;
+            this.codeBoxLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codeBoxLines.ForeColor = System.Drawing.Color.White;
+            this.codeBoxLines.Location = new System.Drawing.Point(0, 0);
+            this.codeBoxLines.Name = "codeBoxLines";
+            this.codeBoxLines.ReadOnly = true;
+            this.codeBoxLines.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.codeBoxLines.Size = new System.Drawing.Size(0, 484);
+            this.codeBoxLines.TabIndex = 1;
+            this.codeBoxLines.Text = "";
+            this.codeBoxLines.WordWrap = false;
+            // 
+            // consoleBox
+            // 
+            this.consoleBox.BackColor = System.Drawing.Color.Black;
+            this.consoleBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.consoleBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.consoleBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.consoleBox.ForeColor = System.Drawing.Color.White;
+            this.consoleBox.Location = new System.Drawing.Point(0, 0);
+            this.consoleBox.Name = "consoleBox";
+            this.consoleBox.ReadOnly = true;
+            this.consoleBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.consoleBox.Size = new System.Drawing.Size(359, 484);
+            this.consoleBox.TabIndex = 0;
+            this.consoleBox.Text = "";
+            this.consoleBox.WordWrap = false;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -350,57 +401,6 @@
             this.optionsBtn.Size = new System.Drawing.Size(44, 52);
             this.optionsBtn.Text = "Options";
             this.optionsBtn.Click += new System.EventHandler(this.optionsBtn_Click);
-            // 
-            // codeBox
-            // 
-            this.codeBox.AcceptsTab = true;
-            this.codeBox.BackColor = System.Drawing.Color.Black;
-            this.codeBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.codeBox.ContextMenuStrip = this.codeboxmenu;
-            this.codeBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.codeBox.Edited = false;
-            this.codeBox.ForeColor = System.Drawing.Color.White;
-            this.codeBox.LabelColor = System.Drawing.Color.Brown;
-            this.codeBox.LineView = this.codeBoxLines;
-            this.codeBox.Location = new System.Drawing.Point(0, 0);
-            this.codeBox.Name = "codeBox";
-            this.codeBox.Size = new System.Drawing.Size(521, 484);
-            this.codeBox.TabIndex = 0;
-            this.codeBox.Text = "";
-            this.codeBox.WordWrap = false;
-            // 
-            // codeBoxLines
-            // 
-            this.codeBoxLines.BackColor = System.Drawing.Color.Black;
-            this.codeBoxLines.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.codeBoxLines.CodeBox = this.codeBox;
-            this.codeBoxLines.Dock = System.Windows.Forms.DockStyle.Left;
-            this.codeBoxLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codeBoxLines.ForeColor = System.Drawing.Color.White;
-            this.codeBoxLines.Location = new System.Drawing.Point(0, 0);
-            this.codeBoxLines.Name = "codeBoxLines";
-            this.codeBoxLines.ReadOnly = true;
-            this.codeBoxLines.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.codeBoxLines.Size = new System.Drawing.Size(0, 484);
-            this.codeBoxLines.TabIndex = 1;
-            this.codeBoxLines.Text = "";
-            this.codeBoxLines.WordWrap = false;
-            // 
-            // consoleBox
-            // 
-            this.consoleBox.BackColor = System.Drawing.Color.Black;
-            this.consoleBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.consoleBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.consoleBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.consoleBox.ForeColor = System.Drawing.Color.White;
-            this.consoleBox.Location = new System.Drawing.Point(0, 0);
-            this.consoleBox.Name = "consoleBox";
-            this.consoleBox.ReadOnly = true;
-            this.consoleBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.consoleBox.Size = new System.Drawing.Size(359, 484);
-            this.consoleBox.TabIndex = 0;
-            this.consoleBox.Text = "";
-            this.consoleBox.WordWrap = false;
             // 
             // mainFrm
             // 

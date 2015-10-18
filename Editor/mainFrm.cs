@@ -11,7 +11,7 @@ namespace ASMSharp
     public partial class mainFrm : Form
     {
         public System.Windows.Forms.Timer progBarTimer;
-        public mainFrm()
+        public mainFrm(string[] args)
         {
             progBarTimer = new System.Windows.Forms.Timer();
             progBarTimer.Interval = 200;
@@ -24,6 +24,9 @@ namespace ASMSharp
             Executer.OutputError += onerror;
 
             InitializeComponent();
+
+            if (args.Length > 0)
+                OpenFile(args[0]);
         }
         private void onerror(int line, string error)
         {
@@ -39,10 +42,10 @@ namespace ASMSharp
                 codeBox.SelectionColor = Color.Yellow;
                 codeBox.Select(indx, 0);
             }));
-        }        
+        }
         private void mainFrm_Load(object sender, EventArgs e)
-        {          
-            SetupFont();                        
+        {
+            SetupFont();
             codeBox.DataBindings.Add("BackColor", Settings.Default, "CodeBackColor");
             codeBox.DataBindings.Add("ForeColor", Settings.Default, "CodeForeColor");
             codeBox.DataBindings.Add("LabelColor", Settings.Default, "LabelColor");
@@ -71,13 +74,13 @@ namespace ASMSharp
                 // Register names
                 { Settings.Default.RegisterRegex,Settings.Default.RegisterColor }
             };
+            codeBox.ColorSyntax();
         }
 
         private void SetupFont()
         {
             codeBox.Font = new Font(FontFamily.GenericMonospace, Settings.Default.FontSize);
             consoleBox.Font = new Font(FontFamily.GenericMonospace, Settings.Default.ConsoleFontSize);
-            codeBox.ColorSyntax();
         }
 
         private void lineread(string obj)
@@ -262,7 +265,7 @@ namespace ASMSharp
         {
             if (Executer.IsRunning)
             {
-                Executer.Finished += (d) => { Invoke(new MethodInvoker(()=>this.Close())); };
+                Executer.Finished += (d) => { Invoke(new MethodInvoker(() => this.Close())); };
                 Executer.Terminate();
             }
             if (codeBox.Edited)
@@ -277,13 +280,13 @@ namespace ASMSharp
         {
             if (MessageBox.Show("The current file has been changed outside of the program. Would you like to reload it?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 OpenFile(CurrentFile);
-        }        
+        }
         private void optionsBtn_Click(object sender, EventArgs e)
         {
             optionsForm frm = new optionsForm();
             frm.ShowDialog(this);
-            SetCodeBoxColors();
             SetupFont();
+            SetCodeBoxColors();
         }
     }
 }
