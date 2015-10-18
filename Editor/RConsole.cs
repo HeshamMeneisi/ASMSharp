@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ASMSharp
@@ -6,42 +7,60 @@ namespace ASMSharp
     class RConsole : RichTextBox
     {
         public Action<string> LineRead;
-        int lockedlines = -1;
+        string newline = "> ";
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter && Lines.Length > 0)
+                if (LineRead != null)
+                {
+                    LineRead(Lines[Lines.Length - 2].Substring(newline.Length));
+                    Select(Text.Length, 0);                    
+                }
 
-        protected override void OnKeyDown(KeyEventArgs e)
-        {            
-            if (e.KeyCode == Keys.Enter && Lines.Length > 0)
-                if (LineRead != null) LineRead(Lines[Lines.Length - 1]);
-            base.OnKeyDown(e);
+            base.OnKeyPress(e);
         }
-
+        bool internalediting = false;
         protected override void OnTextChanged(EventArgs e)
         {
             base.OnTextChanged(e);
-            if (Lines.Length - 1 <= lockedlines)
+            // Precaution
+            if (internalediting) return;
+            SetupInput();
+        }
+
+        private void SetupInput()
+        {
+            if (Lines.Length == 0)
             {
-                Text += "\n";
+                Text = newline;
                 Select(Text.Length, 0);
             }
-            lockedlines = Lines.Length - 2;
+            else if (!Lines[Lines.Length - 1].StartsWith(newline))
+            {
+                string[] temp = Lines;
+                temp[temp.Length - 1] = newline;
+                Lines = temp;
+                Select(Text.Length, 0);
+            }
         }
 
         protected override void OnSelectionChanged(EventArgs e)
         {
             base.OnSelectionChanged(e);
-            if (GetLineFromCharIndex(SelectionStart) == Lines.Length - 1)
-                ReadOnly = false;
-            else
-                ReadOnly = true;
+            ReadOnly = !(GetLineFromCharIndex(SelectionStart) == Lines.Length - 1 && SelectionStart >= (GetFirstCharIndexOfCurrentLine() + newline.Length));
         }
 
         public void WriteLine(string l)
         {
             Invoke(new MethodInvoker(() =>
             {
-                Text += l + "\n";
+                internalediting = true;
+                if (Lines.Length > 0)
+                    Lines = Lines.Take(Lines.Length - 1).ToArray();
+                Text += "\n" + l + "\n" + newline;
                 Select(Text.Length, 0);
                 ScrollToCaret();
+                internalediting = false;
             }));
         }
     }

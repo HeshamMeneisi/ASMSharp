@@ -126,32 +126,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="open.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Required\DEV00" />
     <None Include="Required\DEVF1" />
     <None Include="Required\DEVF3" />
     <None Include="Required\Rename.bat" />
-    <None Include="save.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="saveas.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="new.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="run.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="format.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="icon.ico" />
     <None Include="Media\undo.png" />
     <None Include="Media\stop.png" />
     <None Include="Media\saveas.png" />
@@ -163,10 +143,10 @@
     <None Include="Media\new.png" />
     <None Include="Media\format.png" />
     <None Include="Required\SICXEASM .exe" />
-    <None Include="redo.png" />
-    <None Include="undo.png" />
-    <None Include="options.png" />
     <None Include="Required\SICSIM.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

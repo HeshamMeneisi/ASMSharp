@@ -245,6 +245,7 @@ namespace ASMSharp
             codeBox.FormatCodeBox();
             buildrunBtn.Visible = runmenuitem.Visible = false;
             stopBtn.Visible = terminatemenuitem.Visible = true;
+            consoleBox.Clear();
             Executer.Start(codeBox.Text);
         }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
