@@ -52,16 +52,20 @@ namespace ASMSharp
 
         public void WriteLine(string l)
         {
-            Invoke(new MethodInvoker(() =>
+            try
             {
-                internalediting = true;
-                if (Lines.Length > 0)
-                    Lines = Lines.Take(Lines.Length - 1).ToArray();
-                Text += "\n" + l + "\n" + newline;
-                Select(Text.Length, 0);
-                ScrollToCaret();
-                internalediting = false;
-            }));
+                Invoke(new MethodInvoker(() =>
+                {
+                    internalediting = true;
+                    if (Lines.Length > 0)
+                        Lines = Lines.Take(Lines.Length - 1).ToArray();
+                    Text += "\n" + l + "\n" + newline;
+                    Select(Text.Length, 0);
+                    ScrollToCaret();
+                    internalediting = false;
+                }));
+            }
+            catch { /* Disposed */}
         }
     }
 }

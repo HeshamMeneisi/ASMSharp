@@ -25,7 +25,6 @@ namespace ASMSharp
                 Text = "";
                 Width = 0;
                 ReadOnly = true;
-                ScrollBars = RichTextBoxScrollBars.None;
                 WordWrap = false;
                 BorderStyle = value.BorderStyle;
                 Font = value.Font;
@@ -49,7 +48,7 @@ namespace ASMSharp
             if (Text != "" && lnum.Count > 0) Text += "\n";
             Text += string.Join("\n", lnum.Select(t => t.ToString()).ToArray());
             if (i > lines)
-                Lines = Lines.Take(lines).ToArray();
+                Lines = Lines.Take(lines).ToArray();            
             TrimToText();
             ResumeLayout();
         }
@@ -67,11 +66,13 @@ namespace ASMSharp
         {
             SuspendLayout();
             Graphics gpx = Graphics.FromHwnd(Handle);
+            float fallback = 0;
             try
             {
-                Width = (int)gpx.MeasureString(Lines[Lines.Length - 1], Font).Width;
+                fallback = gpx.MeasureString("_", Font).Width;
+                Width = (int)gpx.MeasureString(Lines[Lines.Length - 1], Font).Width;                
             }
-            catch { Width = 0; } // Empty code            
+            catch { Width = (int)fallback; } // Empty code            
             ResumeLayout();
         }
         public void SyncVerticalToCodeBox()

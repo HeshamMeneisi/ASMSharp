@@ -68,6 +68,8 @@ namespace ASMSharp
             regCol.DataBindings.Add("BackColor", Settings.Default, "RegisterColor");
             intCol.DataBindings.Add("BackColor", Settings.Default, "IntegerColor");
             decCol.DataBindings.Add("BackColor", Settings.Default, "DecColor");
+            hexCol.DataBindings.Add("BackColor", Settings.Default, "HexColor");
+            strCol.DataBindings.Add("BackColor", Settings.Default, "StringColor");
             cbackcol.DataBindings.Add("BackColor", Settings.Default, "ConsoleBackColor");
             cforecol.DataBindings.Add("BackColor", Settings.Default, "ConsoleForeColor");
 
@@ -76,6 +78,8 @@ namespace ASMSharp
             regReg.DataBindings.Add("Text", Settings.Default, "RegisterRegex");
             intReg.DataBindings.Add("Text", Settings.Default, "IntegerRegex");
             decReg.DataBindings.Add("Text", Settings.Default, "DecRegex");
+            hexReg.DataBindings.Add("Text", Settings.Default, "HexRegex");
+            strReg.DataBindings.Add("Text", Settings.Default, "StringRegex");
             colwsText.DataBindings.Add("Text", Settings.Default, "ColCellCountArray");
             fontsizeNum.DataBindings.Add("Value", Settings.Default, "FontSize");
             cfontsizeNum.DataBindings.Add("Value", Settings.Default, "ConsoleFontSize");

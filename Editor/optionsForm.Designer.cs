@@ -90,6 +90,12 @@
             this.optionsToolStrip = new System.Windows.Forms.ToolStrip();
             this.saveseBtn = new System.Windows.Forms.ToolStripButton();
             this.restoresetBtn = new System.Windows.Forms.ToolStripButton();
+            this.hexCol = new System.Windows.Forms.Button();
+            this.hexReg = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.strCol = new System.Windows.Forms.Button();
+            this.strReg = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.optionsTabControl.SuspendLayout();
             this.prefPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -98,7 +104,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.fontsizeNum)).BeginInit();
             this.formatterPref.SuspendLayout();
             this.settingsPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -137,18 +142,18 @@
             this.optionsTabControl.Location = new System.Drawing.Point(0, 23);
             this.optionsTabControl.Name = "optionsTabControl";
             this.optionsTabControl.SelectedIndex = 0;
-            this.optionsTabControl.Size = new System.Drawing.Size(573, 478);
+            this.optionsTabControl.Size = new System.Drawing.Size(573, 457);
             this.optionsTabControl.TabIndex = 1;
             // 
             // prefPage
             // 
-            this.prefPage.Controls.Add(this.groupBox2);
             this.prefPage.Controls.Add(this.groupBox1);
+            this.prefPage.Controls.Add(this.groupBox2);
             this.prefPage.Controls.Add(this.formatterPref);
             this.prefPage.Location = new System.Drawing.Point(4, 22);
             this.prefPage.Name = "prefPage";
             this.prefPage.Padding = new System.Windows.Forms.Padding(3);
-            this.prefPage.Size = new System.Drawing.Size(565, 452);
+            this.prefPage.Size = new System.Drawing.Size(565, 431);
             this.prefPage.TabIndex = 3;
             this.prefPage.Text = "Preferences";
             this.prefPage.UseVisualStyleBackColor = true;
@@ -161,10 +166,10 @@
             this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.cfontsizeNum);
             this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(280, 323);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(282, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(282, 126);
+            this.groupBox2.Size = new System.Drawing.Size(280, 208);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Console";
@@ -174,7 +179,7 @@
             this.cforecol.Dock = System.Windows.Forms.DockStyle.Top;
             this.cforecol.Location = new System.Drawing.Point(3, 95);
             this.cforecol.Name = "cforecol";
-            this.cforecol.Size = new System.Drawing.Size(276, 20);
+            this.cforecol.Size = new System.Drawing.Size(274, 20);
             this.cforecol.TabIndex = 11;
             this.cforecol.Click += new System.EventHandler(this.gColClick);
             // 
@@ -193,7 +198,7 @@
             this.cbackcol.Dock = System.Windows.Forms.DockStyle.Top;
             this.cbackcol.Location = new System.Drawing.Point(3, 62);
             this.cbackcol.Name = "cbackcol";
-            this.cbackcol.Size = new System.Drawing.Size(276, 20);
+            this.cbackcol.Size = new System.Drawing.Size(274, 20);
             this.cbackcol.TabIndex = 9;
             this.cbackcol.Click += new System.EventHandler(this.gColClick);
             // 
@@ -212,7 +217,7 @@
             this.cfontsizeNum.Dock = System.Windows.Forms.DockStyle.Top;
             this.cfontsizeNum.Location = new System.Drawing.Point(3, 29);
             this.cfontsizeNum.Name = "cfontsizeNum";
-            this.cfontsizeNum.Size = new System.Drawing.Size(276, 20);
+            this.cfontsizeNum.Size = new System.Drawing.Size(274, 20);
             this.cfontsizeNum.TabIndex = 7;
             // 
             // label19
@@ -233,10 +238,10 @@
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.fontsizeNum);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox1.Location = new System.Drawing.Point(3, 323);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(282, 211);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(277, 126);
+            this.groupBox1.Size = new System.Drawing.Size(280, 217);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Editor";
@@ -246,7 +251,7 @@
             this.codeforecolor.Dock = System.Windows.Forms.DockStyle.Top;
             this.codeforecolor.Location = new System.Drawing.Point(3, 95);
             this.codeforecolor.Name = "codeforecolor";
-            this.codeforecolor.Size = new System.Drawing.Size(271, 20);
+            this.codeforecolor.Size = new System.Drawing.Size(274, 20);
             this.codeforecolor.TabIndex = 11;
             this.codeforecolor.Click += new System.EventHandler(this.gColClick);
             // 
@@ -265,7 +270,7 @@
             this.codebackcol.Dock = System.Windows.Forms.DockStyle.Top;
             this.codebackcol.Location = new System.Drawing.Point(3, 62);
             this.codebackcol.Name = "codebackcol";
-            this.codebackcol.Size = new System.Drawing.Size(271, 20);
+            this.codebackcol.Size = new System.Drawing.Size(274, 20);
             this.codebackcol.TabIndex = 9;
             this.codebackcol.Click += new System.EventHandler(this.gColClick);
             // 
@@ -284,7 +289,7 @@
             this.fontsizeNum.Dock = System.Windows.Forms.DockStyle.Top;
             this.fontsizeNum.Location = new System.Drawing.Point(3, 29);
             this.fontsizeNum.Name = "fontsizeNum";
-            this.fontsizeNum.Size = new System.Drawing.Size(271, 20);
+            this.fontsizeNum.Size = new System.Drawing.Size(274, 20);
             this.fontsizeNum.TabIndex = 7;
             // 
             // label9
@@ -299,6 +304,12 @@
             // 
             // formatterPref
             // 
+            this.formatterPref.Controls.Add(this.strCol);
+            this.formatterPref.Controls.Add(this.strReg);
+            this.formatterPref.Controls.Add(this.label20);
+            this.formatterPref.Controls.Add(this.hexCol);
+            this.formatterPref.Controls.Add(this.hexReg);
+            this.formatterPref.Controls.Add(this.label8);
             this.formatterPref.Controls.Add(this.decCol);
             this.formatterPref.Controls.Add(this.decReg);
             this.formatterPref.Controls.Add(this.label16);
@@ -316,10 +327,10 @@
             this.formatterPref.Controls.Add(this.label12);
             this.formatterPref.Controls.Add(this.colwsText);
             this.formatterPref.Controls.Add(this.firstLabel);
-            this.formatterPref.Dock = System.Windows.Forms.DockStyle.Top;
+            this.formatterPref.Dock = System.Windows.Forms.DockStyle.Left;
             this.formatterPref.Location = new System.Drawing.Point(3, 3);
             this.formatterPref.Name = "formatterPref";
-            this.formatterPref.Size = new System.Drawing.Size(559, 320);
+            this.formatterPref.Size = new System.Drawing.Size(279, 425);
             this.formatterPref.TabIndex = 1;
             this.formatterPref.TabStop = false;
             this.formatterPref.Text = "Formatter";
@@ -329,7 +340,7 @@
             this.decCol.Dock = System.Windows.Forms.DockStyle.Top;
             this.decCol.Location = new System.Drawing.Point(3, 294);
             this.decCol.Name = "decCol";
-            this.decCol.Size = new System.Drawing.Size(553, 20);
+            this.decCol.Size = new System.Drawing.Size(273, 20);
             this.decCol.TabIndex = 24;
             this.decCol.Click += new System.EventHandler(this.gColClick);
             // 
@@ -338,7 +349,7 @@
             this.decReg.Dock = System.Windows.Forms.DockStyle.Top;
             this.decReg.Location = new System.Drawing.Point(3, 274);
             this.decReg.Name = "decReg";
-            this.decReg.Size = new System.Drawing.Size(553, 20);
+            this.decReg.Size = new System.Drawing.Size(273, 20);
             this.decReg.TabIndex = 19;
             // 
             // label16
@@ -356,7 +367,7 @@
             this.intCol.Dock = System.Windows.Forms.DockStyle.Top;
             this.intCol.Location = new System.Drawing.Point(3, 241);
             this.intCol.Name = "intCol";
-            this.intCol.Size = new System.Drawing.Size(553, 20);
+            this.intCol.Size = new System.Drawing.Size(273, 20);
             this.intCol.TabIndex = 11;
             this.intCol.Click += new System.EventHandler(this.gColClick);
             // 
@@ -365,7 +376,7 @@
             this.intReg.Dock = System.Windows.Forms.DockStyle.Top;
             this.intReg.Location = new System.Drawing.Point(3, 221);
             this.intReg.Name = "intReg";
-            this.intReg.Size = new System.Drawing.Size(553, 20);
+            this.intReg.Size = new System.Drawing.Size(273, 20);
             this.intReg.TabIndex = 17;
             // 
             // label15
@@ -383,7 +394,7 @@
             this.regCol.Dock = System.Windows.Forms.DockStyle.Top;
             this.regCol.Location = new System.Drawing.Point(3, 188);
             this.regCol.Name = "regCol";
-            this.regCol.Size = new System.Drawing.Size(553, 20);
+            this.regCol.Size = new System.Drawing.Size(273, 20);
             this.regCol.TabIndex = 13;
             this.regCol.Click += new System.EventHandler(this.gColClick);
             // 
@@ -392,7 +403,7 @@
             this.regReg.Dock = System.Windows.Forms.DockStyle.Top;
             this.regReg.Location = new System.Drawing.Point(3, 168);
             this.regReg.Name = "regReg";
-            this.regReg.Size = new System.Drawing.Size(553, 20);
+            this.regReg.Size = new System.Drawing.Size(273, 20);
             this.regReg.TabIndex = 15;
             // 
             // label14
@@ -410,7 +421,7 @@
             this.labelCol.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelCol.Location = new System.Drawing.Point(3, 135);
             this.labelCol.Name = "labelCol";
-            this.labelCol.Size = new System.Drawing.Size(553, 20);
+            this.labelCol.Size = new System.Drawing.Size(273, 20);
             this.labelCol.TabIndex = 20;
             this.labelCol.Click += new System.EventHandler(this.gColClick);
             // 
@@ -419,7 +430,7 @@
             this.labelReg.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelReg.Location = new System.Drawing.Point(3, 115);
             this.labelReg.Name = "labelReg";
-            this.labelReg.Size = new System.Drawing.Size(553, 20);
+            this.labelReg.Size = new System.Drawing.Size(273, 20);
             this.labelReg.TabIndex = 21;
             // 
             // label13
@@ -437,7 +448,7 @@
             this.synCol.Dock = System.Windows.Forms.DockStyle.Top;
             this.synCol.Location = new System.Drawing.Point(3, 82);
             this.synCol.Name = "synCol";
-            this.synCol.Size = new System.Drawing.Size(553, 20);
+            this.synCol.Size = new System.Drawing.Size(273, 20);
             this.synCol.TabIndex = 23;
             this.synCol.Click += new System.EventHandler(this.gColClick);
             // 
@@ -446,7 +457,7 @@
             this.synReg.Dock = System.Windows.Forms.DockStyle.Top;
             this.synReg.Location = new System.Drawing.Point(3, 62);
             this.synReg.Name = "synReg";
-            this.synReg.Size = new System.Drawing.Size(553, 20);
+            this.synReg.Size = new System.Drawing.Size(273, 20);
             this.synReg.TabIndex = 22;
             // 
             // label12
@@ -464,7 +475,7 @@
             this.colwsText.Dock = System.Windows.Forms.DockStyle.Top;
             this.colwsText.Location = new System.Drawing.Point(3, 29);
             this.colwsText.Name = "colwsText";
-            this.colwsText.Size = new System.Drawing.Size(553, 20);
+            this.colwsText.Size = new System.Drawing.Size(273, 20);
             this.colwsText.TabIndex = 7;
             // 
             // firstLabel
@@ -483,7 +494,7 @@
             this.settingsPage.Location = new System.Drawing.Point(4, 22);
             this.settingsPage.Name = "settingsPage";
             this.settingsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.settingsPage.Size = new System.Drawing.Size(565, 452);
+            this.settingsPage.Size = new System.Drawing.Size(565, 431);
             this.settingsPage.TabIndex = 2;
             this.settingsPage.Text = "Settings";
             this.settingsPage.UseVisualStyleBackColor = true;
@@ -502,8 +513,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.simsettings);
-            this.splitContainer1.Size = new System.Drawing.Size(559, 446);
-            this.splitContainer1.SplitterDistance = 224;
+            this.splitContainer1.Size = new System.Drawing.Size(559, 425);
+            this.splitContainer1.SplitterDistance = 213;
             this.splitContainer1.TabIndex = 0;
             // 
             // asmsettings
@@ -519,7 +530,7 @@
             this.asmsettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.asmsettings.Location = new System.Drawing.Point(0, 0);
             this.asmsettings.Name = "asmsettings";
-            this.asmsettings.Size = new System.Drawing.Size(559, 224);
+            this.asmsettings.Size = new System.Drawing.Size(559, 213);
             this.asmsettings.TabIndex = 0;
             this.asmsettings.TabStop = false;
             this.asmsettings.Text = "Assembler";
@@ -529,7 +540,7 @@
             this.asminput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.asminput.Location = new System.Drawing.Point(3, 98);
             this.asminput.Name = "asminput";
-            this.asminput.Size = new System.Drawing.Size(553, 87);
+            this.asminput.Size = new System.Drawing.Size(553, 76);
             this.asminput.TabIndex = 2;
             this.asminput.Text = "";
             // 
@@ -537,7 +548,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label7.Location = new System.Drawing.Point(3, 185);
+            this.label7.Location = new System.Drawing.Point(3, 174);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(57, 13);
             this.label7.TabIndex = 5;
@@ -548,7 +559,7 @@
             this.panel3.Controls.Add(this.asmscript);
             this.panel3.Controls.Add(this.asmscriptBrowse);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(3, 198);
+            this.panel3.Location = new System.Drawing.Point(3, 187);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(553, 23);
             this.panel3.TabIndex = 4;
@@ -642,7 +653,7 @@
             this.simsettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.simsettings.Location = new System.Drawing.Point(0, 0);
             this.simsettings.Name = "simsettings";
-            this.simsettings.Size = new System.Drawing.Size(559, 218);
+            this.simsettings.Size = new System.Drawing.Size(559, 208);
             this.simsettings.TabIndex = 1;
             this.simsettings.TabStop = false;
             this.simsettings.Text = "Simulator";
@@ -652,7 +663,7 @@
             this.siminput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.siminput.Location = new System.Drawing.Point(3, 98);
             this.siminput.Name = "siminput";
-            this.siminput.Size = new System.Drawing.Size(553, 117);
+            this.siminput.Size = new System.Drawing.Size(553, 107);
             this.siminput.TabIndex = 2;
             this.siminput.Text = "";
             // 
@@ -743,11 +754,65 @@
             this.restoresetBtn.Text = "Restore defaults";
             this.restoresetBtn.Click += new System.EventHandler(this.defbtn_Click);
             // 
+            // hexCol
+            // 
+            this.hexCol.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hexCol.Location = new System.Drawing.Point(3, 347);
+            this.hexCol.Name = "hexCol";
+            this.hexCol.Size = new System.Drawing.Size(273, 20);
+            this.hexCol.TabIndex = 27;
+            this.hexCol.Click += new System.EventHandler(this.gColClick);
+            // 
+            // hexReg
+            // 
+            this.hexReg.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hexReg.Location = new System.Drawing.Point(3, 327);
+            this.hexReg.Name = "hexReg";
+            this.hexReg.Size = new System.Drawing.Size(273, 20);
+            this.hexReg.TabIndex = 26;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label8.Location = new System.Drawing.Point(3, 314);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(26, 13);
+            this.label8.TabIndex = 25;
+            this.label8.Text = "Hex";
+            // 
+            // strCol
+            // 
+            this.strCol.Dock = System.Windows.Forms.DockStyle.Top;
+            this.strCol.Location = new System.Drawing.Point(3, 400);
+            this.strCol.Name = "strCol";
+            this.strCol.Size = new System.Drawing.Size(273, 20);
+            this.strCol.TabIndex = 30;
+            this.strCol.Click += new System.EventHandler(this.gColClick);
+            // 
+            // strReg
+            // 
+            this.strReg.Dock = System.Windows.Forms.DockStyle.Top;
+            this.strReg.Location = new System.Drawing.Point(3, 380);
+            this.strReg.Name = "strReg";
+            this.strReg.Size = new System.Drawing.Size(273, 20);
+            this.strReg.TabIndex = 29;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label20.Location = new System.Drawing.Point(3, 367);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(39, 13);
+            this.label20.TabIndex = 28;
+            this.label20.Text = "Strings";
+            // 
             // optionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(573, 501);
+            this.ClientSize = new System.Drawing.Size(573, 480);
             this.Controls.Add(this.optionsTabControl);
             this.Controls.Add(this.optionsToolStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -768,7 +833,6 @@
             this.settingsPage.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.asmsettings.ResumeLayout(false);
             this.asmsettings.PerformLayout();
@@ -850,5 +914,11 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.NumericUpDown cfontsizeNum;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button strCol;
+        private System.Windows.Forms.TextBox strReg;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button hexCol;
+        private System.Windows.Forms.TextBox hexReg;
+        private System.Windows.Forms.Label label8;
     }
 }

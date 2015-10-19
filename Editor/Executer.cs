@@ -66,7 +66,7 @@ namespace ASMSharp
                 if (File.Exists("LISFILE"))
                 {
                     var sr = File.OpenText("LISFILE");
-                    bool flag = false; int c = -2; // Header is 2 lines
+                    bool flag = false; int c = -1; // Header is 2 lines
                     string content = sr.ReadToEnd();
                     sr.Close();
                     foreach (string line in content.Split('\n'))
@@ -77,7 +77,7 @@ namespace ASMSharp
                                 OutputError(c, m.Value);
                         if (matches.Count > 0)
                             flag = true;
-                        else
+                        else if (line.Length > 1 && line[1] != ' ')
                             c++;
                     }
                     if (flag && MessageBox.Show("Errors found. Continue anyway?", "Attention!", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)

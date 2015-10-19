@@ -148,10 +148,11 @@ namespace ASMSharp
         {
             SuspendLayout();
             Enabled = false;
-            // Reset all colors
-            ForeColor = ForeColor;
-            BackColor = BackColor;
+            // Reset all colors            
             int s = SelectionStart, l = SelectionLength;
+            SelectAll();
+            SelectionBackColor = BackColor; SelectionColor = ForeColor;
+            Select(0, 0);            
             foreach (string word in ColoringProfile.Keys)
             {
                 Color c = ColoringProfile[word];
@@ -166,7 +167,7 @@ namespace ASMSharp
             {
                 Select(m.Index, m.Length);
                 SelectionColor = LabelColor;
-                foreach (Match mm in Regex.Matches(Text, "(?<=[\\s,])" + m.Value + "(?=[\\s,\\.])"))
+                foreach (Match mm in Regex.Matches(Text, "(?<=[\\s,@#])" + m.Value + "(?=[\\s,\\.])"))
                 {
                     Select(mm.Index, mm.Length);
                     SelectionColor = LabelColor;

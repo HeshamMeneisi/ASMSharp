@@ -39,7 +39,7 @@ d 1000-1140</Value>
       <Value Profile="(Default)">(?&lt;=\n)[^\s]+(?=\s)</Value>
     </Setting>
     <Setting Name="RegisterRegex" Type="System.String" Scope="User">
-      <Value Profile="(Default)">(?&lt;=[\s,\.])([axbflsti]|ch|xr)(?=[\s,])</Value>
+      <Value Profile="(Default)">(?&lt;=[\s,])([axbflsti]|ch|xr)(?=[\s,])</Value>
     </Setting>
     <Setting Name="IntegerRegex" Type="System.String" Scope="User">
       <Value Profile="(Default)">(?&lt;=[\s#])([-0-9]+)(?=[\s,])</Value>
@@ -82,6 +82,18 @@ d 1000-1140</Value>
     </Setting>
     <Setting Name="ConsoleForeColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Lime</Value>
+    </Setting>
+    <Setting Name="StringColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Crimson</Value>
+    </Setting>
+    <Setting Name="StringRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(?&lt;=c)(['][^']+['])</Value>
+    </Setting>
+    <Setting Name="HexColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">OrangeRed</Value>
+    </Setting>
+    <Setting Name="HexRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(?&lt;=x)(['][^']+['])</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -27,9 +27,11 @@ namespace ASMSharp
                 // If the line has no more text, finish formatting
                 if (gi >= line.Length) goto Finish;
                 char current = line[gi];
+                bool isstring = false;
                 // Output all valid characters if any
-                while (i < l && current != ' ' && current != '\t')
+                while (isstring || (i < l && current != ' ' && current != '\t'))
                 {
+                    if (current == '\'' || current == '\"') isstring = !isstring;
                     yield return current;
                     gi++; i++;
                     if (gi < line.Length)

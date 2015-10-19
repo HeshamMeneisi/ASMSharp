@@ -159,7 +159,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(?<=[\\s,\\.])([axbflsti]|ch|xr)(?=[\\s,])")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(?<=[\\s,])([axbflsti]|ch|xr)(?=[\\s,])")]
         public string RegisterRegex {
             get {
                 return ((string)(this["RegisterRegex"]));
@@ -334,6 +334,54 @@ namespace ASMSharp.Properties {
             }
             set {
                 this["ConsoleForeColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Crimson")]
+        public global::System.Drawing.Color StringColor {
+            get {
+                return ((global::System.Drawing.Color)(this["StringColor"]));
+            }
+            set {
+                this["StringColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("(?<=c)([\'][^\']+[\'])")]
+        public string StringRegex {
+            get {
+                return ((string)(this["StringRegex"]));
+            }
+            set {
+                this["StringRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("OrangeRed")]
+        public global::System.Drawing.Color HexColor {
+            get {
+                return ((global::System.Drawing.Color)(this["HexColor"]));
+            }
+            set {
+                this["HexColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("(?<=x)([\'][^\']+[\'])")]
+        public string HexRegex {
+            get {
+                return ((string)(this["HexRegex"]));
+            }
+            set {
+                this["HexRegex"] = value;
             }
         }
     }

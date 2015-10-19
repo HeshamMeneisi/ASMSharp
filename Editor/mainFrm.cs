@@ -35,7 +35,7 @@ namespace ASMSharp
             line--; // To zero based
             this.Invoke(new MethodInvoker(() =>
             {
-                int indx = codeBox.Lines.Take(line).Sum((l) => l.Length) + line; // +line to count in \n
+                int indx = codeBox.GetFirstCharIndexFromLine(line);
                 int ln = codeBox.Lines[line].Length;
                 codeBox.Select(indx, ln);
                 codeBox.SelectionBackColor = Color.Red;
@@ -72,7 +72,11 @@ namespace ASMSharp
                 // Data types
                 {Settings.Default.DataTypeRegex,Settings.Default.DataTypeColor },
                 // Register names
-                { Settings.Default.RegisterRegex,Settings.Default.RegisterColor }
+                { Settings.Default.RegisterRegex,Settings.Default.RegisterColor },
+                // Hex
+                { Settings.Default.HexRegex,Settings.Default.HexColor },
+                // Strings
+                { Settings.Default.StringRegex,Settings.Default.StringColor }
             };
             codeBox.ColorSyntax();
         }
@@ -91,33 +95,45 @@ namespace ASMSharp
         private void exefinisehd(DateTime obj)
         {
             consoleBox.WriteLine("> Execution finished at " + obj.ToShortTimeString());
-            this.Invoke(new MethodInvoker(() =>
+            try
             {
-                buildrunBtn.Visible = runmenuitem.Visible = true;
-                stopBtn.Visible = terminatemenuitem.Visible = false;
-            }));
+                this.Invoke(new MethodInvoker(() =>
+                {
+                    buildrunBtn.Visible = runmenuitem.Visible = true;
+                    stopBtn.Visible = terminatemenuitem.Visible = false;
+                }));
+            }
+            catch { /* Disposed */}
         }
 
         private void taskfinished(TaskInfo obj)
         {
-            this.Invoke(new MethodInvoker(() =>
+            try
             {
-                progBar.Visible = false; progBarTimer.Stop();
-                statLabel.Text = TaskManager.defaultLabel;
-            }));
+                this.Invoke(new MethodInvoker(() =>
+                {
+                    progBar.Visible = false; progBarTimer.Stop();
+                    statLabel.Text = TaskManager.defaultLabel;
+                }));
+            }
+            catch { /* Disposed */}
         }
 
         private void taskstarted(TaskInfo obj)
         {
-            this.Invoke(new MethodInvoker(() =>
+            try
             {
-                statLabel.Text = obj.Label;
-                if (obj.ShowProg)
+                this.Invoke(new MethodInvoker(() =>
                 {
-                    progBar.Visible = true;
-                    progBarTimer.Start();
-                }
-            }));
+                    statLabel.Text = obj.Label;
+                    if (obj.ShowProg)
+                    {
+                        progBar.Visible = true;
+                        progBarTimer.Start();
+                    }
+                }));
+            }
+            catch { /* Disposed */}
         }
 
         private void lineoutputted(string obj)
@@ -266,10 +282,11 @@ namespace ASMSharp
         {
             if (Executer.IsRunning)
             {
-                Executer.Finished += (d) => { Invoke(new MethodInvoker(() => this.Close())); };
+                e.Cancel = true;
+                Executer.Finished += (d) => { try { Invoke(new MethodInvoker(() => this.Close())); } catch {/* Disposed */ } };
                 Executer.Terminate();
             }
-            if (codeBox.Edited)
+            else if (codeBox.Edited)
                 switch (MessageBox.Show("Would you like to save current file first?", "Exiting", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Asterisk))
                 {
                     case DialogResult.Cancel: e.Cancel = true; return;
