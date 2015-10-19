@@ -15,7 +15,7 @@ namespace ASMSharp
         internal static Action<DateTime> Finished;
         static Process simproc = null;
         static Process current = null;
-        static bool terminated = false;
+        static bool terminated = true;
 
         public static bool IsRunning { get { return !terminated; } } // Accurate for now
 
@@ -157,6 +157,7 @@ namespace ASMSharp
 
         internal static void Terminate()
         {
+            terminated = true;
             if (current != null && !current.HasExited)
             {
                 terminated = true;

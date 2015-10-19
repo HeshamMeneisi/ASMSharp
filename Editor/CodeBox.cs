@@ -100,59 +100,51 @@ namespace ASMSharp
             if (e.KeyChar == (char)Keys.Space || e.KeyChar == (char)Keys.Tab || e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;
-                FormatCodeBox(true, e.KeyChar == (char)Keys.Enter, true, e.KeyChar);
+                FormatCodeBox(true, true, e.KeyChar);
             }
             base.OnKeyPress(e);
         }
-        public void FormatCodeBox(bool isusertyping = false, bool nextline = false, bool color = true, char addfirst = '\0')
+        public void FormatCodeBox(bool isusertyping = false, bool color = true, char addfirst = '\0')
         {
-            RecordState(past);
-            SuspendLayout();
-            Enabled = false;
+            RecordState();
+            DrawSuspender.SuspendDrawing(this);
             int s = SelectionStart, l = SelectionLength, lb = GetLineFromCharIndex(s);
-            if (addfirst != '\0') { Text = Text.Insert(s, addfirst.ToString().Replace("\r", "\n")); s++; }
+            if (addfirst != '\0') { Text = Text.Insert(s, addfirst.ToString().Replace("\r", "\n")); }
+            if (s < Text.Length)
+                lb += Text[s] == '\n' ? 1 : 0;
             // Make s relative to line stat
             s -= GetFirstCharIndexFromLine(lb);
             Lines = CodeFormatter.Format(Lines).ToArray();
             // Restore cursor and selection state
             s += GetFirstCharIndexFromLine(lb);
             int nl = Text.Length;
-            if (s >= nl) s = nl - 1;
-            if (s > 0)
+            if (s >= nl) s = nl;
+            if (isusertyping && s >= 0 && s < nl)
             {
-                if (isusertyping)
+                if (Text[s] == '\n') s++;
+                char it;
+                while (s < nl && ((it = Text[s]) == ' ' || it == '\t'))
                 {
-                    if (Text[s - 1] != '\n')
-                    {
-                        char it = Text[s];
-                        do
-                        {
-                            s++; l--;
-                        } while (s < nl && ((it = Text[s]) == ' ' || it == '\t'));
-                        if (it == '\n' && nextline)
-                            s++;
-                    }
+                    s++; l--;
                 }
-                while (s + l > nl) l--;
-                if (l < 0) l = 0;
-                Select(s, l);
-                LineView.SyncVerticalToCodeBox();
-                //ScrollToCaret(); This is not needed
             }
+            while (s + l > nl) l--;
+            if (l < 0) l = 0;
+            Select(s, l);
+            LineView.SyncVerticalToCodeBox();
+            //ScrollToCaret(); This is not needed            
             if (color) ColorSyntax();
-            Enabled = true;
-            ResumeLayout();
             Focus();
+            DrawSuspender.ResumeDrawing(this);
         }
         public void ColorSyntax()
         {
-            SuspendLayout();
-            Enabled = false;
+            DrawSuspender.SuspendDrawing(this);
             // Reset all colors            
             int s = SelectionStart, l = SelectionLength;
             SelectAll();
             SelectionBackColor = BackColor; SelectionColor = ForeColor;
-            Select(0, 0);            
+            Select(0, 0);
             foreach (string word in ColoringProfile.Keys)
             {
                 Color c = ColoringProfile[word];
@@ -175,9 +167,8 @@ namespace ASMSharp
             }
             //
             Select(s, l);
-            Enabled = true;
-            ResumeLayout();
             Focus();
+            DrawSuspender.ResumeDrawing(this);
         }
         #endregion
     }

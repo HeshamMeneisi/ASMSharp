@@ -14,10 +14,12 @@ namespace ASMSharp
         [STAThread]
         static void Main(string[] args)
         {
+            //string s = "The program received: " + args.Length + " arguments.\n";
+            //foreach (object ar in args) s += ar.GetType() + ": " + ar.ToString();
+#if !DEBUG
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain.CurrentDomain.UnhandledException += unhadledex;
             Application.ThreadException += threadex;
-#if !DEBUG
             try
             {
 #endif
@@ -26,7 +28,7 @@ namespace ASMSharp
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new mainFrm(args));
 #if !DEBUG
-        }
+            }
             catch (Exception ex)
             {
                 HandleFailure("Regular Exception", ex);

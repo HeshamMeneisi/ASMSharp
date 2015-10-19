@@ -33,13 +33,6 @@
             this.asmExe = new System.Windows.Forms.TextBox();
             this.optionsTabControl = new System.Windows.Forms.TabControl();
             this.prefPage = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cforecol = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.cbackcol = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.cfontsizeNum = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.codeforecolor = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
@@ -47,7 +40,20 @@
             this.label10 = new System.Windows.Forms.Label();
             this.fontsizeNum = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cforecol = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.cbackcol = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.cfontsizeNum = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
             this.formatterPref = new System.Windows.Forms.GroupBox();
+            this.strCol = new System.Windows.Forms.Button();
+            this.strReg = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.hexCol = new System.Windows.Forms.Button();
+            this.hexReg = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.decCol = new System.Windows.Forms.Button();
             this.decReg = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -90,18 +96,12 @@
             this.optionsToolStrip = new System.Windows.Forms.ToolStrip();
             this.saveseBtn = new System.Windows.Forms.ToolStripButton();
             this.restoresetBtn = new System.Windows.Forms.ToolStripButton();
-            this.hexCol = new System.Windows.Forms.Button();
-            this.hexReg = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.strCol = new System.Windows.Forms.Button();
-            this.strReg = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.optionsTabControl.SuspendLayout();
             this.prefPage.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontsizeNum)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).BeginInit();
             this.formatterPref.SuspendLayout();
             this.settingsPage.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -157,78 +157,6 @@
             this.prefPage.TabIndex = 3;
             this.prefPage.Text = "Preferences";
             this.prefPage.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.cforecol);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Controls.Add(this.cbackcol);
-            this.groupBox2.Controls.Add(this.label18);
-            this.groupBox2.Controls.Add(this.cfontsizeNum);
-            this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(282, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(280, 208);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Console";
-            // 
-            // cforecol
-            // 
-            this.cforecol.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cforecol.Location = new System.Drawing.Point(3, 95);
-            this.cforecol.Name = "cforecol";
-            this.cforecol.Size = new System.Drawing.Size(274, 20);
-            this.cforecol.TabIndex = 11;
-            this.cforecol.Click += new System.EventHandler(this.gColClick);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label17.Location = new System.Drawing.Point(3, 82);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(92, 13);
-            this.label17.TabIndex = 10;
-            this.label17.Text = "Default Text Color";
-            // 
-            // cbackcol
-            // 
-            this.cbackcol.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cbackcol.Location = new System.Drawing.Point(3, 62);
-            this.cbackcol.Name = "cbackcol";
-            this.cbackcol.Size = new System.Drawing.Size(274, 20);
-            this.cbackcol.TabIndex = 9;
-            this.cbackcol.Click += new System.EventHandler(this.gColClick);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label18.Location = new System.Drawing.Point(3, 49);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(92, 13);
-            this.label18.TabIndex = 8;
-            this.label18.Text = "Background Color";
-            // 
-            // cfontsizeNum
-            // 
-            this.cfontsizeNum.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cfontsizeNum.Location = new System.Drawing.Point(3, 29);
-            this.cfontsizeNum.Name = "cfontsizeNum";
-            this.cfontsizeNum.Size = new System.Drawing.Size(274, 20);
-            this.cfontsizeNum.TabIndex = 7;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label19.Location = new System.Drawing.Point(3, 16);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(51, 13);
-            this.label19.TabIndex = 6;
-            this.label19.Text = "Font Size";
             // 
             // groupBox1
             // 
@@ -302,6 +230,78 @@
             this.label9.TabIndex = 6;
             this.label9.Text = "Font Size";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.cforecol);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Controls.Add(this.cbackcol);
+            this.groupBox2.Controls.Add(this.label18);
+            this.groupBox2.Controls.Add(this.cfontsizeNum);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(282, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(280, 208);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Console";
+            // 
+            // cforecol
+            // 
+            this.cforecol.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cforecol.Location = new System.Drawing.Point(3, 95);
+            this.cforecol.Name = "cforecol";
+            this.cforecol.Size = new System.Drawing.Size(274, 20);
+            this.cforecol.TabIndex = 11;
+            this.cforecol.Click += new System.EventHandler(this.gColClick);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label17.Location = new System.Drawing.Point(3, 82);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(92, 13);
+            this.label17.TabIndex = 10;
+            this.label17.Text = "Default Text Color";
+            // 
+            // cbackcol
+            // 
+            this.cbackcol.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cbackcol.Location = new System.Drawing.Point(3, 62);
+            this.cbackcol.Name = "cbackcol";
+            this.cbackcol.Size = new System.Drawing.Size(274, 20);
+            this.cbackcol.TabIndex = 9;
+            this.cbackcol.Click += new System.EventHandler(this.gColClick);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label18.Location = new System.Drawing.Point(3, 49);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(92, 13);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "Background Color";
+            // 
+            // cfontsizeNum
+            // 
+            this.cfontsizeNum.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cfontsizeNum.Location = new System.Drawing.Point(3, 29);
+            this.cfontsizeNum.Name = "cfontsizeNum";
+            this.cfontsizeNum.Size = new System.Drawing.Size(274, 20);
+            this.cfontsizeNum.TabIndex = 7;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label19.Location = new System.Drawing.Point(3, 16);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(51, 13);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "Font Size";
+            // 
             // formatterPref
             // 
             this.formatterPref.Controls.Add(this.strCol);
@@ -334,6 +334,60 @@
             this.formatterPref.TabIndex = 1;
             this.formatterPref.TabStop = false;
             this.formatterPref.Text = "Formatter";
+            // 
+            // strCol
+            // 
+            this.strCol.Dock = System.Windows.Forms.DockStyle.Top;
+            this.strCol.Location = new System.Drawing.Point(3, 400);
+            this.strCol.Name = "strCol";
+            this.strCol.Size = new System.Drawing.Size(273, 20);
+            this.strCol.TabIndex = 30;
+            this.strCol.Click += new System.EventHandler(this.gColClick);
+            // 
+            // strReg
+            // 
+            this.strReg.Dock = System.Windows.Forms.DockStyle.Top;
+            this.strReg.Location = new System.Drawing.Point(3, 380);
+            this.strReg.Name = "strReg";
+            this.strReg.Size = new System.Drawing.Size(273, 20);
+            this.strReg.TabIndex = 29;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label20.Location = new System.Drawing.Point(3, 367);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(39, 13);
+            this.label20.TabIndex = 28;
+            this.label20.Text = "Strings";
+            // 
+            // hexCol
+            // 
+            this.hexCol.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hexCol.Location = new System.Drawing.Point(3, 347);
+            this.hexCol.Name = "hexCol";
+            this.hexCol.Size = new System.Drawing.Size(273, 20);
+            this.hexCol.TabIndex = 27;
+            this.hexCol.Click += new System.EventHandler(this.gColClick);
+            // 
+            // hexReg
+            // 
+            this.hexReg.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hexReg.Location = new System.Drawing.Point(3, 327);
+            this.hexReg.Name = "hexReg";
+            this.hexReg.Size = new System.Drawing.Size(273, 20);
+            this.hexReg.TabIndex = 26;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label8.Location = new System.Drawing.Point(3, 314);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(26, 13);
+            this.label8.TabIndex = 25;
+            this.label8.Text = "Hex";
             // 
             // decCol
             // 
@@ -754,60 +808,6 @@
             this.restoresetBtn.Text = "Restore defaults";
             this.restoresetBtn.Click += new System.EventHandler(this.defbtn_Click);
             // 
-            // hexCol
-            // 
-            this.hexCol.Dock = System.Windows.Forms.DockStyle.Top;
-            this.hexCol.Location = new System.Drawing.Point(3, 347);
-            this.hexCol.Name = "hexCol";
-            this.hexCol.Size = new System.Drawing.Size(273, 20);
-            this.hexCol.TabIndex = 27;
-            this.hexCol.Click += new System.EventHandler(this.gColClick);
-            // 
-            // hexReg
-            // 
-            this.hexReg.Dock = System.Windows.Forms.DockStyle.Top;
-            this.hexReg.Location = new System.Drawing.Point(3, 327);
-            this.hexReg.Name = "hexReg";
-            this.hexReg.Size = new System.Drawing.Size(273, 20);
-            this.hexReg.TabIndex = 26;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label8.Location = new System.Drawing.Point(3, 314);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(26, 13);
-            this.label8.TabIndex = 25;
-            this.label8.Text = "Hex";
-            // 
-            // strCol
-            // 
-            this.strCol.Dock = System.Windows.Forms.DockStyle.Top;
-            this.strCol.Location = new System.Drawing.Point(3, 400);
-            this.strCol.Name = "strCol";
-            this.strCol.Size = new System.Drawing.Size(273, 20);
-            this.strCol.TabIndex = 30;
-            this.strCol.Click += new System.EventHandler(this.gColClick);
-            // 
-            // strReg
-            // 
-            this.strReg.Dock = System.Windows.Forms.DockStyle.Top;
-            this.strReg.Location = new System.Drawing.Point(3, 380);
-            this.strReg.Name = "strReg";
-            this.strReg.Size = new System.Drawing.Size(273, 20);
-            this.strReg.TabIndex = 29;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label20.Location = new System.Drawing.Point(3, 367);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(39, 13);
-            this.label20.TabIndex = 28;
-            this.label20.Text = "Strings";
-            // 
             // optionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -819,15 +819,16 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "optionsForm";
             this.Text = "Options";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.optionsForm_FormClosing);
             this.Load += new System.EventHandler(this.optionsForm_Load);
             this.optionsTabControl.ResumeLayout(false);
             this.prefPage.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontsizeNum)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cfontsizeNum)).EndInit();
             this.formatterPref.ResumeLayout(false);
             this.formatterPref.PerformLayout();
             this.settingsPage.ResumeLayout(false);

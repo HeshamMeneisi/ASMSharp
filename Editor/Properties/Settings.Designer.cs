@@ -25,7 +25,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9,8,18")]
+        [global::System.Configuration.DefaultSettingValueAttribute("9,8,36")]
         public string ColCellCountArray {
             get {
                 return ((string)(this["ColCellCountArray"]));

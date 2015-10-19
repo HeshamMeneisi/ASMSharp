@@ -20,7 +20,7 @@ namespace ASMSharp
         }
         internal static IEnumerable<char> FormatLine(string line)
         {
-            int[] ls = ColCellLengthArr; int gi = 0;
+            int[] ls = ColCellLengthArr; int gi = 0, al = Math.Min(line.Length,ColCellLengthArr.Sum());
             foreach (int l in ls)
             {
                 int i = 0;
@@ -42,12 +42,11 @@ namespace ASMSharp
                 for (; i < l; i++)
                     yield return ' ';
                 // Skip everything up to next statement
-                while (gi < line.Length && ((current = line[gi]) == ' ' || current == '\t'))
+                while (gi < al && ((current = line[gi]) == ' ' || current == '\t'))
                     gi++;
             }
             // Handle comments if any
-            if (gi < line.Length)
-                yield return '\t';
+
             while (gi < line.Length)
                 yield return line[gi++];
             Finish:;

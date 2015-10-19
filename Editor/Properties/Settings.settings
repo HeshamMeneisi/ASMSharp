@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ColCellCountArray" Type="System.String" Scope="User">
-      <Value Profile="(Default)">9,8,18</Value>
+      <Value Profile="(Default)">9,8,36</Value>
     </Setting>
     <Setting Name="FontSize" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">16</Value>

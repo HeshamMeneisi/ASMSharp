@@ -185,10 +185,10 @@
             this.statStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statLabel,
             this.progBar});
-            this.statStrip.Location = new System.Drawing.Point(0, 539);
+            this.statStrip.Location = new System.Drawing.Point(0, 665);
             this.statStrip.Name = "statStrip";
             this.statStrip.Size = new System.Drawing.Size(884, 22);
-            this.statStrip.TabIndex = 1;
+            this.statStrip.TabIndex = 2;
             this.statStrip.Text = "statusStrip1";
             // 
             // statLabel
@@ -211,10 +211,10 @@
             // 
             // splitContainer3
             // 
-            this.splitContainer3.Size = new System.Drawing.Size(884, 484);
-            this.splitContainer3.SplitterDistance = 521;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 55);
+            this.splitContainer3.Size = new System.Drawing.Size(884, 610);
+            this.splitContainer3.SplitterDistance = 521;
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -227,7 +227,7 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.consoleBox);
             this.splitContainer3.Panel2MinSize = 150;
-            this.splitContainer3.TabIndex = 4;
+            this.splitContainer3.TabIndex = 1;
             // 
             // codeBox
             // 
@@ -240,10 +240,10 @@
             this.codeBox.ForeColor = System.Drawing.Color.White;
             this.codeBox.LabelColor = System.Drawing.Color.Brown;
             this.codeBox.LineView = this.codeBoxLines;
-            this.codeBox.Location = new System.Drawing.Point(21, 0);
+            this.codeBox.Location = new System.Drawing.Point(0, 0);
             this.codeBox.Name = "codeBox";
             this.codeBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.codeBox.Size = new System.Drawing.Size(500, 484);
+            this.codeBox.Size = new System.Drawing.Size(521, 610);
             this.codeBox.TabIndex = 0;
             this.codeBox.Text = "";
             this.codeBox.WordWrap = false;
@@ -260,7 +260,7 @@
             this.codeBoxLines.Name = "codeBoxLines";
             this.codeBoxLines.ReadOnly = true;
             this.codeBoxLines.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedHorizontal;
-            this.codeBoxLines.Size = new System.Drawing.Size(21, 484);
+            this.codeBoxLines.Size = new System.Drawing.Size(0, 610);
             this.codeBoxLines.TabIndex = 1;
             this.codeBoxLines.Text = "";
             this.codeBoxLines.WordWrap = false;
@@ -276,8 +276,8 @@
             this.consoleBox.Name = "consoleBox";
             this.consoleBox.ReadOnly = true;
             this.consoleBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.consoleBox.Size = new System.Drawing.Size(359, 484);
-            this.consoleBox.TabIndex = 0;
+            this.consoleBox.Size = new System.Drawing.Size(359, 610);
+            this.consoleBox.TabIndex = 1;
             this.consoleBox.Text = "";
             this.consoleBox.WordWrap = false;
             // 
@@ -298,7 +298,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(884, 55);
-            this.toolStrip1.TabIndex = 3;
+            this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "Tools";
             // 
             // newBtn
@@ -406,12 +406,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(884, 687);
             this.Controls.Add(this.splitContainer3);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(500, 500);
+            this.MinimumSize = new System.Drawing.Size(500, 726);
             this.Name = "mainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ASMSharp";
