@@ -18,6 +18,7 @@ namespace ASMSharp
                 yield return new string(FormatLine(line).ToArray());
             }
         }
+        // TODO: Use a word by word algorithm instead of character by character and implement RTF parsing
         internal static IEnumerable<char> FormatLine(string line)
         {
             int[] ls = ColCellLengthArr; int gi = 0, al = Math.Min(line.Length,ColCellLengthArr.Sum());

@@ -83,6 +83,7 @@ namespace ASMSharp
         #endregion
 
         #region Formatting
+        // TODO: Implement coloring by manually parsing the RTF in the formatter.       
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter)
@@ -90,7 +91,7 @@ namespace ASMSharp
             base.OnKeyDown(e);
         }
         protected override void OnKeyUp(KeyEventArgs e)
-        {
+        {            
             if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter)
                 e.Handled = true;
             base.OnKeyUp(e);
@@ -113,8 +114,8 @@ namespace ASMSharp
             if (s < Text.Length)
                 lb += Text[s] == '\n' ? 1 : 0;
             // Make s relative to line stat
-            s -= GetFirstCharIndexFromLine(lb);
-            Lines = CodeFormatter.Format(Lines).ToArray();
+            s -= GetFirstCharIndexFromLine(lb);            
+            Lines = CodeFormatter.Format(Lines).ToArray();            
             // Restore cursor and selection state
             s += GetFirstCharIndexFromLine(lb);
             int nl = Text.Length;
@@ -135,6 +136,7 @@ namespace ASMSharp
             //ScrollToCaret(); This is not needed            
             if (color) ColorSyntax();
             Focus();
+            string test = Rtf;
             DrawSuspender.ResumeDrawing(this);
         }
         public void ColorSyntax()

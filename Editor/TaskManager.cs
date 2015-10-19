@@ -32,6 +32,11 @@ namespace ASMSharp
                 if (Started != null) Started(info);
             }
         }
+
+        internal static void Start(Action a)
+        {
+            Start("", new Task(a), false);
+        }
     }
     class TaskInfo
     {
