@@ -91,7 +91,7 @@ namespace ASMSharp
             base.OnKeyDown(e);
         }
         protected override void OnKeyUp(KeyEventArgs e)
-        {            
+        {
             if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter)
                 e.Handled = true;
             base.OnKeyUp(e);
@@ -110,12 +110,36 @@ namespace ASMSharp
             RecordState();
             DrawSuspender.SuspendDrawing(this);
             int s = SelectionStart, l = SelectionLength, lb = GetLineFromCharIndex(s);
-            if (addfirst != '\0') { Text = Text.Insert(s, addfirst.ToString().Replace("\r", "\n")); }
+            if (addfirst != '\0') { SelectedText = addfirst.ToString().Replace("\r", "\n"); }
             if (s < Text.Length)
                 lb += Text[s] == '\n' ? 1 : 0;
-            // Make s relative to line stat
-            s -= GetFirstCharIndexFromLine(lb);            
-            Lines = CodeFormatter.Format(Lines).ToArray();            
+
+            // Make s relative to line start
+            s -= GetFirstCharIndexFromLine(lb);
+
+            // This is temporary (and very loose) RTF parsing, RTFParser should be the only source of RTF when finished
+
+            int headerend = Regex.Match(Rtf, "fs32").Index + 5;
+            string header = Rtf.Substring(0, headerend);
+            string[] rtflines = Regex.Split(Rtf.Substring(headerend), "\\\\par\r\n");
+            List<int> changed = new List<int>();
+            if (isusertyping)
+            {
+                // Unformat current line
+                rtflines[lb] = Lines[lb];
+                changed.Add(lb);
+            }
+            for (int i = 0; i < Lines.Length; i++)
+            {
+                string res = "";
+                if (CodeFormatter.FormatLine(Lines[i], out res))
+                {
+                    rtflines[i] = res;
+                    changed.Add(i);
+                }
+            }
+            if (changed.Count == 0) goto Finish;
+            Rtf = header + string.Join("\\par\r\n", rtflines);
             // Restore cursor and selection state
             s += GetFirstCharIndexFromLine(lb);
             int nl = Text.Length;
@@ -134,26 +158,34 @@ namespace ASMSharp
             Select(s, l);
             LineView.SyncVerticalToCodeBox();
             //ScrollToCaret(); This is not needed            
-            if (color) ColorSyntax();
+            if (color) ColorSyntax(changed);
+            Finish:
             Focus();
             string test = Rtf;
             DrawSuspender.ResumeDrawing(this);
         }
-        public void ColorSyntax()
+        public void ColorSyntax(List<int> targetlines = null)
         {
             DrawSuspender.SuspendDrawing(this);
             // Reset all colors            
             int s = SelectionStart, l = SelectionLength;
             SelectAll();
-            SelectionBackColor = BackColor; SelectionColor = ForeColor;
+            SelectionBackColor = BackColor;
             Select(0, 0);
-            foreach (string word in ColoringProfile.Keys)
+
+            for (int i = 0; i < Lines.Length; i++)
             {
-                Color c = ColoringProfile[word];
-                foreach (Match m in Regex.Matches(Text, word, RegexOptions.IgnoreCase))
+                if (targetlines != null && !targetlines.Contains(i)) continue;
+                string line = Lines[i];
+                int start = GetFirstCharIndexFromLine(i);
+                foreach (string word in ColoringProfile.Keys)
                 {
-                    Select(m.Index, m.Length);
-                    SelectionColor = c;
+                    Color c = ColoringProfile[word];
+                    foreach (Match m in Regex.Matches(line, word, RegexOptions.IgnoreCase))
+                    {
+                        Select(start + m.Index, m.Length);
+                        SelectionColor = c;
+                    }
                 }
             }
             // Color labels            
@@ -163,8 +195,11 @@ namespace ASMSharp
                 SelectionColor = LabelColor;
                 foreach (Match mm in Regex.Matches(Text, "(?<=[\\s,@#])" + m.Value + "(?=[\\s,\\.])"))
                 {
-                    Select(mm.Index, mm.Length);
-                    SelectionColor = LabelColor;
+                    if (targetlines == null || targetlines.Contains(GetLineFromCharIndex(mm.Index)))
+                    {
+                        Select(mm.Index, mm.Length);
+                        SelectionColor = LabelColor;
+                    }
                 }
             }
             //

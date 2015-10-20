@@ -95,6 +95,7 @@
     <Compile Include="RConsole.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="RTFParser.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskManager.cs" />
     <EmbeddedResource Include="mainFrm.resx">

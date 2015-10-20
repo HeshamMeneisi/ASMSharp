@@ -11,17 +11,16 @@ namespace ASMSharp
         {
             get { return Settings.Default.ColCellCountArray.Split(',').Select(t => int.Parse(t)).ToArray(); }
         }
-        internal static IEnumerable<string> Format(string[] lines)
-        {
-            foreach (string line in lines)
-            {
-                yield return new string(FormatLine(line).ToArray());
-            }
-        }
-        // TODO: Use a word by word algorithm instead of character by character and implement RTF parsing
-        internal static IEnumerable<char> FormatLine(string line)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="newline"></param>
+        /// <returns>Line has changed.</returns>
+        internal static bool FormatLine(string line, out string newline)
         {
             int[] ls = ColCellLengthArr; int gi = 0, al = Math.Min(line.Length,ColCellLengthArr.Sum());
+            newline = "";
             foreach (int l in ls)
             {
                 int i = 0;
@@ -33,7 +32,7 @@ namespace ASMSharp
                 while (isstring || (i < l && current != ' ' && current != '\t'))
                 {
                     if (current == '\'' || current == '\"') isstring = !isstring;
-                    yield return current;
+                    newline += current;
                     gi++; i++;
                     if (gi < line.Length)
                         current = line[gi];
@@ -41,7 +40,7 @@ namespace ASMSharp
                 }
                 // Fill with spaces if necessary
                 for (; i < l; i++)
-                    yield return ' ';
+                    newline += ' ';
                 // Skip everything up to next statement
                 while (gi < al && ((current = line[gi]) == ' ' || current == '\t'))
                     gi++;
@@ -49,8 +48,9 @@ namespace ASMSharp
             // Handle comments if any
 
             while (gi < line.Length)
-                yield return line[gi++];
-            Finish:;
+                newline += line[gi++];
+            Finish:            
+            return newline.Length != line.Length || newline != line;
         }
     }
 }
