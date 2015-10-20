@@ -13,6 +13,10 @@ namespace ASMSharp
         public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
         [DllImport("User32.dll")]
         public extern static int SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+        [DllImport("user32.dll")]
+        public static extern bool HideCaret(IntPtr hWnd);
+        [DllImport("User32.dll")]
+        public extern static int GetScrollPos(IntPtr hWnd, int nBar);
 
         private const int WM_SETREDRAW = 11;
         const int EM_SETZOOM = 0x04E1;

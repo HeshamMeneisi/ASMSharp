@@ -57,7 +57,8 @@ namespace ASMSharp
             SetCodeBoxColors();
             consoleBox.LineRead += lineread;
             codeBox.Edited = false;
-            codeBoxLines.Width = 10;
+            codeBoxLines.Text = "1";
+            codeBoxLines.TrimToText();
         }
 
         private void SetCodeBoxColors()
