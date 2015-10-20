@@ -47,8 +47,8 @@ namespace ASMSharp
             }
             // Handle comments if any
 
-            while (gi < line.Length)
-                newline += line[gi++];
+            if (gi < line.Length)
+                newline += line.Substring(gi);
             Finish:            
             return newline.Length != line.Length || newline != line;
         }

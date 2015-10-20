@@ -57,6 +57,7 @@ namespace ASMSharp
             SetCodeBoxColors();
             consoleBox.LineRead += lineread;
             codeBox.Edited = false;
+            codeBoxLines.Width = 10;
         }
 
         private void SetCodeBoxColors()
@@ -148,7 +149,7 @@ namespace ASMSharp
             progBar.PerformStep();
         }
 
-        string stub = "Prog     start   1000\n\n         end     Prog";
+        string stub = "Prog     start   1000    \n\n         end     Prog";
         //int FontSize { get { return Settings.Default.FontSize; } }
         string openfile = "";
         string CurrentFile

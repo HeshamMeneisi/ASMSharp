@@ -73,7 +73,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CodeFormatter.cs" />
-    <Compile Include="DrawSuspender.cs" />
+    <Compile Include="MessageManager.cs" />
     <Compile Include="Executer.cs" />
     <Compile Include="LineView.cs">
       <SubType>Component</SubType>

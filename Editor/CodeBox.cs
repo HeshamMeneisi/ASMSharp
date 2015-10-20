@@ -29,11 +29,11 @@ namespace ASMSharp
         #endregion
 
         #region LineView
-        private LineView ld = null;
+        private LineView ld = null;        
         protected override void OnVScroll(EventArgs e)
-        {
+        {            
             base.OnVScroll(e);
-            LineView.SyncVerticalToCodeBox();
+            //LineView.SyncVerticalToCodeBox();
         }
         #endregion
 
@@ -108,37 +108,41 @@ namespace ASMSharp
         public void FormatCodeBox(bool isusertyping = false, bool color = true, char addfirst = '\0')
         {
             RecordState();
-            DrawSuspender.SuspendDrawing(this);
+            MessageManager.SuspendDrawing(this);
             int s = SelectionStart, l = SelectionLength, lb = GetLineFromCharIndex(s);
             if (addfirst != '\0') { SelectedText = addfirst.ToString().Replace("\r", "\n"); }
-            if (s < Text.Length)
-                lb += Text[s] == '\n' ? 1 : 0;
-
-            // Make s relative to line start
-            s -= GetFirstCharIndexFromLine(lb);
 
             // This is temporary (and very loose) RTF parsing, RTFParser should be the only source of RTF when finished
 
             int headerend = Regex.Match(Rtf, "fs32").Index + 5;
-            string header = Rtf.Substring(0, headerend);
-            string[] rtflines = Regex.Split(Rtf.Substring(headerend), "\\\\par\r\n");
+            string header = Rtf.Substring(0, headerend - 1);
+            string[] rtflines = Regex.Split(Rtf.Substring(headerend - 1), "\\\\par\r\n");
             List<int> changed = new List<int>();
             if (isusertyping)
             {
                 // Unformat current line
-                rtflines[lb] = Lines[lb];
+                CodeFormatter.FormatLine(Lines[lb], out rtflines[lb]);
                 changed.Add(lb);
             }
-            for (int i = 0; i < Lines.Length; i++)
+            else
             {
-                string res = "";
-                if (CodeFormatter.FormatLine(Lines[i], out res))
+                for (int i = 0; i < Lines.Length; i++)
                 {
-                    rtflines[i] = res;
-                    changed.Add(i);
+                    string res = "";
+                    if (CodeFormatter.FormatLine(Lines[i], out res))
+                    {
+                        rtflines[i] = res;
+                        changed.Add(i);
+                    }
                 }
             }
+            if (s < Text.Length)
+                lb += Text[s] == '\n' ? 1 : 0;
+            // Make s relative to line start
+            s -= GetFirstCharIndexFromLine(lb);
+            // If nothing has changed just finish
             if (changed.Count == 0) goto Finish;
+            // TODO: Disable event throwing (Too many TextChanged causes lag)
             Rtf = header + string.Join("\\par\r\n", rtflines);
             // Restore cursor and selection state
             s += GetFirstCharIndexFromLine(lb);
@@ -157,16 +161,16 @@ namespace ASMSharp
             if (l < 0) l = 0;
             Select(s, l);
             LineView.SyncVerticalToCodeBox();
-            //ScrollToCaret(); This is not needed            
             if (color) ColorSyntax(changed);
+
             Finish:
             Focus();
             string test = Rtf;
-            DrawSuspender.ResumeDrawing(this);
+            MessageManager.ResumeDrawing(this);
         }
         public void ColorSyntax(List<int> targetlines = null)
         {
-            DrawSuspender.SuspendDrawing(this);
+            MessageManager.SuspendDrawing(this);
             // Reset all colors            
             int s = SelectionStart, l = SelectionLength;
             SelectAll();
@@ -205,7 +209,12 @@ namespace ASMSharp
             //
             Select(s, l);
             Focus();
-            DrawSuspender.ResumeDrawing(this);
+            MessageManager.ResumeDrawing(this);
+        }
+        protected override void OnContentsResized(ContentsResizedEventArgs e)
+        {            
+            base.OnContentsResized(e);
+            ZoomFactor = 1;
         }
         #endregion
     }
