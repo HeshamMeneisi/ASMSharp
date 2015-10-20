@@ -29,11 +29,11 @@ namespace ASMSharp
         #endregion
 
         #region LineView
-        private LineView ld = null;        
+        private LineView ld = null;
         protected override void OnVScroll(EventArgs e)
-        {            
+        {
             base.OnVScroll(e);
-            //LineView.SyncVerticalToCodeBox();
+            LineView.SyncVerticalToCodeBox();
         }
         #endregion
 
@@ -143,6 +143,7 @@ namespace ASMSharp
             // If nothing has changed just finish
             if (changed.Count == 0) goto Finish;
             // TODO: Disable event throwing (Too many TextChanged causes lag)
+            ld.StopUpdating();
             Rtf = header + string.Join("\\par\r\n", rtflines);
             // Restore cursor and selection state
             s += GetFirstCharIndexFromLine(lb);
@@ -161,6 +162,7 @@ namespace ASMSharp
             if (l < 0) l = 0;
             Select(s, l);
             LineView.SyncVerticalToCodeBox();
+            ld.StartUpdating();
             if (color) ColorSyntax(changed);
 
             Finish:
@@ -176,33 +178,59 @@ namespace ASMSharp
             SelectAll();
             SelectionBackColor = BackColor;
             Select(0, 0);
-
-            for (int i = 0; i < Lines.Length; i++)
+            if (targetlines == null)
             {
-                if (targetlines != null && !targetlines.Contains(i)) continue;
-                string line = Lines[i];
-                int start = GetFirstCharIndexFromLine(i);
                 foreach (string word in ColoringProfile.Keys)
                 {
                     Color c = ColoringProfile[word];
-                    foreach (Match m in Regex.Matches(line, word, RegexOptions.IgnoreCase))
+                    foreach (Match m in Regex.Matches(Text, word, RegexOptions.IgnoreCase))
                     {
-                        Select(start + m.Index, m.Length);
+                        Select(m.Index, m.Length);
                         SelectionColor = c;
+                    }
+                }
+            }
+            else
+            {
+                foreach (int i in targetlines)
+                {
+                    string line = Lines[i];
+                    int start = GetFirstCharIndexFromLine(i);
+                    foreach (string word in ColoringProfile.Keys)
+                    {
+                        Color c = ColoringProfile[word];
+                        foreach (Match m in Regex.Matches(line, word, RegexOptions.IgnoreCase))
+                        {
+                            Select(start + m.Index, m.Length);
+                            SelectionColor = c;
+                        }
                     }
                 }
             }
             // Color labels            
             foreach (Match m in Regex.Matches(Text, Settings.Default.LabelRegex))
             {
-                Select(m.Index, m.Length);
-                SelectionColor = LabelColor;
-                foreach (Match mm in Regex.Matches(Text, "(?<=[\\s,@#])" + m.Value + "(?=[\\s,\\.])"))
+                // TODO: A hashtable of lables might improve performance here.
+                // If reformatting entire text, or label is potentially new
+                if (targetlines == null || targetlines.Contains(GetLineFromCharIndex(m.Index)))
                 {
-                    if (targetlines == null || targetlines.Contains(GetLineFromCharIndex(mm.Index)))
+                    foreach (Match mm in Regex.Matches(Text, "(?<=[\\s,@#])" + m.Value + "(?=[\\s,\\.])"))
                     {
                         Select(mm.Index, mm.Length);
                         SelectionColor = LabelColor;
+                    }
+                }
+                else
+                {
+                    foreach (int i in targetlines)
+                    {
+                        string line = Lines[i];
+                        int start = GetFirstCharIndexFromLine(i);
+                        foreach (Match mm in Regex.Matches(line, "(?<=[\\s,@#])" + m.Value + "(?=[\\s,\\.])"))
+                        {
+                            Select(start + mm.Index, mm.Length);
+                            SelectionColor = LabelColor;
+                        }
                     }
                 }
             }
@@ -212,7 +240,7 @@ namespace ASMSharp
             MessageManager.ResumeDrawing(this);
         }
         protected override void OnContentsResized(ContentsResizedEventArgs e)
-        {            
+        {
             base.OnContentsResized(e);
             ZoomFactor = 1;
         }

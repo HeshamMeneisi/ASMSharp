@@ -38,13 +38,13 @@ namespace ASMSharp
 
         private void textChanged(object sender, EventArgs e)
         {
+            if (!update) return;
             if (Lines.Length == codebox.Lines.Length) return;
             MessageManager.SuspendDrawing(this);
             int lines = codebox.Lines.Length, i = Lines.Length + 1;
             List<int> lnum = new List<int>();
             while (i <= lines)
                 lnum.Add(i++);
-            if (lnum.Count == 0) return;
             if (Text != "" && lnum.Count > 0) AppendText("\n");
             AppendText(string.Join("\n", lnum.Select(t => t.ToString()).ToArray()));
             if (i - 1 > lines)
@@ -54,6 +54,7 @@ namespace ASMSharp
         }
         protected override void OnSelectionChanged(EventArgs e)
         {
+            if (!update) return;
             if (SelectionLength == 0 && (SelectionStart == Text.Length || Text[SelectionStart] == '\n'))
             {
                 int idx = codebox.GetCharIndexFromPosition(new Point(0, GetPositionFromCharIndex(SelectionStart).Y));
@@ -87,6 +88,16 @@ namespace ASMSharp
             // Forward message
             MessageManager.SendMessage(Handle, (int)0x0115, new IntPtr(wParam), new IntPtr(0));
             MessageManager.ResumeDrawing(this);
+        }
+        bool update = true;
+        internal void StopUpdating()
+        {
+            update = false;
+        }
+
+        internal void StartUpdating()
+        {
+            update = true;
         }
     }
 }
