@@ -43,7 +43,7 @@ namespace ASMSharp
         LinkedList<CodeBoxState> future = new LinkedList<CodeBoxState>();
         private void RecordState(LinkedList<CodeBoxState> target)
         {
-            target.AddLast(new CodeBoxState(Text, SelectionStart));
+            target.AddLast(new CodeBoxState(Lines, SelectionStart));
             if (target.Count > MaxChangesStored)
                 target.RemoveFirst();
         }
@@ -53,7 +53,7 @@ namespace ASMSharp
             if (temp != null)
             {
                 var data = temp.Value;
-                Text = data.Text;
+                Lines = data.Lines;
                 Select(data.Cursor, 0);
                 target.RemoveLast();
                 ColorSyntax();
@@ -107,7 +107,6 @@ namespace ASMSharp
         }
         public void FormatCodeBox(bool isusertyping = false, bool color = true, char addfirst = '\0')
         {
-            RecordState();
             MessageManager.SuspendDrawing(this);
             int s = SelectionStart, l = SelectionLength, lb = GetLineFromCharIndex(s);
             if (addfirst != '\0') { SelectedText = addfirst.ToString().Replace("\r", "\n"); }
@@ -142,9 +141,28 @@ namespace ASMSharp
             s -= GetFirstCharIndexFromLine(lb);
             // If nothing has changed just finish
             if (changed.Count == 0) goto Finish;
-            // TODO: Disable event throwing (Too many TextChanged causes lag)
+            string[] prevlines = past.Count > 0 ? past.Last.Value.Lines : null;
             ld.StopUpdating();
+            RecordState();
             Rtf = header + string.Join("\\par\r\n", rtflines);
+            // Remove labels from hashtable
+            if (prevlines != null)
+                foreach (int i in changed)
+                {
+                    if (i >= prevlines.Length) break; // Changed is sorted by default
+                    string line = prevlines[i];
+                    // Note: Changed lines in rtf are raw
+                    var newlabels = new List<string>();
+                    foreach (Match m in Regex.Matches("\n" + rtflines[i], Settings.Default.LabelRegex))
+                        newlabels.Add(m.Value);
+                    foreach (Match mm in Regex.Matches("\n" + line/*Simulate line existense in text*/
+                        , Settings.Default.LabelRegex))
+                        if (!newlabels.Contains(mm.Value))
+                            UnregisterLabel(mm.Value);
+                    foreach (string label in newlabels)
+                        RegisterLabel(label); // Does nothing if registred
+                }
+            //
             // Restore cursor and selection state
             s += GetFirstCharIndexFromLine(lb);
             int nl = Text.Length;
@@ -170,6 +188,28 @@ namespace ASMSharp
             string test = Rtf;
             MessageManager.ResumeDrawing(this);
         }
+
+        private void UnregisterLabel(string value)
+        {
+            if (!labels.Contains(value)) return;
+            labels.Remove(value);
+            foreach (Match mm in Regex.Matches(Text, "(?<=[\\s,@#])" + value + "(?=[\\s,\\.])"))
+            {
+                Select(mm.Index, mm.Length);
+                SelectionColor = ForeColor;
+            }
+        }
+        private void RegisterLabel(string value)
+        {
+            if (labels.Contains(value)) return;
+            labels.Add(value);
+            foreach (Match mm in Regex.Matches(Text, "(?<=[\\s,@#])" + value + "(?=[\\s,\\.])"))
+            {
+                Select(mm.Index, mm.Length);
+                SelectionColor = LabelColor;
+            }
+        }
+        HashSet<string> labels = new HashSet<string>();
         public void ColorSyntax(List<int> targetlines = null)
         {
             MessageManager.SuspendDrawing(this);
@@ -208,30 +248,25 @@ namespace ASMSharp
                 }
             }
             // Color labels            
-            foreach (Match m in Regex.Matches(Text, Settings.Default.LabelRegex))
+            if (targetlines == null)
             {
-                // TODO: A hashtable of lables might improve performance here.
-                // If reformatting entire text, or label is potentially new
-                if (targetlines == null || targetlines.Contains(GetLineFromCharIndex(m.Index)))
+                labels.Clear();
+                foreach (Match m in Regex.Matches(Text, Settings.Default.LabelRegex))
+                    RegisterLabel(m.Value);
+            }
+            else
+            {
+                foreach (int i in targetlines)
                 {
-                    foreach (Match mm in Regex.Matches(Text, "(?<=[\\s,@#])" + m.Value + "(?=[\\s,\\.])"))
-                    {
-                        Select(mm.Index, mm.Length);
-                        SelectionColor = LabelColor;
-                    }
-                }
-                else
-                {
-                    foreach (int i in targetlines)
-                    {
-                        string line = Lines[i];
-                        int start = GetFirstCharIndexFromLine(i);
-                        foreach (Match mm in Regex.Matches(line, "(?<=[\\s,@#])" + m.Value + "(?=[\\s,\\.])"))
+                    string line = Lines[i];
+                    int start = GetFirstCharIndexFromLine(i);
+                    string tline = "\n" + line;
+                    foreach (string lb in labels)
+                        foreach (Match mm in Regex.Matches(tline, "(?<=[\\s\n,@#])" + lb + "(?=[\\s,\\.])"))
                         {
-                            Select(start + mm.Index, mm.Length);
+                            Select(start + mm.Index - 1, mm.Length);
                             SelectionColor = LabelColor;
                         }
-                    }
                 }
             }
             //
@@ -248,11 +283,11 @@ namespace ASMSharp
     }
     class CodeBoxState
     {
-        public string Text { get; set; }
+        public string[] Lines { get; set; }
         public int Cursor { get; set; }
-        public CodeBoxState(string st, int ind)
+        public CodeBoxState(string[] st, int ind)
         {
-            Text = st; Cursor = ind;
+            Lines = st; Cursor = ind;
         }
     }
 }
