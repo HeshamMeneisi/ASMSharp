@@ -56,7 +56,7 @@ namespace ASMSharp
             SetCodeBoxColors();
             consoleBox.LineRead += lineread;
             codeBox.Edited = false;
-            codeBoxLines.Text = "1";            
+            codeBoxLines.Text = "1";
             codeBoxLines.TrimToText();
 
             if (args.Length > 0)
@@ -266,7 +266,7 @@ namespace ASMSharp
             buildrunBtn.Visible = runmenuitem.Visible = false;
             stopBtn.Visible = terminatemenuitem.Visible = true;
             consoleBox.Clear();
-            Executer.Start(codeBox.Text);
+            Executer.Start(codeBox.Text, this);
         }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {

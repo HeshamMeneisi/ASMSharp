@@ -32,8 +32,8 @@ namespace ASMSharp
         private LineView ld = null;
         protected override void OnVScroll(EventArgs e)
         {
-            base.OnVScroll(e);
             LineView.SyncVerticalToCodeBox();
+            base.OnVScroll(e);            
         }
         #endregion
 
@@ -181,7 +181,7 @@ namespace ASMSharp
             Select(s, l);
             LineView.SyncVerticalToCodeBox();
             ld.StartUpdating();
-            if (color) ColorSyntax(changed);
+            if (color) ColorSyntax(isusertyping ? changed : null);
 
             Finish:
             Focus();

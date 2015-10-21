@@ -19,7 +19,7 @@ namespace ASMSharp
 
         public static bool IsRunning { get { return !terminated; } } // Accurate for now
 
-        internal static void Start(string code)
+        internal static void Start(string code, Form owner)
         {
             terminated = false;
             // This is for the default sim
@@ -80,7 +80,7 @@ namespace ASMSharp
                         else if (line.Length > 1 && line[1] != ' ')
                             c++;
                     }
-                    if (flag && MessageBox.Show("Errors found. Continue anyway?", "Attention!", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
+                    if (flag && MessageBox.Show(owner, "Errors found. Continue anyway?", "Attention!", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
                     {
                         terminated = true;
                         if (!p.HasExited)

@@ -31,7 +31,7 @@ namespace ASMSharp
         private void fontChanged(object sender, EventArgs e)
         {
             Font = (sender as RichTextBox).Font;
-        }        
+        }
         private void textChanged(object sender, EventArgs e)
         {
             if (!update) return;
@@ -46,8 +46,10 @@ namespace ASMSharp
                 lnum.Add(i++);
             if (lnum.Count > 0)
             {
-                string[] nrtflines = new string[rtflines.Length + lnum.Count];
+                string[] nrtflines = new string[rtflines.Length + lnum.Count - 1];
                 rtflines.CopyTo(nrtflines, 0);
+                if (nrtflines.Length >= 2 && nrtflines[rtflines.Length - 2].StartsWith("\\highlight"))
+                    nrtflines[rtflines.Length - 2] += "\\highlight0";
                 lnum.Select(t => t.ToString()).ToArray().CopyTo(nrtflines, rtflines.Length - 1);
                 Rtf = header + string.Join("\\par\r\n", nrtflines);
             }
@@ -58,16 +60,15 @@ namespace ASMSharp
                 Text = "1";
                 breakpoints.Clear();
             }
-            else if (i - 1 > lines)
+            else
             {
-                if (rtflines.Length >= 2 && rtflines[lines - 2].StartsWith("\\highlight"))
-                    rtflines[lines - 2] += "\\highlight0";
                 Rtf = header + string.Join("\\par\r\n", rtflines.Take(lines).ToArray());
                 // No need to block the GUI here
                 TaskManager.Start(() => breakpoints.RemoveAll(t => t >= lines));
                 SyncVerticalToCodeBox();
             }
             TrimToText();
+            SyncVerticalToCodeBox();
             MessageManager.ResumeDrawing(this);
         }
         protected override void OnMouseDown(MouseEventArgs e)
@@ -114,7 +115,6 @@ namespace ASMSharp
         }
         public void SyncVerticalToCodeBox()
         {
-            MessageManager.SuspendDrawing(this);
             // Get position
             int pos = MessageManager.GetScrollPos(codebox.Handle, 1 /*Vertical*/);
             if (pos == MessageManager.GetScrollPos(Handle, 1)) return;
@@ -123,7 +123,6 @@ namespace ASMSharp
             uint wParam = 4 | (uint)pos;
             // Forward message
             MessageManager.SendMessage(Handle, (int)0x0115, new IntPtr(wParam), new IntPtr(0));
-            MessageManager.ResumeDrawing(this);
         }
         bool update = true;
         internal void StopUpdating()
