@@ -11,6 +11,7 @@ namespace ASMSharp
     public partial class mainFrm : Form
     {
         public System.Windows.Forms.Timer progBarTimer;
+        string[] args;
         public mainFrm(string[] args)
         {
             progBarTimer = new System.Windows.Forms.Timer();
@@ -24,9 +25,7 @@ namespace ASMSharp
             Executer.OutputError += onerror;
 
             InitializeComponent();
-
-            if (args.Length > 0)
-                OpenFile(args[0]);
+            this.args = args;
         }
         private void onerror(int line, string error)
         {
@@ -57,8 +56,11 @@ namespace ASMSharp
             SetCodeBoxColors();
             consoleBox.LineRead += lineread;
             codeBox.Edited = false;
-            codeBoxLines.Text = "1";
+            codeBoxLines.Text = "1";            
             codeBoxLines.TrimToText();
+
+            if (args.Length > 0)
+                OpenFile(args[0]);
         }
 
         private void SetCodeBoxColors()

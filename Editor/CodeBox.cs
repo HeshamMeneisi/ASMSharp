@@ -153,9 +153,9 @@ namespace ASMSharp
                     string line = prevlines[i];
                     // Note: Changed lines in rtf are raw
                     var newlabels = new List<string>();
-                    foreach (Match m in Regex.Matches("\n" + rtflines[i], Settings.Default.LabelRegex))
+                    foreach (Match m in Regex.Matches((i > 0 ? "\n" : "") + rtflines[i], Settings.Default.LabelRegex))
                         newlabels.Add(m.Value);
-                    foreach (Match mm in Regex.Matches("\n" + line/*Simulate line existense in text*/
+                    foreach (Match mm in Regex.Matches((i > 0 ? "\n" : "") + line/*Simulate line existense in text*/
                         , Settings.Default.LabelRegex))
                         if (!newlabels.Contains(mm.Value))
                             UnregisterLabel(mm.Value);

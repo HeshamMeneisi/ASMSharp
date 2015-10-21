@@ -31,8 +31,7 @@ namespace ASMSharp
         private void fontChanged(object sender, EventArgs e)
         {
             Font = (sender as RichTextBox).Font;
-        }
-
+        }        
         private void textChanged(object sender, EventArgs e)
         {
             if (!update) return;
@@ -54,15 +53,19 @@ namespace ASMSharp
             }
             else if (lines == 0)
             {
-                Rtf = header + string.Join("\\par\r\n", rtflines.Take(1).ToArray());
+                SelectAll();
+                SelectionBackColor = BackColor;
+                Text = "1";
+                breakpoints.Clear();
             }
             else if (i - 1 > lines)
             {
-                string[] nrtflines = rtflines.Take(lines).ToArray();
-                if (nrtflines.Length >= 2 && nrtflines[nrtflines.Length - 2].StartsWith("\\highlight"))
-                    nrtflines[nrtflines.Length - 2] += "\\highlight0";
-                Rtf = header + string.Join("\\par\r\n", nrtflines);
-                breakpoints.RemoveAll(t => t >= lines);      
+                if (rtflines.Length >= 2 && rtflines[lines - 2].StartsWith("\\highlight"))
+                    rtflines[lines - 2] += "\\highlight0";
+                Rtf = header + string.Join("\\par\r\n", rtflines.Take(lines).ToArray());
+                // No need to block the GUI here
+                TaskManager.Start(() => breakpoints.RemoveAll(t => t >= lines));
+                SyncVerticalToCodeBox();
             }
             TrimToText();
             MessageManager.ResumeDrawing(this);
@@ -99,6 +102,7 @@ namespace ASMSharp
         {
             MessageManager.SuspendDrawing(this);
             Graphics gpx = Graphics.FromHwnd(Handle);
+            Width = 10;
             float fallback = 0;
             try
             {
