@@ -19,7 +19,11 @@ namespace ASMSharp
         /// <returns>Line has changed.</returns>
         internal static bool FormatLine(string line, out string newline)
         {
-            int[] ls = ColCellLengthArr; int gi = 0, al = Math.Min(line.Length,ColCellLengthArr.Sum());
+            if (line.StartsWith("."))
+            {
+                newline = line; return false;
+            }
+            int[] ls = ColCellLengthArr; int gi = 0, al = Math.Min(line.Length, ColCellLengthArr.Sum());
             newline = "";
             foreach (int l in ls)
             {
@@ -49,7 +53,9 @@ namespace ASMSharp
 
             if (gi < line.Length)
                 newline += line.Substring(gi);
-            Finish:            
+            newline = newline.TrimEnd();
+            newline += ' ';
+            Finish:
             return newline.Length != line.Length || newline != line;
         }
     }

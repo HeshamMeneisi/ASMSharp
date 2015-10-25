@@ -253,6 +253,7 @@
             this.codeBoxLines.BackColor = System.Drawing.Color.Black;
             this.codeBoxLines.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.codeBoxLines.CodeBox = this.codeBox;
+            this.codeBoxLines.Cursor = System.Windows.Forms.Cursors.Hand;
             this.codeBoxLines.Dock = System.Windows.Forms.DockStyle.Left;
             this.codeBoxLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeBoxLines.ForeColor = System.Drawing.Color.White;

@@ -3,14 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ASMSharp
 {
     public partial class mainFrm : Form
     {
-        public System.Windows.Forms.Timer progBarTimer;
+        Executer exec = new SICExecuter();
+        public Timer progBarTimer;
         string[] args;
         public mainFrm(string[] args)
         {
@@ -18,11 +18,11 @@ namespace ASMSharp
             progBarTimer.Interval = 200;
             progBarTimer.Tick += progttick;
 
-            Executer.OutputLine += lineoutputted;
+            exec.OutputLine += lineoutputted;
             TaskManager.Started += taskstarted;
             TaskManager.Finished += taskfinished;
-            Executer.Finished += exefinisehd;
-            Executer.OutputError += onerror;
+            exec.Finished += exefinisehd;
+            exec.OutputError += onerror;
 
             InitializeComponent();
             this.args = args;
@@ -80,7 +80,7 @@ namespace ASMSharp
                 // Hex
                 { Settings.Default.HexRegex,Settings.Default.HexColor },
                 // Strings
-                { Settings.Default.StringRegex,Settings.Default.StringColor }
+                { Settings.Default.StringRegex,Settings.Default.StringColor }                
             };
             codeBox.ColorSyntax();
         }
@@ -93,7 +93,7 @@ namespace ASMSharp
 
         private void lineread(string obj)
         {
-            Executer.Input(obj);
+            exec.Input(obj);
         }
 
         private void exefinisehd(DateTime obj)
@@ -266,7 +266,7 @@ namespace ASMSharp
             buildrunBtn.Visible = runmenuitem.Visible = false;
             stopBtn.Visible = terminatemenuitem.Visible = true;
             consoleBox.Clear();
-            Executer.Start(codeBox.Text, this);
+            exec.Start(codeBox.Text, this);
         }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -279,16 +279,16 @@ namespace ASMSharp
         }
         private void stopBtn_Click(object sender, EventArgs e)
         {
-            Executer.Terminate();
+            exec.Terminate();
         }
 
         private void mainFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Executer.IsRunning)
+            if (exec.IsRunning)
             {
                 e.Cancel = true;
-                Executer.Finished += (d) => { try { Invoke(new MethodInvoker(() => this.Close())); } catch {/* Disposed */ } };
-                Executer.Terminate();
+                exec.Finished += (d) => { try { Invoke(new MethodInvoker(() => this.Close())); } catch {/* Disposed */ } };
+                exec.Terminate();
             }
             else if (codeBox.Edited)
                 switch (MessageBox.Show("Would you like to save current file first?", "Exiting", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Asterisk))

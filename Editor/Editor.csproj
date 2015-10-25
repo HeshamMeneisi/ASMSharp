@@ -73,8 +73,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CodeFormatter.cs" />
-    <Compile Include="MessageManager.cs" />
     <Compile Include="Executer.cs" />
+    <Compile Include="MessageManager.cs" />
+    <Compile Include="SICExecuter.cs" />
     <Compile Include="LineView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -144,11 +145,11 @@
     <None Include="Media\open.png" />
     <None Include="Media\new.png" />
     <None Include="Media\format.png" />
-    <None Include="Required\SICXEASM .exe" />
     <None Include="Required\SICSIM.exe" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Required\SICXEASM.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -33,7 +33,7 @@ namespace ASMSharp
         protected override void OnVScroll(EventArgs e)
         {
             LineView.SyncVerticalToCodeBox();
-            base.OnVScroll(e);            
+            base.OnVScroll(e);
         }
         #endregion
 
@@ -88,7 +88,15 @@ namespace ASMSharp
         {
             if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter)
                 e.Handled = true;
+            else if (e.Control && e.KeyCode == Keys.V)
+            {
+                e.Handled = true;
+                Paste();
+            }
             base.OnKeyDown(e);
+            if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+                if (GetLineFromCharIndex(SelectionStart) >= Lines.Length - 1)
+                    ScrollToCaret();
         }
         protected override void OnKeyUp(KeyEventArgs e)
         {
@@ -102,21 +110,34 @@ namespace ASMSharp
             {
                 e.Handled = true;
                 FormatCodeBox(true, true, e.KeyChar);
-            }
+                if (GetLineFromCharIndex(SelectionStart) >= Lines.Length - 1)
+                    ScrollToCaret();
+            }            
             base.OnKeyPress(e);
         }
-        public void FormatCodeBox(bool isusertyping = false, bool color = true, char addfirst = '\0')
+        public void FormatCodeBox(bool isusertyping = false, bool color = true, char addfirst = '\0', int start = -1, int end = -1)
         {
+            ZoomFactor = 1f;
             MessageManager.SuspendDrawing(this);
             int s = SelectionStart, l = SelectionLength, lb = GetLineFromCharIndex(s);
-            if (addfirst != '\0') { SelectedText = addfirst.ToString().Replace("\r", "\n"); }
-
+            if (addfirst != '\0')
+            {
+                if (addfirst == '\r') addfirst = '\n';
+                SelectedText = addfirst.ToString();
+            }
+            bool estate = Edited;
+            SelectAll();
+            SelectionBackColor = BackColor; // Triggers TextChanged
+            Select(0, 0);
+            Edited = estate;
             // This is temporary (and very loose) RTF parsing, RTFParser should be the only source of RTF when finished
 
             int headerend = Regex.Match(Rtf, "fs32").Index + 5;
             string header = Rtf.Substring(0, headerend - 1);
             string[] rtflines = Regex.Split(Rtf.Substring(headerend - 1), "\\\\par\r\n");
             List<int> changed = new List<int>();
+            bool shifted = addfirst == '\n' && s == GetFirstCharIndexFromLine(lb);
+            lb += shifted ? 1 : 0;
             if (isusertyping)
             {
                 // Unformat current line
@@ -125,7 +146,7 @@ namespace ASMSharp
             }
             else
             {
-                for (int i = 0; i < Lines.Length; i++)
+                for (int i = (start >= 0 && start < Lines.Length ? start : 0); i < (end >= 0 && end < Lines.Length ? end : Lines.Length); i++)
                 {
                     string res = "";
                     if (CodeFormatter.FormatLine(Lines[i], out res))
@@ -135,8 +156,6 @@ namespace ASMSharp
                     }
                 }
             }
-            if (s < Text.Length)
-                lb += Text[s] == '\n' ? 1 : 0;
             // Make s relative to line start
             s -= GetFirstCharIndexFromLine(lb);
             // If nothing has changed just finish
@@ -150,12 +169,13 @@ namespace ASMSharp
                 foreach (int i in changed)
                 {
                     if (i >= prevlines.Length) break; // Changed is sorted by default
-                    string line = prevlines[i];
                     // Note: Changed lines in rtf are raw
                     var newlabels = new List<string>();
                     foreach (Match m in Regex.Matches((i > 0 ? "\n" : "") + rtflines[i], Settings.Default.LabelRegex))
                         newlabels.Add(m.Value);
-                    foreach (Match mm in Regex.Matches((i > 0 ? "\n" : "") + line/*Simulate line existense in text*/
+                    int oi = i - (shifted ? 1 : 0);
+                    string line = prevlines[oi];
+                    foreach (Match mm in Regex.Matches((oi > 0 ? "\n" : "") + line/*Simulate line existense in text*/
                         , Settings.Default.LabelRegex))
                         if (!newlabels.Contains(mm.Value))
                             UnregisterLabel(mm.Value);
@@ -182,7 +202,6 @@ namespace ASMSharp
             LineView.SyncVerticalToCodeBox();
             ld.StartUpdating();
             if (color) ColorSyntax(isusertyping ? changed : null);
-
             Finish:
             Focus();
             string test = Rtf;
@@ -215,9 +234,6 @@ namespace ASMSharp
             MessageManager.SuspendDrawing(this);
             // Reset all colors            
             int s = SelectionStart, l = SelectionLength;
-            SelectAll();
-            SelectionBackColor = BackColor;
-            Select(0, 0);
             if (targetlines == null)
             {
                 foreach (string word in ColoringProfile.Keys)
@@ -235,6 +251,7 @@ namespace ASMSharp
                 foreach (int i in targetlines)
                 {
                     string line = Lines[i];
+                    if (line.StartsWith(".")) continue;
                     int start = GetFirstCharIndexFromLine(i);
                     foreach (string word in ColoringProfile.Keys)
                     {
@@ -259,17 +276,18 @@ namespace ASMSharp
                 foreach (int i in targetlines)
                 {
                     string line = Lines[i];
+                    if (line.StartsWith(".")) continue;
                     int start = GetFirstCharIndexFromLine(i);
                     string tline = "\n" + line;
                     foreach (string lb in labels)
-                        foreach (Match mm in Regex.Matches(tline, "(?<=[\\s\n,@#])" + lb + "(?=[\\s,\\.])"))
+                        foreach (Match mm in Regex.Matches(tline, "(?<=[\\s\n,@#])" + lb + "(?=[\\s,\\.])", RegexOptions.None))
                         {
                             Select(start + mm.Index - 1, mm.Length);
                             SelectionColor = LabelColor;
                         }
                 }
             }
-            //
+            //            
             Select(s, l);
             Focus();
             MessageManager.ResumeDrawing(this);
@@ -277,7 +295,16 @@ namespace ASMSharp
         protected override void OnContentsResized(ContentsResizedEventArgs e)
         {
             base.OnContentsResized(e);
-            ZoomFactor = 1;
+            ZoomFactor = 0.9f; ZoomFactor = 1;
+        }
+        new void Paste()
+        {
+            if (Clipboard.ContainsText())
+            {
+                string text = SelectedText = Clipboard.GetText().Replace("\r\n", "\n");
+                int lastl = GetLineFromCharIndex(SelectionStart);
+                FormatCodeBox(false, true, '\0', lastl - text.Count(c => c == '\n'), lastl);
+            }
         }
         #endregion
     }

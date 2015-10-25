@@ -71,6 +71,11 @@ namespace ASMSharp
             SyncVerticalToCodeBox();
             MessageManager.ResumeDrawing(this);
         }
+        protected override void OnSelectionChanged(EventArgs e)
+        {            
+            base.OnSelectionChanged(e);
+            codebox.Focus();
+        }
         protected override void OnMouseDown(MouseEventArgs e)
         {
             ToggleBreakPoint(GetLineFromCharIndex(GetCharIndexFromPosition(new Point(0, e.Y))));
