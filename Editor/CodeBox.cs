@@ -112,7 +112,7 @@ namespace ASMSharp
                 FormatCodeBox(true, true, e.KeyChar);
                 if (GetLineFromCharIndex(SelectionStart) >= Lines.Length - 1)
                     ScrollToCaret();
-            }            
+            }
             base.OnKeyPress(e);
         }
         public void FormatCodeBox(bool isusertyping = false, bool color = true, char addfirst = '\0', int start = -1, int end = -1)
@@ -126,9 +126,8 @@ namespace ASMSharp
                 SelectedText = addfirst.ToString();
             }
             bool estate = Edited;
-            SelectAll();
+            //SelectAll();
             SelectionBackColor = BackColor; // Triggers TextChanged
-            Select(0, 0);
             Edited = estate;
             // This is temporary (and very loose) RTF parsing, RTFParser should be the only source of RTF when finished
 
@@ -156,10 +155,10 @@ namespace ASMSharp
                     }
                 }
             }
+            if (changed.Count == 0) goto Finish;
             // Make s relative to line start
             s -= GetFirstCharIndexFromLine(lb);
             // If nothing has changed just finish
-            if (changed.Count == 0) goto Finish;
             string[] prevlines = past.Count > 0 ? past.Last.Value.Lines : null;
             ld.StopUpdating();
             RecordState();
@@ -197,14 +196,13 @@ namespace ASMSharp
                 }
             }
             while (s + l > nl) l--;
-            if (l < 0) l = 0;
+            if (l < 0) l = 0;            
+            if (color) { Select(s, l); ColorSyntax(isusertyping ? changed : null); }
+            Finish:
+            ld.StartUpdating();
             Select(s, l);
             LineView.SyncVerticalToCodeBox();
-            ld.StartUpdating();
-            if (color) ColorSyntax(isusertyping ? changed : null);
-            Finish:
             Focus();
-            string test = Rtf;
             MessageManager.ResumeDrawing(this);
         }
 

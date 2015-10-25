@@ -384,5 +384,17 @@ namespace ASMSharp.Properties {
                 this["HexRegex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RecentlyOpened {
+            get {
+                return ((string)(this["RecentlyOpened"]));
+            }
+            set {
+                this["RecentlyOpened"] = value;
+            }
+        }
     }
 }

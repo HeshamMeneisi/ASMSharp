@@ -95,5 +95,8 @@ d 1000-1140</Value>
     <Setting Name="HexRegex" Type="System.String" Scope="User">
       <Value Profile="(Default)">(?&lt;=x)(['][^']+['])</Value>
     </Setting>
+    <Setting Name="RecentlyOpened" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

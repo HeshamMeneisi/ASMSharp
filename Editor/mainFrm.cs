@@ -61,8 +61,36 @@ namespace ASMSharp
 
             if (args.Length > 0)
                 OpenFile(args[0]);
+
+            LoadRecentlyOpened();
         }
 
+        private void LoadRecentlyOpened()
+        {
+            string[] fs = GetRecentlyOpened();
+            recentToolStripMenuItem.Enabled = fs.Length > 0;
+            recentToolStripMenuItem.DropDownItems.Clear();
+            foreach (string f in fs)
+                recentToolStripMenuItem.DropDownItems.Add(f);
+        }
+        private void AddRecentlyOpened(string file)
+        {
+            string[] fs = GetRecentlyOpened();
+            string[] nfs = new string[Math.Min(10, fs.Length + 1)];
+            for (int i = 0; i < nfs.Length - 1; i++)
+                nfs[i] = fs[i];
+            nfs[nfs.Length - 1] = file;
+            Settings.Default.RecentlyOpened = String.Join("\n", nfs);
+            Settings.Default.Save();
+        }
+        private string[] GetRecentlyOpened()
+        {
+            string[] fs = Settings.Default.RecentlyOpened.Split('\n');
+            List<string> ret = new List<string>();
+            for (int i = fs.Length - 1; i >= 0; i--)
+                if (ret.Count < 10) ret.Add(fs[i]);
+            return ret.ToArray();
+        }
         private void SetCodeBoxColors()
         {
             codeBox.ColoringProfile = new Dictionary<string, Color>()
@@ -80,7 +108,7 @@ namespace ASMSharp
                 // Hex
                 { Settings.Default.HexRegex,Settings.Default.HexColor },
                 // Strings
-                { Settings.Default.StringRegex,Settings.Default.StringColor }                
+                { Settings.Default.StringRegex,Settings.Default.StringColor }
             };
             codeBox.ColorSyntax();
         }
@@ -241,6 +269,9 @@ namespace ASMSharp
             codeBox.ColorSyntax();
             codeBox.RecordState();
             codeBox.Edited = false;
+            AddRecentlyOpened(CurrentFile);
+            LoadRecentlyOpened();
+            codeBox.Select(0, 0);codeBox.ScrollToCaret();
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -309,6 +340,18 @@ namespace ASMSharp
             frm.ShowDialog(this);
             SetupFont();
             SetCodeBoxColors();
+        }
+
+        private void recentToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var item = e.ClickedItem;
+            if (item != null)
+            {
+                if (!File.Exists(item.Text))
+                    MessageBox.Show("File was not found: " + item.Text, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    OpenFile(item.Text);
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ namespace ASMSharp
 {
     internal class SICExecuter : Executer
     {
+        string DefOutDev = "DEV06";
         string[] DefReq = new string[] { "DEV00", "DEVF1", "DEVF3", "Rename.bat", "SICXEASM.exe", "SICSIM.exe" };
         Process simproc = null;
         Process current = null;
@@ -35,6 +36,7 @@ namespace ASMSharp
             StreamWriter sw = new StreamWriter("SRCFILE");
             sw.Write(code);
             sw.Close();
+            if (File.Exists(DefOutDev)) try { File.Delete(DefOutDev); } catch { }
             /////////////////////////////////////////        
             Task assemble = new Task(() =>
             {
@@ -171,6 +173,12 @@ namespace ASMSharp
                 if (!current.HasExited)
                     current.Kill();
                 current = null;
+                if(File.Exists(DefOutDev))
+                {
+                    OutputLine("> Reading " + DefOutDev);
+                    foreach (string line in File.ReadAllText(DefOutDev).Split('\n'))
+                        OutputLine(line);
+                }
             }
         }
     }
