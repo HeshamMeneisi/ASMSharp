@@ -5,67 +5,48 @@ using System.Text;
 
 namespace ASMSharp
 {
-    interface Executer
+    interface Debugger
     {
         event EventHandler<OutputLineEventArgs> OutputLine;
         event EventHandler<OutputErrorEventArgs> OutputError;
         event EventHandler Finished;
+        event EventHandler<BreakPointReachedEventArgs> BreakPointReached;
         bool IsRunning { get; }
         void Start(string code, System.Windows.Forms.Form owner, params object[] other);
         void Terminate();
         void Input(char b);
         void Input(string line);
+        void Pause();
+        void Resume();
         void OnOutputLine(string line);
         void OnOutputError(int line, string[] errors);
         void OnFinished();
+        void OnBreakPointReached(int line, int address);
     }
 
-    public class OutputErrorEventArgs : EventArgs
+    public class BreakPointReachedEventArgs : EventArgs
     {
-        int linenum;
-        string[] errors;
-        
-        public OutputErrorEventArgs(int linenum,string[] errors)
-        {
-            this.linenum = linenum;
-            this.errors = errors;
-        }
-        public string[] Errors
-        {
-            get
-            {
-                return errors;
-            }
-
-            set
-            {
-                errors = value;
-            }
-        }
-
-        public int LineNum
-        {
-            get
-            {
-                return linenum;
-            }
-
-            set
-            {
-                linenum = value;
-            }
-        }
-    }
-
-    public class OutputLineEventArgs : EventArgs
-    {
-        string line;
-        public OutputLineEventArgs(string line)
+        int line, address;
+        public BreakPointReachedEventArgs(int line,int address)
         {
             this.line = line;
+            this.address = address;
         }
 
-        public string Line
+        public int Address
+        {
+            get
+            {
+                return address;
+            }
+
+            set
+            {
+                address = value;
+            }
+        }
+
+        public int Line
         {
             get
             {

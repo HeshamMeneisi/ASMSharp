@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -10,17 +9,149 @@ namespace ASMSharp
 {
     internal class SICExecuter : Executer
     {
-        string DefOutDev = "DEV06";
-        string[] DefReq = new string[] { "DEV00", "DEVF1", "DEVF3", "Rename.bat", "SICXEASM.exe", "SICSIM.exe" };
-        Process simproc = null;
-        Process current = null;
-        bool terminated = true;
+        protected string DefOutDev = "DEV06";
+        protected string[] DefReq = new string[] { "DEV00", "DEVF1", "DEVF3", "Rename.bat", "SICXEASM.exe", "SICSIM.exe" };
+        protected Process simproc = null;
+        protected Process current = null;
+        protected bool terminated = true;
+        protected LisFile lastlis = null;
 
-        public override bool IsRunning { get { return !terminated; } } // Accurate for now
+        public event EventHandler<OutputLineEventArgs> OutputLine;
+        public event EventHandler<OutputErrorEventArgs> OutputError;
+        public event EventHandler Finished;
 
-        public override void Start(string code, Form owner, params object[] other)
+        LisFile LastLisfile { get { return lastlis; } }
+        public bool IsRunning { get { return !terminated; } } // Accurate for now
+
+        public void Start(string code, Form owner, params object[] other)
         {
             terminated = false;
+            PrepareEnvironment(code);
+            /////////////////////////////////////////        
+            Task assemble = Assemble(owner);
+            Task script = RunPostAsmScript();
+            Task sim = RunSim();
+            Task finished = new Task(() => OnFinished());
+            OnOutputLine("> Started...");
+            TaskManager.Start("Assembling...", assemble, true);
+            TaskManager.Start("Post assembly...", script, true);
+            TaskManager.Start("Executing...", sim, true);
+            TaskManager.Start("Terminating...", finished, true);
+        }
+
+        protected Task RunSim()
+        {
+            Task sim = new Task(() =>
+            {
+                Process p = new Process();
+                p.StartInfo.FileName = Settings.Default.SIMExe;
+                p.StartInfo.Arguments = Settings.Default.SIMArgs;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.EnableRaisingEvents = true;
+                p.StartInfo.CreateNoWindow = true;
+                if (terminated) return;
+                simproc = current = p;
+                p.Start();
+                foreach (string l in Settings.Default.SIMInput.Replace("\r", "").Split('\n'))
+                {
+                    string pr = GlobalSymbols.Resolve(l);
+                    if (pr == null || pr == "") continue;
+                    p.StandardInput.WriteLine(pr);
+                }
+                while (!p.HasExited)
+                {
+                    string l = p.StandardOutput.ReadLine();
+                    OnOutputLine(l);
+                }
+                // If stdout was not flushed in the proc
+                string ol = null;
+                while ((ol = p.StandardOutput.ReadLine()) != null)
+                    OnOutputLine(ol);
+            });
+            return sim;
+        }
+
+        protected Task RunPostAsmScript()
+        {
+            Task script = new Task(() =>
+            {
+                Process p = new Process();
+                p.StartInfo.FileName = Settings.Default.ASMScript;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.CreateNoWindow = true;
+                if (terminated) return;
+                current = p;
+                p.Start();
+                while (!p.HasExited)
+                {
+                    string l = p.StandardOutput.ReadLine();
+                    OnOutputLine(l);
+                }
+                // If stdout was not flushed in the proc
+                string ol = null;
+                while ((ol = p.StandardOutput.ReadLine()) != null)
+                    OnOutputLine(ol);
+            });
+            return script;
+        }
+
+        protected Task Assemble(Form owner)
+        {
+            Task assemble = new Task(() =>
+            {
+                Process p = new Process();
+                p.StartInfo.FileName = Settings.Default.ASMExe;
+                p.StartInfo.Arguments = Settings.Default.ASMArgs;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.CreateNoWindow = true;
+                if (terminated) return;
+                current = p;
+                p.Start();
+                foreach (string l in Settings.Default.ASMInput.Replace("\r", "").Split('\n'))
+                {
+                    string pr = GlobalSymbols.Resolve(l);
+                    if (pr == null || pr == "") continue;
+                    p.StandardInput.WriteLine(pr);
+                }
+                while (!p.HasExited)
+                {
+                    string l = p.StandardOutput.ReadLine();
+                    OnOutputLine(l);
+                }
+                // If stdout was not flushed in the proc
+                string ol = null;
+                while ((ol = p.StandardOutput.ReadLine()) != null)
+                    OnOutputLine(ol);
+                // For Default Sim
+                if (File.Exists("LISFILE"))
+                {
+                    var sr = File.OpenText("LISFILE");
+                    string content = sr.ReadToEnd();
+                    sr.Close();
+                    lastlis = new LisFile(content);
+                    foreach (int l in lastlis.Errors.Keys)
+                        OnOutputError(l, lastlis.Errors[l].ToArray());
+                    owner.Invoke(new MethodInvoker(() =>
+                    {
+                        if (lastlis.Errors.Count > 0 && MessageBox.Show(owner, "Errors found. Continue anyway?", "Attention!", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
+                        {
+                            terminated = true;
+                            if (!p.HasExited)
+                                p.Kill();
+                        }
+                    }));
+                }
+            });
+            return assemble;
+        }
+
+        protected void PrepareEnvironment(string code)
+        {
             // This is for the default sim
             foreach (string s in DefReq)
             {
@@ -37,132 +168,19 @@ namespace ASMSharp
             sw.Write(code);
             sw.Close();
             if (File.Exists(DefOutDev)) try { File.Delete(DefOutDev); } catch { }
-            /////////////////////////////////////////        
-            Task assemble = new Task(() =>
-            {
-                Process p = new Process();
-                p.StartInfo.FileName = Settings.Default.ASMExe;
-                p.StartInfo.Arguments = Settings.Default.ASMArgs;
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardInput = true;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.CreateNoWindow = true;
-                if (terminated) return;
-                current = p;
-                p.Start();
-                // Check every 100ms
-                while (!p.HasExited)
-                {
-                    string l = p.StandardOutput.ReadLine();
-                    if (OutputLine != null)
-                        OutputLine(l);
-                }
-                // If stdout was not flushed in the proc
-                string ol = null;
-                while ((ol = p.StandardOutput.ReadLine()) != null)
-                    if (OutputLine != null)
-                        OutputLine(ol);
-                // For Default Sim
-                if (File.Exists("LISFILE"))
-                {
-                    var sr = File.OpenText("LISFILE");
-                    bool flag = false; int c = -1; // Header is 2 lines
-                    string content = sr.ReadToEnd();
-                    sr.Close();
-                    foreach (string line in content.Split('\n'))
-                    {
-                        var matches = Regex.Matches(line, "[*]{4}.+");
-                        foreach (Match m in matches)
-                            if (OutputError != null)
-                                OutputError(c, m.Value);
-                        if (matches.Count > 0)
-                            flag = true;
-                        else if (line.Length > 1 && line[1] != ' ')
-                            c++;
-                    }
-                    owner.Invoke(new MethodInvoker(() =>
-                    {
-                        if (flag && MessageBox.Show(owner, "Errors found. Continue anyway?", "Attention!", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
-                        {
-                            terminated = true;
-                            if (!p.HasExited)
-                                p.Kill();
-                        }
-                    }));
-                }
-            });
-            Task script = new Task(() =>
-            {
-                Process p = new Process();
-                p.StartInfo.FileName = Settings.Default.ASMScript;
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.CreateNoWindow = true;
-                if (terminated) return;
-                current = p;
-                p.Start();
-                while (!p.HasExited)
-                {
-                    string l = p.StandardOutput.ReadLine();
-                    if (OutputLine != null)
-                        OutputLine(l);
-                }
-                // If stdout was not flushed in the proc
-                string ol = null;
-                while ((ol = p.StandardOutput.ReadLine()) != null)
-                    if (OutputLine != null)
-                        OutputLine(ol);
-            });
-            Task sim = new Task(() =>
-            {
-                Process p = new Process();
-                p.StartInfo.FileName = Settings.Default.SIMExe;
-                p.StartInfo.Arguments = Settings.Default.SIMArgs;
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardInput = true;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.EnableRaisingEvents = true;
-                p.StartInfo.CreateNoWindow = true;
-                if (terminated) return;
-                simproc = current = p;
-                p.Start();
-                foreach (string l in Settings.Default.SIMInput.Replace("\r", "").Split('\n'))
-                    p.StandardInput.WriteLine(l);
-                while (!p.HasExited)
-                {
-                    string l = p.StandardOutput.ReadLine();
-                    if (OutputLine != null)
-                        OutputLine(l);
-                }
-                // If stdout was not flushed in the proc
-                string ol = null;
-                while ((ol = p.StandardOutput.ReadLine()) != null)
-                    if (OutputLine != null)
-                        OutputLine(ol);
-            });
-            Task finished = new Task(() =>
-             {
-                 simproc = null;
-                 Finished(DateTime.Now);
-             });
-            OutputLine("> Started...");
-            TaskManager.Start("Assembling...", assemble, true);
-            TaskManager.Start("Post assembly...", script, true);
-            TaskManager.Start("Executing...", sim, true);
-            TaskManager.Start("Terminating...", finished, true);
         }
 
-        public override void Input(string line)
+        public void Input(string line)
         {
             if (simproc != null && !simproc.HasExited)
                 simproc.StandardInput.WriteLine(line);
         }
-        public override void Input(char b)
+        public void Input(char b)
         {
             if (simproc != null && !simproc.HasExited)
                 simproc.StandardInput.Write(b);
         }
-        public override void Terminate()
+        public void Terminate()
         {
             terminated = true;
             if (current != null && !current.HasExited)
@@ -173,13 +191,29 @@ namespace ASMSharp
                 if (!current.HasExited)
                     current.Kill();
                 current = null;
-                if(File.Exists(DefOutDev))
+                if (File.Exists(DefOutDev))
                 {
-                    OutputLine("> Reading " + DefOutDev);
+                    OnOutputLine("> Reading " + DefOutDev);
                     foreach (string line in File.ReadAllText(DefOutDev).Split('\n'))
-                        OutputLine(line);
+                        OnOutputLine(line);
                 }
             }
+        }
+
+        public void OnOutputLine(string line)
+        {
+            if (OutputLine != null) OutputLine(this, new OutputLineEventArgs(line));
+        }
+
+        public void OnOutputError(int line, string[] errors)
+        {
+            if (OutputError != null) OutputError(this, new OutputErrorEventArgs(line, errors));
+        }
+
+        public void OnFinished()
+        {
+            simproc = null;
+            if (Finished != null) Finished(this, null);
         }
     }
 }

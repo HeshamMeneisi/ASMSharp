@@ -109,7 +109,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("s\r\nr\r\nd r\r\nd 1000-1140")]
+        [global::System.Configuration.DefaultSettingValueAttribute("s\r\n%brkpts%\r\nr\r\nd r\r\nd 1000-1140")]
         public string SIMInput {
             get {
                 return ((string)(this["SIMInput"]));

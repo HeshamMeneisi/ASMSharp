@@ -117,9 +117,10 @@ namespace ASMSharp
         }
         public void FormatCodeBox(bool isusertyping = false, bool color = true, char addfirst = '\0', int start = -1, int end = -1)
         {
+            int spos = MessageManager.GetScrollPos(Handle, 1);
             ZoomFactor = 1f;
             MessageManager.SuspendDrawing(this);
-            int s = SelectionStart, l = SelectionLength, lb = GetLineFromCharIndex(s);
+            int s = SelectionStart, l = SelectionLength, currentline = GetLineFromCharIndex(s);
             if (addfirst != '\0')
             {
                 if (addfirst == '\r') addfirst = '\n';
@@ -135,13 +136,14 @@ namespace ASMSharp
             string header = Rtf.Substring(0, headerend - 1);
             string[] rtflines = Regex.Split(Rtf.Substring(headerend - 1), "\\\\par\r\n");
             List<int> changed = new List<int>();
-            bool shifted = addfirst == '\n' && s == GetFirstCharIndexFromLine(lb);
-            lb += shifted ? 1 : 0;
+            bool newlineadded = addfirst == '\n';
+            bool shifted = newlineadded && s == GetFirstCharIndexFromLine(currentline);
+            currentline += shifted ? 1 : 0;
             if (isusertyping)
             {
                 // Unformat current line
-                CodeFormatter.FormatLine(Lines[lb], out rtflines[lb]);
-                changed.Add(lb);
+                CodeFormatter.FormatLine(Lines[currentline], out rtflines[currentline]);
+                changed.Add(currentline);
             }
             else
             {
@@ -156,8 +158,9 @@ namespace ASMSharp
                 }
             }
             if (changed.Count == 0) goto Finish;
+            currentline += !shifted && newlineadded ? 1 : 0;
             // Make s relative to line start
-            s -= GetFirstCharIndexFromLine(lb);
+            s -= GetFirstCharIndexFromLine(currentline);
             // If nothing has changed just finish
             string[] prevlines = past.Count > 0 ? past.Last.Value.Lines : null;
             ld.StopUpdating();
@@ -183,16 +186,19 @@ namespace ASMSharp
                 }
             //
             // Restore cursor and selection state
-            s += GetFirstCharIndexFromLine(lb);
+            s += GetFirstCharIndexFromLine(currentline);
             int nl = Text.Length;
             if (s >= nl) s = nl;
             if (isusertyping && s >= 0 && s < nl)
             {
                 if (Text[s] == '\n') s++;
-                char it;
-                while (s < nl && ((it = Text[s]) == ' ' || it == '\t'))
+                if (addfirst == ' ')
                 {
-                    s++; l--;
+                    char it;
+                    while (s < nl && ((it = Text[s]) == ' ' || it == '\t'))
+                    {
+                        s++; l--;
+                    }
                 }
             }
             while (s + l > nl) l--;
@@ -200,6 +206,7 @@ namespace ASMSharp
             if (color) { Select(s, l); ColorSyntax(isusertyping ? changed : null); }
             Finish:
             ld.StartUpdating();
+            MessageManager.SendMessage(Handle, (int)0x0115, new IntPtr(4|(spos<<16)), new IntPtr(0));
             Select(s, l);
             LineView.SyncVerticalToCodeBox();
             Focus();

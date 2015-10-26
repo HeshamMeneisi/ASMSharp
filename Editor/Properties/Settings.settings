@@ -25,6 +25,7 @@
     </Setting>
     <Setting Name="SIMInput" Type="System.String" Scope="User">
       <Value Profile="(Default)">s
+%brkpts%
 r
 d r
 d 1000-1140</Value>

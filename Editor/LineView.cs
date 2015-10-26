@@ -122,7 +122,6 @@ namespace ASMSharp
         {
             // Get position
             int pos = MessageManager.GetScrollPos(codebox.Handle, 1 /*Vertical*/);
-            if (pos == MessageManager.GetScrollPos(Handle, 1)) return;
             // Prepare the appropriate window message parameter
             pos <<= 16;
             uint wParam = 4 | (uint)pos;
@@ -138,6 +137,11 @@ namespace ASMSharp
         internal void StartUpdating()
         {
             update = true;
+        }
+
+        internal int[] GetBreakPoints()
+        {
+            return breakpoints.ToArray();
         }
     }
 }

@@ -73,8 +73,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CodeFormatter.cs" />
+    <Compile Include="Debugger.cs" />
     <Compile Include="Executer.cs" />
+    <Compile Include="GlobalSymbols.cs" />
+    <Compile Include="LisFile.cs" />
     <Compile Include="MessageManager.cs" />
+    <Compile Include="SICDebugger.cs" />
     <Compile Include="SICExecuter.cs" />
     <Compile Include="LineView.cs">
       <SubType>Component</SubType>
@@ -149,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Media\deb.png" />
     <None Include="Required\SICXEASM.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

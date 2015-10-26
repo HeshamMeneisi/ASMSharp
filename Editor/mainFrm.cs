@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ASMSharp
@@ -10,6 +11,7 @@ namespace ASMSharp
     public partial class mainFrm : Form
     {
         Executer exec = new SICExecuter();
+        Debugger deb = new SICDebugger();
         public Timer progBarTimer;
         string[] args;
         public mainFrm(string[] args)
@@ -19,20 +21,24 @@ namespace ASMSharp
             progBarTimer.Tick += progttick;
 
             exec.OutputLine += lineoutputted;
+            deb.OutputLine += lineoutputted;
             TaskManager.Started += taskstarted;
             TaskManager.Finished += taskfinished;
             exec.Finished += exefinisehd;
+            deb.Finished += debfinisehd;
             exec.OutputError += onerror;
+            deb.OutputError += onerror;
 
             InitializeComponent();
             this.args = args;
         }
-        private void onerror(int line, string error)
+        private void onerror(object sender, OutputErrorEventArgs e)
         {
-            string msg = "@Line [" + line + "] : " + error;
+            int line = e.LineNum;
+            string msg = "@Line [" + (line + 1) + "] =>";
+            foreach (string error in e.Errors) msg += "\n\t" + error;
             consoleBox.WriteLine(msg);
-            line--; // To zero based
-            this.Invoke(new MethodInvoker(() =>
+            Invoke(new MethodInvoker(() =>
             {
                 int indx = codeBox.GetFirstCharIndexFromLine(line);
                 int ln = codeBox.Lines[line].Length;
@@ -75,11 +81,14 @@ namespace ASMSharp
         }
         private void AddRecentlyOpened(string file)
         {
+            if (file == "") return;
             string[] fs = GetRecentlyOpened();
-            string[] nfs = new string[Math.Min(10, fs.Length + 1)];
-            for (int i = 0; i < nfs.Length - 1; i++)
-                nfs[i] = fs[i];
-            nfs[nfs.Length - 1] = file;
+            string[] nfs = new string[10];
+            nfs[0] = file;
+            int j = 1;
+            for (int i = 0; j < nfs.Length && i < fs.Length; i++)
+                if (fs[i] != file) nfs[j++] = fs[i];
+            nfs = nfs.Take(j).Reverse().ToArray();
             Settings.Default.RecentlyOpened = String.Join("\n", nfs);
             Settings.Default.Save();
         }
@@ -88,7 +97,7 @@ namespace ASMSharp
             string[] fs = Settings.Default.RecentlyOpened.Split('\n');
             List<string> ret = new List<string>();
             for (int i = fs.Length - 1; i >= 0; i--)
-                if (ret.Count < 10) ret.Add(fs[i]);
+                if (ret.Count < 10 && fs[i] != "") ret.Add(fs[i]);
             return ret.ToArray();
         }
         private void SetCodeBoxColors()
@@ -121,28 +130,52 @@ namespace ASMSharp
 
         private void lineread(string obj)
         {
-            exec.Input(obj);
+            if (exec.IsRunning)
+                exec.Input(obj);
+            if (deb.IsRunning)
+                deb.Input(obj);
         }
-
-        private void exefinisehd(DateTime obj)
+        private void exefinisehd(object sender, EventArgs e)
         {
-            consoleBox.WriteLine("> Execution finished at " + obj.ToShortTimeString());
+            consoleBox.WriteLine("> Execution finished at " + DateTime.Now.ToShortTimeString());
             try
             {
-                this.Invoke(new MethodInvoker(() =>
+                Invoke(new MethodInvoker(() =>
                 {
                     buildrunBtn.Visible = runmenuitem.Visible = true;
                     stopBtn.Visible = terminatemenuitem.Visible = false;
                 }));
             }
             catch { /* Disposed */}
+            if (sw)
+            {
+                sw = false;
+                Invoke(new MethodInvoker(() => debBtn_Click(sender, null)));
+            }
         }
-
+        private void debfinisehd(object sender, EventArgs e)
+        {
+            consoleBox.WriteLine("> Debugging finished at " + DateTime.Now.ToShortTimeString());
+            try
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    debBtn.Visible = startDebuggingToolStripMenuItem.Visible = true;
+                    stopBtn.Visible = terminatemenuitem.Visible = false;
+                }));
+            }
+            catch { /* Disposed */}
+            if (sw)
+            {
+                sw = false;
+                Invoke(new MethodInvoker(() => buildrunBtn_Click(sender, null)));
+            }
+        }
         private void taskfinished(TaskInfo obj)
         {
             try
             {
-                this.Invoke(new MethodInvoker(() =>
+                Invoke(new MethodInvoker(() =>
                 {
                     progBar.Visible = false; progBarTimer.Stop();
                     statLabel.Text = TaskManager.defaultLabel;
@@ -155,7 +188,7 @@ namespace ASMSharp
         {
             try
             {
-                this.Invoke(new MethodInvoker(() =>
+                Invoke(new MethodInvoker(() =>
                 {
                     statLabel.Text = obj.Label;
                     if (obj.ShowProg)
@@ -168,9 +201,9 @@ namespace ASMSharp
             catch { /* Disposed */}
         }
 
-        private void lineoutputted(string obj)
+        private void lineoutputted(object sender, OutputLineEventArgs e)
         {
-            consoleBox.WriteLine(obj);
+            consoleBox.WriteLine(e.Line);
         }
 
         private void progttick(object sender, EventArgs e)
@@ -271,7 +304,7 @@ namespace ASMSharp
             codeBox.Edited = false;
             AddRecentlyOpened(CurrentFile);
             LoadRecentlyOpened();
-            codeBox.Select(0, 0);codeBox.ScrollToCaret();
+            codeBox.Select(0, 0); codeBox.ScrollToCaret();
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -291,13 +324,36 @@ namespace ASMSharp
         {
             codeBox.FormatCodeBox();
         }
+        bool sw = false;
         private void buildrunBtn_Click(object sender, EventArgs e)
         {
+            if (deb.IsRunning && MessageBox.Show("Would you like to stop debugging?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                sw = true;
+                stopBtn_Click(sender, e);
+                return;
+            }
+            if (deb.IsRunning) return;
             codeBox.FormatCodeBox();
             buildrunBtn.Visible = runmenuitem.Visible = false;
             stopBtn.Visible = terminatemenuitem.Visible = true;
             consoleBox.Clear();
             exec.Start(codeBox.Text, this);
+        }
+        private void debBtn_Click(object sender, EventArgs e)
+        {
+            if (exec.IsRunning && MessageBox.Show("Would you like to stop executing?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                sw = true;
+                stopBtn_Click(sender, e);
+                return;
+            }
+            if (exec.IsRunning) return;
+            codeBox.FormatCodeBox();
+            debBtn.Visible = startDebuggingToolStripMenuItem.Visible = false;
+            stopBtn.Visible = terminatemenuitem.Visible = true;
+            consoleBox.Clear();
+            deb.Start(codeBox.Text, this, codeBoxLines.GetBreakPoints());
         }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -310,7 +366,10 @@ namespace ASMSharp
         }
         private void stopBtn_Click(object sender, EventArgs e)
         {
-            exec.Terminate();
+            if (exec.IsRunning)
+                exec.Terminate();
+            if (deb.IsRunning)
+                deb.Terminate();
         }
 
         private void mainFrm_FormClosing(object sender, FormClosingEventArgs e)
@@ -318,8 +377,14 @@ namespace ASMSharp
             if (exec.IsRunning)
             {
                 e.Cancel = true;
-                exec.Finished += (d) => { try { Invoke(new MethodInvoker(() => this.Close())); } catch {/* Disposed */ } };
+                exec.Finished += (s, ev) => { try { Invoke(new MethodInvoker(() => this.Close())); } catch {/* Disposed */ } };
                 exec.Terminate();
+            }
+            else if (deb.IsRunning)
+            {
+                e.Cancel = true;
+                deb.Finished += (s, ev) => { try { Invoke(new MethodInvoker(() => this.Close())); } catch {/* Disposed */ } };
+                deb.Terminate();
             }
             else if (codeBox.Edited)
                 switch (MessageBox.Show("Would you like to save current file first?", "Exiting", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Asterisk))
