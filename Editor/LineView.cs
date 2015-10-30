@@ -34,7 +34,12 @@ namespace ASMSharp
         }
         private void textChanged(object sender, EventArgs e)
         {
-            if (!update) return;
+            if (update)
+                UpdateLines();
+        }
+
+        private void UpdateLines()
+        {
             if (Lines.Length == codebox.Lines.Length) return;
             MessageManager.SuspendDrawing(this);
             int headerend = Regex.Match(Rtf, "fs32").Index + 5;
@@ -71,8 +76,9 @@ namespace ASMSharp
             SyncVerticalToCodeBox();
             MessageManager.ResumeDrawing(this);
         }
+
         protected override void OnSelectionChanged(EventArgs e)
-        {            
+        {
             base.OnSelectionChanged(e);
             codebox.Focus();
         }
@@ -120,6 +126,7 @@ namespace ASMSharp
         }
         public void SyncVerticalToCodeBox()
         {
+            if (!update) return;
             // Get position
             int pos = MessageManager.GetScrollPos(codebox.Handle, 1 /*Vertical*/);
             // Prepare the appropriate window message parameter
@@ -137,6 +144,7 @@ namespace ASMSharp
         internal void StartUpdating()
         {
             update = true;
+            UpdateLines();
         }
 
         internal int[] GetBreakPoints()

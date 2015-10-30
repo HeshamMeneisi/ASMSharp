@@ -9,7 +9,7 @@ namespace ASMSharp
 {
     internal class SICExecuter : Executer
     {
-        protected string DefOutDev = "DEV06";
+        protected string[] DefOutDev = new string[] { "DEV04", "DEV05", "DEV06" };
         protected string[] DefReq = new string[] { "DEV00", "DEVF1", "DEVF3", "Rename.bat", "SICXEASM.exe", "SICSIM.exe" };
         protected Process simproc = null;
         protected Process current = null;
@@ -167,7 +167,8 @@ namespace ASMSharp
             StreamWriter sw = new StreamWriter("SRCFILE");
             sw.Write(code);
             sw.Close();
-            if (File.Exists(DefOutDev)) try { File.Delete(DefOutDev); } catch { }
+            foreach(string od in DefOutDev)
+            if (File.Exists(od)) try { File.Delete(od); } catch { }
         }
 
         public void Input(string line)
@@ -191,11 +192,14 @@ namespace ASMSharp
                 if (!current.HasExited)
                     current.Kill();
                 current = null;
-                if (File.Exists(DefOutDev))
+                foreach (string od in DefOutDev)
                 {
-                    OnOutputLine("> Reading " + DefOutDev);
-                    foreach (string line in File.ReadAllText(DefOutDev).Split('\n'))
-                        OnOutputLine(line);
+                    if (File.Exists(od))
+                    {
+                        OnOutputLine("> Reading " + od);
+                        foreach (string line in File.ReadAllText(od).Split('\n'))
+                            OnOutputLine(line);
+                    }
                 }
             }
         }

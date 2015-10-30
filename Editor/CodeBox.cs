@@ -52,11 +52,13 @@ namespace ASMSharp
             var temp = target.Last;
             if (temp != null)
             {
+                int spos = MessageManager.GetScrollPos(Handle, 1);
                 var data = temp.Value;
                 Lines = data.Lines;
                 Select(data.Cursor, 0);
                 target.RemoveLast();
                 ColorSyntax();
+                MessageManager.SendMessage(Handle, (int)0x0115, new IntPtr(4 | (spos << 16)), new IntPtr(0));
             }
         }
         public void RecordState()
@@ -155,6 +157,7 @@ namespace ASMSharp
                         rtflines[i] = res;
                         changed.Add(i);
                     }
+                    else if (i >= start && i < end) changed.Add(i);
                 }
             }
             if (changed.Count == 0) goto Finish;
@@ -202,12 +205,12 @@ namespace ASMSharp
                 }
             }
             while (s + l > nl) l--;
-            if (l < 0) l = 0;            
+            if (l < 0) l = 0;
             if (color) { Select(s, l); ColorSyntax(isusertyping ? changed : null); }
             Finish:
             ld.StartUpdating();
-            MessageManager.SendMessage(Handle, (int)0x0115, new IntPtr(4|(spos<<16)), new IntPtr(0));
             Select(s, l);
+            MessageManager.SendMessage(Handle, (int)0x0115, new IntPtr(4 | (spos << 16)), new IntPtr(0));
             LineView.SyncVerticalToCodeBox();
             Focus();
             MessageManager.ResumeDrawing(this);
@@ -306,9 +309,12 @@ namespace ASMSharp
         {
             if (Clipboard.ContainsText())
             {
+                int s = GetLineFromCharIndex(SelectionStart);
+                ld.StopUpdating();
                 string text = SelectedText = Clipboard.GetText().Replace("\r\n", "\n");
-                int lastl = GetLineFromCharIndex(SelectionStart);
-                FormatCodeBox(false, true, '\0', lastl - text.Count(c => c == '\n'), lastl);
+                int e = GetLineFromCharIndex(SelectionStart);
+                ld.StartUpdating();
+                FormatCodeBox(false, true, '\0', s, e);
             }
         }
         #endregion
