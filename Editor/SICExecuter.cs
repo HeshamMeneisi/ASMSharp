@@ -1,5 +1,6 @@
 ﻿using ASMSharp.Properties;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -167,8 +168,8 @@ namespace ASMSharp
             StreamWriter sw = new StreamWriter("SRCFILE");
             sw.Write(code);
             sw.Close();
-            foreach(string od in DefOutDev)
-            if (File.Exists(od)) try { File.Delete(od); } catch { }
+            foreach (string od in DefOutDev)
+                if (File.Exists(od)) try { File.Delete(od); } catch { }
         }
 
         public void Input(string line)
@@ -194,13 +195,46 @@ namespace ASMSharp
                 current = null;
                 foreach (string od in DefOutDev)
                 {
+                    bool first = true;
+                    retry:
                     if (File.Exists(od))
                     {
                         OnOutputLine("> Reading " + od);
-                        foreach (string line in File.ReadAllText(od).Split('\n'))
-                            OnOutputLine(line);
+                        try
+                        {
+                            foreach (string line in File.ReadAllText(od).Split('\n'))
+                                OnOutputLine(line);
+                        }
+                        catch (Exception ex)
+                        {
+                            OnOutputLine("> Failed to access file.");
+                            if (first)
+                            {
+                                first = false;
+                                OnOutputLine("> Trying to kill the simulator...");
+                                CheckKillSim();
+                                goto retry;
+                            }
+                            else OnOutputLine(ex.Message);
+                        }
                     }
                 }
+            }
+        }
+
+        private void CheckKillSim()
+        {
+            foreach (var process in Process.GetProcesses())
+            {
+                try
+                {
+                    if (process.MainModule.FileName == Path.GetFullPath(Settings.Default.SIMExe))
+                    {
+                        process.Kill();
+                        OnOutputLine("> Simulator killed.");
+                    }
+                }
+                catch { }
             }
         }
 
