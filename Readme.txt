@@ -1,5 +1,7 @@
 Notes/Known issues:
 
+The SICExecuter is not stable on some versions of windows 7.
+
 Editor is preset to support SIC.
 
 TODO List:
