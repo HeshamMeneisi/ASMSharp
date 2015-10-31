@@ -31,7 +31,7 @@ d r
 d 1000-1140</Value>
     </Setting>
     <Setting Name="ASMScript" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Rename.bat</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SyntaxRegex" Type="System.String" Scope="User">
       <Value Profile="(Default)">\s(a(d(d[r]?)|nd)|c(lear|o(m(p[r]?)))|d(i(v[r]?))|end|j(eq|gt|lt|sub)?|l(d(a|b|ch|l|s|t|x))|m(u(l[r]?))|or|r(d|mo|sub)|s(h(i(f(t[lr])))|t(a(rt)?|b|ch|l|s|t|x)|u(b[r]?))|t(d|i(x[r]?))|wd)\s</Value>

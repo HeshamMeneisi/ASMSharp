@@ -121,7 +121,7 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Rename.bat")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ASMScript {
             get {
                 return ((string)(this["ASMScript"]));

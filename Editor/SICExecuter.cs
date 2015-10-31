@@ -11,7 +11,7 @@ namespace ASMSharp
     internal class SICExecuter : Executer
     {
         protected string[] DefOutDev = new string[] { "DEV04", "DEV05", "DEV06" };
-        protected string[] DefReq = new string[] { "DEV00", "DEVF1", "DEVF3", "Rename.bat", "SICXEASM.exe", "SICSIM.exe" };
+        protected string[] DefReq = new string[] { "DEV00", "DEVF1", "DEVF3", "SICXEASM.exe", "SICSIM.exe" };
         protected Process simproc = null;
         protected Process current = null;
         protected bool terminated = true;
@@ -23,13 +23,14 @@ namespace ASMSharp
 
         LisFile LastLisfile { get { return lastlis; } }
         public bool IsRunning { get { return !terminated; } } // Accurate for now
-
+        protected Form owner;
         public void Start(string code, Form owner, params object[] other)
         {
             terminated = false;
+            this.owner = owner;
             PrepareEnvironment(code);
             /////////////////////////////////////////        
-            Task assemble = Assemble(owner);
+            Task assemble = Assemble();
             Task script = RunPostAsmScript();
             Task sim = RunSim();
             Task finished = new Task(() => OnFinished());
@@ -44,6 +45,14 @@ namespace ASMSharp
         {
             Task sim = new Task(() =>
             {
+                if (!File.Exists(Settings.Default.ASMExe))
+                {
+                    terminated = true;
+                    owner.Invoke(new MethodInvoker(() =>
+                    {
+                        MessageBox.Show(owner, "Simulator was not found. Terminating.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }));
+                }
                 Process p = new Process();
                 p.StartInfo.FileName = Settings.Default.SIMExe;
                 p.StartInfo.Arguments = Settings.Default.SIMArgs;
@@ -78,6 +87,7 @@ namespace ASMSharp
         {
             Task script = new Task(() =>
             {
+                if (!File.Exists(Settings.Default.ASMScript)) return;
                 Process p = new Process();
                 p.StartInfo.FileName = Settings.Default.ASMScript;
                 p.StartInfo.UseShellExecute = false;
@@ -99,10 +109,18 @@ namespace ASMSharp
             return script;
         }
 
-        protected Task Assemble(Form owner)
+        protected Task Assemble()
         {
             Task assemble = new Task(() =>
             {
+                if (!File.Exists(Settings.Default.ASMExe))
+                {
+                    terminated = true;
+                    owner.Invoke(new MethodInvoker(() =>
+                    {
+                        MessageBox.Show(owner, "Assembler was not found. Terminating.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }));
+                }
                 Process p = new Process();
                 p.StartInfo.FileName = Settings.Default.ASMExe;
                 p.StartInfo.Arguments = Settings.Default.ASMArgs;
@@ -146,6 +164,20 @@ namespace ASMSharp
                                 p.Kill();
                         }
                     }));
+                    try
+                    {
+                        if (File.Exists("DEVF2"))
+                            File.Delete("DEVF2");
+                        File.Move("OBJFILE", "DEVF2");
+                    }
+                    catch (Exception ex)
+                    {
+                        owner.Invoke(new MethodInvoker(() =>
+                        {
+                            terminated = true;
+                            MessageBox.Show(owner, "Could not rename OBJFILE to DEVF2. Terminating.\n" + ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }));
+                    }
                 }
             });
             return assemble;
