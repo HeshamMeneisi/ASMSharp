@@ -38,7 +38,7 @@ namespace ASMSharp
                     if (data.Count > 0) linedata[cl++] = new Line(addr, data.ToArray());
                     data.Clear(); addr = m.Value;
                 }
-                if (line.Contains('*'))
+                if (!m.Success && line.Contains('*'))
                 {
                     if (!errors.ContainsKey(cl))
                         errors[cl] = new List<string>();
