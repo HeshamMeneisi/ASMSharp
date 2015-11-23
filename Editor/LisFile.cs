@@ -37,18 +37,31 @@ namespace ASMSharp
                 {
                     if (data.Count > 0) linedata[cl++] = new Line(addr, data.ToArray());
                     data.Clear(); addr = m.Value;
-                }
-                if (!m.Success && line.Contains('*'))
-                {
-                    if (!errors.ContainsKey(cl))
-                        errors[cl] = new List<string>();
-                    errors[cl].Add(line.Trim());
+                    data.Add(Regex.Match(line, "\\s[0-9A-Za-z]+").Value);
                 }
                 else
-                    data.Add(Regex.Match(line, "\\s[0-9A-Za-z]+").Value);
+                {
+                    if (line.Contains('*')) // Error message
+                    {
+                        if (!errors.ContainsKey(cl))
+                            errors[cl] = new List<string>();
+                        errors[cl].Add(line.Trim());
+                    }
+                    else if (line.TrimStart().StartsWith(".")) // Comment line
+                    {
+                        if (data.Count > 0)
+                        {
+                            linedata[cl++] = new Line(addr, data.ToArray());
+                            data.Clear(); addr = m.Value;
+                        }
+                        linedata[cl++] = new CommentLine(line);
+                    }
+                    else
+                        data.Add(Regex.Match(line, "\\s[0-9A-Za-z]+").Value);
+                }
             }
             if (data.Count > 0) linedata[cl++] = new Line(addr, data.ToArray());
-        }
+        }        
     }
     class Line
     {
@@ -86,5 +99,15 @@ namespace ASMSharp
                 data = value;
             }
         }
+    }
+    class CommentLine : Line
+    {
+        private string line;
+
+        public CommentLine(string line) : base(null, null)
+        {
+            this.line = line;
+        }
+        public string Comment { get { return line; } }
     }
 }
