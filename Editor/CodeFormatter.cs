@@ -32,9 +32,14 @@ namespace ASMSharp
                 if (gi >= line.Length) goto Finish;
                 char current = line[gi];
                 bool isstring = false;
+                bool firstfound = false;
                 // Output all valid characters if any
                 while (isstring || (i < l && current != ' ' && current != '\t'))
                 {
+                    // 4th format in sic/xe support
+                    if (!firstfound && current == '+' && i < newline.Length && newline[i] == ' ')
+                    { newline = newline.Substring(0, newline.Length-1); i--; }
+                    firstfound = true;
                     if (current == '\'' || current == '\"') isstring = !isstring;
                     newline += current;
                     gi++; i++;

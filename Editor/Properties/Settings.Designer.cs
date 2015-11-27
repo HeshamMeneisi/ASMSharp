@@ -133,9 +133,9 @@ namespace ASMSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\s(a(d(d[r]?)|nd)|c(lear|o(m(p[r]?)))|d(i(v[r]?))|end|j(eq|gt|lt|sub)?|l(d(a|b|ch" +
-            "|l|s|t|x))|m(u(l[r]?))|or|r(d|mo|sub)|s(h(i(f(t[lr])))|t(a(rt)?|b|ch|l|s|t|x)|u(" +
-            "b[r]?))|t(d|i(x[r]?))|wd)\\s")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\s\\+?(a(d(d[r]?)|nd)|c(lear|o(m(p[r]?)))|d(i(v[r]?))|end|j(eq|gt|lt|sub)?|l(d(a|b" +
+            "|ch|l|s|t|x))|m(u(l[r]?))|or|r(d|mo|sub)|s(h(i(f(t[lr])))|t(a(rt)?|b|ch|l|s|t|x)" +
+            "|u(b[r]?))|t(d|i(x[r]?))|wd)\\s")]
         public string SyntaxRegex {
             get {
                 return ((string)(this["SyntaxRegex"]));
