@@ -56,12 +56,13 @@ namespace ASMSharp
             StreamWriter sw = new StreamWriter("ASLog.txt");
             sw.WriteLine(data);
             sw.Close();
-            MessageBox.Show("The program encountered a problem and has to restart.\nYou should find your last running code in \"" + Environment.CurrentDirectory + "\\SRCFILE\"\nERROR:" + ex.Message + "\nFor more information refer to the ASLog.txt file.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            DialogResult res = MessageBox.Show("The program encountered a problem and has to restart.\nYou should find your last running code in \"" + Environment.CurrentDirectory + "\\SRCFILE\"\nERROR:" + ex.Message + "\nFor more information refer to the ASLog.txt file.\nRestart application?", "ERROR", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
             Process p = new Process();
             p.StartInfo.FileName = "explorer.exe";
             p.StartInfo.Arguments = Path.Combine(Environment.CurrentDirectory, "ASLog.txt");
             p.Start();
-            Application.Restart();
+            if (res == DialogResult.Yes)
+                Application.Restart();
         }
     }
 }

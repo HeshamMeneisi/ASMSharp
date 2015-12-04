@@ -11,7 +11,7 @@ namespace ASMSharp
     class CodeBox : RichTextBox
     {
         public CodeBox()
-        { LabelColor = Color.Brown; Edited = false; }
+        { LabelColor = Color.Brown; ErrorBackColor = Color.Red; Edited = false; }
 
         #region Properties
         public Dictionary<string, Color> ColoringProfile = new Dictionary<string, Color>();
@@ -25,6 +25,7 @@ namespace ASMSharp
             }
         }
         public Color LabelColor { get; set; }
+        public Color ErrorBackColor { get; set; }
         public bool Edited { get; set; }
         #endregion
 
@@ -61,6 +62,30 @@ namespace ASMSharp
                 MessageManager.SendMessage(Handle, (int)0x0115, new IntPtr(4 | (spos << 16)), new IntPtr(0));
             }
         }
+        Dictionary<int, int> errorselectiondata = new Dictionary<int, int>();
+        internal void SelectError(int indx, int ln)
+        {
+            // Sloppy code TODO: Revise
+            MessageManager.SuspendDrawing(this);
+            int s = SelectionStart, l = SelectionLength;
+            Select(indx, ln);
+            SelectionBackColor = ErrorBackColor;
+            Select(s, l);
+            errorselectiondata[indx] = ln;
+            MessageManager.ResumeDrawing(this);
+        }
+        public void ClearErrorSelection()
+        {
+            MessageManager.SuspendDrawing(this);
+            int s = SelectionStart, l = SelectionLength;
+            foreach (KeyValuePair<int, int> sel in errorselectiondata)
+            {
+                Select(sel.Key, sel.Value);
+                SelectionBackColor = BackColor;
+            }
+            Select(s, l);
+            MessageManager.ResumeDrawing(this);
+        }
         public void RecordState()
         {
             RecordState(past);
@@ -79,7 +104,7 @@ namespace ASMSharp
         }
         protected override void OnTextChanged(EventArgs e)
         {
-            base.OnTextChanged(e);
+            base.OnTextChanged(e);            
             Edited = true;
         }
         #endregion
@@ -108,6 +133,7 @@ namespace ASMSharp
         }
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
+            ClearErrorSelection();
             if (e.KeyChar == (char)Keys.Space || e.KeyChar == (char)Keys.Tab || e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;

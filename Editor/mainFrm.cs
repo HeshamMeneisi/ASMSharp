@@ -42,10 +42,7 @@ namespace ASMSharp
             {
                 int indx = codeBox.GetFirstCharIndexFromLine(line);
                 int ln = codeBox.Lines[line].Length;
-                codeBox.Select(indx, ln);
-                codeBox.SelectionBackColor = Color.Red;
-                codeBox.SelectionColor = Color.Yellow;
-                codeBox.Select(indx, 0);
+                codeBox.SelectError(indx, ln);
             }));
         }
         private void mainFrm_Load(object sender, EventArgs e)
